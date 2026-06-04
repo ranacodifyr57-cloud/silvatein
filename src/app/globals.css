@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --noir: #0e0d0a;
+  --ink: #17150f;
+  --ivory: #f5efe3;
+  --sage: #7c8466;
+  --clay: #b07a56;
+  --gold: #c99a3c;
+  --rust: #a8502e;
+  --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-jost: "Jost", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--noir);
+    color: var(--ivory);
+    font-feature-settings: "ss01", "liga";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--ivory);
+    color: var(--noir);
+  }
+
+  .font-display {
+    font-optical-sizing: auto;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-8xl px-5 md:px-10 lg:px-16;
+  }
+
+  .label {
+    @apply font-sans text-[0.66rem] uppercase tracking-[0.22em] text-clay;
+  }
+
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 px-7 font-sans text-[0.7rem] uppercase tracking-[0.22em] transition-all duration-300;
+  }
+  .btn-festive {
+    @apply btn bg-rust text-ivory hover:bg-[#8d3f22];
+  }
+  .btn-solid {
+    @apply btn bg-ivory text-noir hover:bg-gold;
+  }
+  .btn-outline {
+    @apply btn border border-ivory/35 text-ivory hover:border-ivory hover:bg-ivory hover:text-noir;
+  }
+
+  .link-underline {
+    @apply relative font-sans;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-current transition-all duration-300;
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* image badge + caption used over photos */
+  .badge {
+    @apply pointer-events-none absolute left-4 top-4 z-[5] bg-noir/80 px-3 py-1 text-[0.58rem] uppercase tracking-[0.18em] text-ivory backdrop-blur;
+  }
+  .caption {
+    @apply pointer-events-none absolute left-4 bottom-4 z-[5] font-display text-[1.02rem] italic text-ivory/95;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@layer utilities {
+  /* botanical line-art motif */
+  .sprig-overlay {
+    @apply pointer-events-none absolute;
+    color: rgba(245, 239, 227, 0.16);
+  }
+
+  /* soft paper grain over the black */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Festive jewel-tone fallbacks — plain CSS (NOT @layer) so the dynamically
+   built `fb-${c.fb}` collection classes are never purged. Shown only if a
+   photo is missing; real photos render on top. */
+.fb-eid {
+  background: radial-gradient(130% 120% at 28% 18%, #7e3320, #2b120c);
+}
+.fb-frocks {
+  background: radial-gradient(130% 120% at 28% 18%, #b5862f, #5e3f16);
+}
+.fb-diaries {
+  background: radial-gradient(130% 120% at 28% 18%, #5f6b48, #2f3826);
+}
+.fb-story {
+  background: radial-gradient(130% 120% at 30% 22%, #9c6a45, #4a2f1d);
+}
+.fb-hero {
+  background: radial-gradient(130% 120% at 32% 16%, #803a24, #240f09);
+}
+.fb-hero2 {
+  background: radial-gradient(130% 120% at 30% 20%, #687152, #353d29);
+}
