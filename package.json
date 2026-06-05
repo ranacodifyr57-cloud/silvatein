@@ -2,21 +2,16 @@
   "name": "silvatein",
   "version": "1.0.0",
   "private": true,
-  "description": "Silvatein — Premium Women's Apparel. Crafted in Pakistan, delivered worldwide.",
+  "description": "Silvatein — premium women's apparel. Static editorial website (Eid '26, Frocks '26, Client Diaries).",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "npx serve .",
+    "start": "npx serve ."
   },
-  "dependencies": {
-    "next": "^14.2.35",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
-  },
-  "devDependencies": {
-    "autoprefixer": "10.4.20",
-    "postcss": "8.4.47",
-    "tailwindcss": "3.4.14"
-  }
+  "keywords": [
+    "fashion",
+    "apparel",
+    "static-site",
+    "silvatein"
+  ],
+  "license": "UNLICENSED"
 }

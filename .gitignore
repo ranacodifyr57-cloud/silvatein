@@ -1,9 +1,12 @@
-/node_modules
-/.next
-/out
-/build
+# dependencies
+node_modules/
+
+# vercel
+.vercel/
+
+# os / editor
 .DS_Store
-*.pem
-.env*.local
-.vercel
-npm-debug.log*
+Thumbs.db
+*.log
+.idea/
+.vscode/
