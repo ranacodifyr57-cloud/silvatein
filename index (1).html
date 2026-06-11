@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Silvatein — Festive Eastern Apparel, Made to Order</title>
+<meta name="description" content="Silvatein — premium, made-to-order women's eastern apparel from Pakistan. Festive, botanical, hand-finished. Delivered worldwide. Order by DM or WhatsApp." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#0a0a0a;
+  --ink-2:#101010;
+  --ink-3:#161616;
+  --line:rgba(245,244,242,.14);
+  --line-soft:rgba(245,244,242,.08);
+  --white:#f5f4f2;
+  --dim:rgba(245,244,242,.62);
+  --dimmer:rgba(245,244,242,.42);
+  /* accents sampled from the product photos */
+  --fuchsia:#e83397;
+  --scarlet:#dd2050;
+  --marigold:#edaa1e;
+  --pistachio:#bcd083;
+  --display:'Fraunces', Georgia, serif;
+  --sans:'Hanken Grotesk', system-ui, sans-serif;
+  --urdu:'Noto Nastaliq Urdu', serif;
+  --pad: clamp(20px, 6vw, 100px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);
+  color:var(--white);
+  font-family:var(--sans);
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--fuchsia);color:#fff}
+
+/* ---------- reusable type ---------- */
+.eyebrow{
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--dim);
+  display:inline-flex;
+  align-items:center;
+  gap:.7em;
+}
+.eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--fuchsia);flex:none}
+.serif{font-family:var(--display);font-weight:400;line-height:1.04;letter-spacing:-.01em}
+em.acc{font-style:italic;color:var(--fuchsia)}
+em.acc-m{font-style:italic;color:var(--marigold)}
+em.acc-p{font-style:italic;color:var(--pistachio)}
+
+/* botanical stroke colour helper */
+.bot{stroke:var(--white);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- announcement bar ---------- */
+.topbar{
+  background:var(--ink);
+  border-bottom:1px solid var(--line-soft);
+  overflow:hidden;
+  position:relative;
+}
+.marquee{
+  display:flex;
+  gap:0;
+  white-space:nowrap;
+  width:max-content;
+  animation:slide 38s linear infinite;
+}
+.marquee span{
+  display:inline-flex;align-items:center;gap:1.2em;
+  padding:9px 1.4em;
+  font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+}
+.marquee span::after{content:"";width:5px;height:5px;background:var(--marigold);border-radius:50%;display:inline-block;opacity:.9}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:60;
+  background:rgba(10,10,10,.82);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s, padding .3s, background .3s;
+}
+header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.94)}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px var(--pad);
+  gap:18px;
+}
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.brand .mark{width:34px;height:34px;flex:none}
+.brand .wordmark{display:flex;flex-direction:column;line-height:1}
+.brand .latin{font-family:var(--display);font-size:19px;letter-spacing:.22em;font-weight:500;text-transform:uppercase}
+.brand .urdu{font-family:var(--urdu);font-size:14px;color:var(--fuchsia);margin-top:3px;line-height:1.2}
+.nav-links{display:none}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.menu-btn{
+  display:inline-flex;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;
+}
+.menu-btn span{width:22px;height:1.6px;background:var(--white);transition:.3s}
+.menu-btn.open span:nth-child(1){transform:translateY(6.6px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0}
+.menu-btn.open span:nth-child(3){transform:translateY(-6.6px) rotate(-45deg)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6em;
+  font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.02em;
+  padding:13px 22px;border-radius:999px;cursor:pointer;border:1px solid transparent;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1), background .25s, color .25s, border-color .25s;
+  white-space:nowrap;
+}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-wa{background:var(--marigold);color:#1a1206}
+.btn-wa:hover{background:#ffbe3a;transform:translateY(-2px)}
+.btn-ig{border-color:var(--line);color:var(--white);background:rgba(255,255,255,.02)}
+.btn-ig:hover{border-color:var(--fuchsia);color:var(--fuchsia);transform:translateY(-2px)}
+.btn-fuchsia{background:var(--fuchsia);color:#fff}
+.btn-fuchsia:hover{background:#ff4aad;transform:translateY(-2px)}
+.btn-sm{padding:10px 18px;font-size:12px}
+.header-cta{display:none}
+
+/* ---------- mobile menu drawer ---------- */
+.drawer{
+  position:fixed;inset:0;z-index:55;
+  background:var(--ink);
+  transform:translateX(100%);
+  transition:transform .42s cubic-bezier(.5,0,.1,1);
+  display:flex;flex-direction:column;
+  padding:96px var(--pad) 40px;
+  gap:6px;
+}
+.drawer.open{transform:translateX(0)}
+.drawer a.dl{
+  font-family:var(--display);font-size:clamp(34px,11vw,52px);line-height:1.15;
+  padding:10px 0;border-bottom:1px solid var(--line-soft);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.drawer a.dl .idx{font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:var(--dimmer)}
+.drawer .drawer-foot{margin-top:auto;display:flex;flex-direction:column;gap:16px}
+.drawer .drawer-cta{display:flex;gap:10px;flex-wrap:wrap}
+.drawer .drawer-cta .btn{flex:1}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(40px,9vw,90px) var(--pad) clamp(48px,8vw,80px)}
+.hero-grid{display:flex;flex-direction:column;gap:clamp(28px,6vw,56px)}
+.hero-copy{position:relative;z-index:2}
+.hero .lockup{display:flex;align-items:flex-end;gap:18px;margin:18px 0 26px}
+.hero .lockup .urdu{font-family:var(--urdu);font-size:clamp(46px,16vw,92px);line-height:1.5;color:var(--white);direction:rtl;padding-bottom:.1em}
+.hero .lockup .lat{font-family:var(--display);font-size:clamp(13px,3.4vw,16px);letter-spacing:.42em;text-transform:uppercase;color:var(--dim);writing-mode:vertical-rl;transform:rotate(180deg);padding-bottom:.4em}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,12.5vw,84px);line-height:.98;letter-spacing:-.015em;margin-bottom:22px}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero p.lede{font-size:clamp(15px,4.3vw,18px);color:var(--dim);max-width:30ch;margin-bottom:30px;line-height:1.65}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:30px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:14px 22px;padding-top:22px;border-top:1px solid var(--line-soft)}
+.hero-meta .mi{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.04em;color:var(--dim)}
+.hero-meta .mi svg{width:15px;height:18px;flex:none}
+
+.hero-media{position:relative}
+.hero-media .frame{position:relative;border:1px solid var(--line);overflow:hidden;aspect-ratio:4/4.6}
+.hero-media .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.hero-media:hover .frame img{transform:scale(1.04)}
+.hero-media .tag{
+  position:absolute;left:-1px;bottom:18px;
+  background:var(--ink);border:1px solid var(--line);
+  padding:9px 16px;display:flex;align-items:center;gap:9px;
+}
+.hero-media .tag .urdu{font-family:var(--urdu);font-size:15px;color:var(--marigold)}
+.hero-media .tag b{font-family:var(--display);font-size:14px;letter-spacing:.04em;font-weight:500}
+.hero-media .flourish{position:absolute;top:-26px;right:-10px;width:110px;height:110px;opacity:.9;pointer-events:none}
+.hero-media .flourish svg{width:100%;height:100%}
+
+/* ---------- section frame ---------- */
+section{position:relative}
+.sec-head{display:flex;flex-direction:column;gap:14px;padding:0 var(--pad);margin-bottom:clamp(28px,5vw,46px)}
+.sec-head h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,9vw,62px);line-height:1;letter-spacing:-.02em}
+.sec-head .sub{color:var(--dim);max-width:46ch;font-size:clamp(14px,3.8vw,16px)}
+
+/* botanical divider */
+.divider{display:flex;align-items:center;justify-content:center;gap:18px;padding:clamp(34px,7vw,64px) var(--pad)}
+.divider .line{height:1px;background:var(--line);flex:1;max-width:240px}
+.divider svg{width:clamp(120px,40vw,200px);height:auto;flex:none}
+
+/* ---------- collections ---------- */
+.collections{padding:clamp(40px,7vw,80px) 0}
+.col-grid{display:grid;grid-template-columns:1fr;gap:2px;padding:0 var(--pad)}
+.col-card{
+  position:relative;display:block;overflow:hidden;
+  border:1px solid var(--line);
+  background:var(--ink-2);
+}
+.col-card .ph{position:relative;aspect-ratio:3/3.4;overflow:hidden}
+.col-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.col-card:hover .ph img{transform:scale(1.05)}
+.col-card .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line-soft);background:var(--ink-2)}
+.col-card .ctop{display:flex;align-items:center;gap:9px}
+.col-card .ctop svg{width:15px;height:18px;flex:none}
+.col-card .ctop .num{font-size:11px;letter-spacing:.22em;color:var(--dimmer);font-weight:600}
+.col-card h3{font-family:var(--display);font-size:clamp(28px,7vw,38px);font-weight:500;line-height:1}
+.col-card .desc{color:var(--dim);font-size:14px;max-width:30ch}
+.col-card .order{
+  display:inline-flex;align-items:center;gap:8px;margin-top:6px;
+  font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--marigold);
+  transition:gap .25s,color .25s;
+}
+.col-card:hover .order{gap:14px;color:var(--fuchsia)}
+.col-card .order svg{width:16px;height:16px}
+
+/* ---------- lookbook ---------- */
+.lookbook{padding:clamp(40px,7vw,80px) 0}
+.lb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;padding:0 var(--pad)}
+.lb-item{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--ink-2)}
+.lb-item img,.lb-item video{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.lb-item:hover img,.lb-item:hover video{transform:scale(1.06)}
+.lb-item.tall{grid-row:span 2;aspect-ratio:auto}
+.lb-item .cap{
+  position:absolute;left:12px;bottom:12px;z-index:2;opacity:0;transform:translateY(8px);
+  transition:.4s;font-family:var(--display);font-style:italic;font-size:15px;
+  background:rgba(10,10,10,.6);padding:4px 11px;border:1px solid var(--line-soft);
+}
+.lb-item:hover .cap{opacity:1;transform:translateY(0)}
+.lb-item .corner{position:absolute;top:8px;right:8px;width:30px;height:30px;opacity:0;transition:.4s;z-index:2}
+.lb-item:hover .corner{opacity:.85}
+.lb-a1{aspect-ratio:3/4}
+.lb-a2{aspect-ratio:3/4}
+
+/* ---------- story ---------- */
+.story{padding:clamp(56px,10vw,120px) var(--pad)}
+.story-wrap{display:flex;flex-direction:column;gap:clamp(30px,6vw,56px);align-items:center}
+.story-media{position:relative;width:100%;max-width:420px}
+.story-media .frame{border:1px solid var(--line);overflow:hidden;aspect-ratio:3/3.7}
+.story-media .frame img{width:100%;height:100%;object-fit:cover}
+.story-media .sprig{position:absolute;bottom:-30px;left:-22px;width:120px;height:auto;opacity:.92}
+.story-text{max-width:560px;text-align:center}
+.story-text .urdu-big{font-family:var(--urdu);font-size:clamp(34px,11vw,56px);color:var(--fuchsia);line-height:1.6;margin-bottom:14px}
+.story-text h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,8vw,52px);line-height:1.04;letter-spacing:-.015em;margin-bottom:22px}
+.story-text p{color:var(--dim);font-size:clamp(15px,4vw,17px);line-height:1.75;margin-bottom:16px}
+.story-text p b{color:var(--white);font-weight:600}
+.story-sign{font-family:var(--display);font-style:italic;font-size:20px;color:var(--marigold);margin-top:8px}
+
+/* ---------- how to order ---------- */
+.order{padding:clamp(48px,8vw,96px) var(--pad);background:var(--ink-2);border-block:1px solid var(--line-soft)}
+.order-head{text-align:center;margin-bottom:clamp(34px,6vw,56px);display:flex;flex-direction:column;align-items:center;gap:14px}
+.order-head h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,9vw,58px);line-height:1;letter-spacing:-.02em}
+.order-head .sub{color:var(--dim);max-width:40ch}
+.steps{display:grid;grid-template-columns:1fr;gap:2px;max-width:1000px;margin:0 auto 42px}
+.step{
+  position:relative;padding:30px 26px;border:1px solid var(--line);background:var(--ink);
+  display:flex;flex-direction:column;gap:12px;
+}
+.step .sn{font-family:var(--display);font-size:34px;color:var(--fuchsia);line-height:1;display:flex;align-items:baseline;gap:10px}
+.step .sn svg{width:22px;height:26px}
+.step h4{font-family:var(--display);font-size:22px;font-weight:500}
+.step p{color:var(--dim);font-size:14px;line-height:1.6}
+.order-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.order-cta .btn{flex:1;min-width:200px;max-width:280px;padding:16px 24px;font-size:14px}
+
+/* ---------- footer ---------- */
+footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
+.foot-top{display:flex;flex-direction:column;gap:34px}
+.foot-brand{display:flex;flex-direction:column;gap:16px}
+.foot-brand .lock{display:flex;align-items:center;gap:14px}
+.foot-brand .lock .mark{width:40px;height:40px}
+.foot-brand .lock .urdu{font-family:var(--urdu);font-size:30px;color:var(--white);line-height:1.5}
+.foot-brand .lock .lat{font-family:var(--display);font-size:18px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.foot-brand p{color:var(--dim);font-size:14px;max-width:34ch;line-height:1.7}
+.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.foot-col h5{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dimmer);margin-bottom:14px;font-weight:600}
+.foot-col a{display:flex;align-items:center;gap:9px;padding:6px 0;color:var(--dim);font-size:14px;transition:color .25s,gap .25s}
+.foot-col a:hover{color:var(--fuchsia);gap:13px}
+.foot-col a svg{width:15px;height:15px;flex:none}
+.foot-bottom{
+  margin-top:42px;padding-top:24px;border-top:1px solid var(--line-soft);
+  display:flex;flex-direction:column;gap:14px;
+  font-size:12px;color:var(--dimmer);letter-spacing:.04em;
+}
+.foot-bottom .row{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.foot-bottom .urdu{font-family:var(--urdu);color:var(--dim);font-size:15px}
+
+/* ---------- reveal ---------- */
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+[data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  .marquee{animation:none}
+}
+
+/* ---------- responsive ---------- */
+@media(min-width:700px){
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(30px,5vw,64px)}
+  .hero-media{order:2}
+  .col-grid{grid-template-columns:repeat(3,1fr)}
+  .lb-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr}
+  .lb-item.tall{grid-row:span 2}
+  .steps{grid-template-columns:repeat(3,1fr)}
+  .story-wrap{flex-direction:row;align-items:center;justify-content:center;gap:clamp(40px,6vw,80px)}
+  .story-text{text-align:left}
+  .foot-links{grid-template-columns:1fr 1fr 1fr}
+}
+@media(min-width:1024px){
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-size:13px;font-weight:500;letter-spacing:.04em;color:var(--dim);position:relative;padding:4px 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--fuchsia);transition:width .3s}
+  .nav-links a:hover{color:var(--white)}
+  .nav-links a:hover::after{width:100%}
+  .menu-btn{display:none}
+  .header-cta{display:inline-flex}
+  .foot-top{flex-direction:row;justify-content:space-between;gap:60px}
+  .foot-brand{flex:0 0 38%}
+  .foot-links{flex:1}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SVG symbol library (botanical line-art) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- logo mark: open circle + sprig + arrow -->
+    <symbol id="mark" viewBox="0 0 48 48">
+      <path class="bot" d="M37.5 13.2a17 17 0 1 0 4.2 13.5" />
+      <path class="bot" d="M40 9l3 4.6-5.4.6" />
+      <path class="bot" d="M24 39c0-7 0-12.5 0-18.5" />
+      <path class="bot" d="M24 27c-3.4-.2-6-2-6.6-5.4 3.4-.2 6.4 1.7 6.6 5.4z" />
+      <path class="bot" d="M24 22c3.2-.6 6.2-3 6.4-6.6-3.4 0-6.2 2.8-6.4 6.6z" />
+      <path class="bot" d="M24 30.5c-2.6 0-4.8-1.4-5.6-4 2.8-.3 5.2 1.2 5.6 4z" />
+    </symbol>
+    <!-- vertical sprig -->
+    <symbol id="sprig" viewBox="0 0 80 150">
+      <path class="bot" d="M40 148C40 110 40 70 40 18" />
+      <path class="bot" d="M40 118c-9 0-17-5-19-15 11-1 18 5 19 15z"/>
+      <path class="bot" d="M40 108c9-1 17-7 18-17-11-.5-17 6-18 17z"/>
+      <path class="bot" d="M40 92c-8 0-15-4-17-13 10-1 16 4 17 13z"/>
+      <path class="bot" d="M40 82c8-1 15-6 16-15-10-.5-15 5-16 15z"/>
+      <path class="bot" d="M40 64c-7 0-13-3-15-11 9-1 14 4 15 11z"/>
+      <path class="bot" d="M40 54c7-1 13-5 14-13-9-.4-13 5-14 13z"/>
+      <path class="bot" d="M40 36c-5 0-10-2-12-8 7-.6 11 3 12 8z"/>
+      <circle class="bot" cx="40" cy="18" r="4"/>
+    </symbol>
+    <!-- horizontal spray divider (symmetric) -->
+    <symbol id="spray" viewBox="0 0 240 40">
+      <path class="bot" d="M120 20c-30 0-58 0-104 0"/>
+      <path class="bot" d="M120 20c30 0 58 0 104 0"/>
+      <circle class="bot" cx="120" cy="20" r="4"/>
+      <path class="bot" d="M120 20c-1-5-5-9-11-10 .5 6 5 9 11 10z"/>
+      <path class="bot" d="M120 20c1-5 5-9 11-10-.5 6-5 9-11 10z"/>
+      <path class="bot" d="M120 20c-1 5-5 9-11 10 .5-6 5-9 11-10z"/>
+      <path class="bot" d="M120 20c1 5 5 9 11 10-.5-6-5-9-11-10z"/>
+      <path class="bot" d="M70 20c-1-4-4-7-9-8 .4 5 4 7 9 8z"/>
+      <path class="bot" d="M70 20c-1 4-4 7-9 8 .4-5 4-7 9-8z"/>
+      <path class="bot" d="M170 20c1-4 4-7 9-8-.4 5-4 7-9 8z"/>
+      <path class="bot" d="M170 20c1 4 4 7 9 8-.4-5-4-7-9-8z"/>
+    </symbol>
+    <!-- single leaf bullet -->
+    <symbol id="leaf" viewBox="0 0 16 20">
+      <path class="bot" d="M8 19C8 13 8 8 8 3"/>
+      <path class="bot" d="M8 12c-4-.3-6.5-2.5-7-6 4-.2 6.7 2 7 6z"/>
+      <path class="bot" d="M8 8c4-.5 6.5-3 7-6.5-4 0-6.7 2.5-7 6.5z"/>
+    </symbol>
+    <!-- corner flourish -->
+    <symbol id="corner" viewBox="0 0 40 40">
+      <path class="bot" d="M4 36C4 22 14 8 36 4"/>
+      <path class="bot" d="M20 18c-4-1-6-4-6-8 4 .5 6 3.5 6 8z"/>
+      <path class="bot" d="M14 26c-4-1-6-4-6-8 4 .5 6 3.5 6 8z"/>
+    </symbol>
+    <!-- icons -->
+    <symbol id="wa" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.2c-.25.7-1.44 1.33-1.99 1.41-.53.08-1.17.11-1.89-.12-.44-.14-1-.32-1.72-.63-3.03-1.31-5-4.35-5.16-4.55-.15-.2-1.23-1.64-1.23-3.13s.78-2.22 1.06-2.53c.28-.31.61-.38.81-.38.2 0 .41 0 .58.01.19.01.44-.07.69.53.25.6.85 2.08.93 2.23.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.31.39-.44.53-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.12.65-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.49.22.56.35.07.12.07.72-.18 1.42z" fill="currentColor"/></symbol>
+    <symbol id="ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17C2.41 10.5 2.4 10.85 2.4 14s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.59.07-4.74m-9.99-1.8a5.13 5.13 0 1 0 0 10.26A5.13 5.13 0 0 0 12 6.87zm0 8.46a3.33 3.33 0 1 1 0-6.66 3.33 3.33 0 0 1 0 6.66zm6.54-8.66a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z" fill="currentColor"/></symbol>
+    <symbol id="tt" viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.2v12.96a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.78.12v-3.3a5.9 5.9 0 0 0-.78-.05A5.89 5.89 0 1 0 15.64 16V9.4a7.5 7.5 0 0 0 4.36 1.4V7.6a4.28 4.28 0 0 1-3.4-1.78z" fill="currentColor"/></symbol>
+    <symbol id="mail" viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.5L20 7H4l8 5.5zM4 9.2V17h16V9.2l-8 5.5-8-5.5z" fill="currentColor"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ announcement marquee ============ -->
+<div class="topbar">
+  <div class="marquee" id="marq">
+    <span>Made to order</span><span>Delivered across Pakistan &amp; worldwide</span><span>Eid '26 — now open</span><span>Order by DM or WhatsApp</span><span>Hand-finished in Pakistan</span>
+    <span>Made to order</span><span>Delivered across Pakistan &amp; worldwide</span><span>Eid '26 — now open</span><span>Order by DM or WhatsApp</span><span>Hand-finished in Pakistan</span>
+  </div>
+</div>
+
+<!-- ============ header ============ -->
+<header id="header">
+  <nav class="nav">
+    <a class="brand" href="#top" aria-label="Silvatein home">
+      <svg class="mark"><use href="#mark"/></svg>
+      <span class="wordmark">
+        <span class="latin">Silvatein</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#collections">Collections</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#story">Our Story</a>
+      <a href="#order">How to Order</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-wa btn-sm header-cta" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Order</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<!-- mobile drawer -->
+<div class="drawer" id="drawer">
+  <a class="dl" href="#collections">Collections <span class="idx">01</span></a>
+  <a class="dl" href="#lookbook">Lookbook <span class="idx">02</span></a>
+  <a class="dl" href="#story">Our Story <span class="idx">03</span></a>
+  <a class="dl" href="#order">How to Order <span class="idx">04</span></a>
+  <div class="drawer-foot">
+    <div class="drawer-cta">
+      <a class="btn btn-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
+      <a class="btn btn-ig" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>Instagram</a>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+  <!-- ============ hero ============ -->
+  <section class="hero" data-screen-label="Hero" data-comment-anchor="hero">
+    <div class="hero-grid">
+      <div class="hero-copy" data-reveal>
+        <span class="eyebrow"><span class="dot"></span>Premium eastern apparel — Pakistan</span>
+        <div class="lockup">
+          <span class="lat">Silvatein</span>
+        </div>
+        <h1 class="serif">
+          <span class="ln">Dressed for</span>
+          <span class="ln">the <em class="acc">festive</em></span>
+          <span class="ln">season.</span>
+        </h1>
+        <p class="lede">Botanical prints, jewel-bright colour and made-to-order silhouettes — hand-finished in Pakistan, sent to women everywhere.</p>
+        <div class="hero-cta">
+          <a class="btn btn-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Order on WhatsApp</a>
+          <a class="btn btn-ig" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
+        </div>
+        <div class="hero-meta">
+          <span class="mi"><svg><use href="#leaf"/></svg>Made to order</span>
+          <span class="mi"><svg><use href="#leaf"/></svg>Worldwide delivery</span>
+          <span class="mi"><svg><use href="#leaf"/></svg>No two alike</span>
+        </div>
+      </div>
+      <div class="hero-media" data-reveal>
+        <div class="flourish"><svg><use href="#corner"/></svg></div>
+        <div class="frame">
+          <img src="img/jeep-full.jpg" alt="Model in a pistachio chikankari suit beside a vintage jeep and bougainvillea" />
+        </div>
+        <div class="tag"><b>Eid '26</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- botanical divider -->
+  <div class="divider"><span class="line"></span><svg><use href="#spray"/></svg><span class="line"></span></div>
+
+  <!-- ============ collections ============ -->
+  <section class="collections" id="collections" data-screen-label="Collections">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow"><span class="dot"></span>The Collections</span>
+      <h2 class="serif">Pick your <em class="acc-m">occasion</em></h2>
+      <p class="sub">Three edits, all made to order. Choose a piece, send us a message, and we stitch it for you.</p>
+    </div>
+    <div class="col-grid">
+      <a class="col-card" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <div class="ph"><img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock" /></div>
+        <div class="body">
+          <div class="ctop"><svg><use href="#leaf"/></svg><span class="num">01</span></div>
+          <h3 class="serif">Eid '26</h3>
+          <p class="desc">This season's festive edit — colour made for celebrating.</p>
+          <span class="order">DM to order <svg viewBox="0 0 24 24"><use href="#arrow"/></svg></span>
+        </div>
+      </a>
+      <a class="col-card" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <div class="ph"><img src="img/extra-1.jpg" alt="Blush embroidered kurta against pink bougainvillea" /></div>
+        <div class="body">
+          <div class="ctop"><svg><use href="#leaf"/></svg><span class="num">02</span></div>
+          <h3 class="serif">Frocks '26</h3>
+          <p class="desc">Twirl-worthy silhouettes, hand-finished and ready for the occasion.</p>
+          <span class="order">DM to order <svg viewBox="0 0 24 24"><use href="#arrow"/></svg></span>
+        </div>
+      </a>
+      <a class="col-card" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <div class="ph"><img src="img/scarlet-2.jpg" alt="Two clients in their scarlet Silvatein frocks" /></div>
+        <div class="body">
+          <div class="ctop"><svg><use href="#leaf"/></svg><span class="num">03</span></div>
+          <h3 class="serif">Client Diaries</h3>
+          <p class="desc">Real women in their Silvatein — the way the pieces are actually worn.</p>
+          <span class="order">DM to order <svg viewBox="0 0 24 24"><use href="#arrow"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ lookbook ============ -->
+  <section class="lookbook" id="lookbook" data-screen-label="Lookbook">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow"><span class="dot"></span>The Lookbook</span>
+      <h2 class="serif">Out in the garden, <em class="acc-p">dressed up</em></h2>
+      <p class="sub">Shot outdoors in real light — bougainvillea, gardens and a vintage jeep. The colour does the talking.</p>
+    </div>
+    <div class="lb-grid">
+      <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/jeep-full.jpg" alt="Pistachio chikankari suit beside a vintage jeep and bougainvillea" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Pistachio &amp; bougainvillea</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock on a garden bench" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Scarlet, in bloom</span>
+      </a>
+      <a class="lb-item lb-a2" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/detail-hibiscus.jpg" alt="Hibiscus flowers resting on printed Silvatein fabric" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Hibiscus &amp; hand-work</span>
+      </a>
+      <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <video src="video/pink-ensemble.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The signature pink ensemble in motion"></video>
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">The colour of grace — the signature pink ensemble</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/scarlet-4.jpg" alt="Two women in scarlet Silvatein frocks seated in a pine garden" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Worn together</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <video src="video/black-legacy.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The black ensemble — adorned in legacy"></video>
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Now in black — adorned in legacy</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ story ============ -->
+  <section class="story" id="story" data-screen-label="Our Story">
+    <div class="story-wrap">
+      <div class="story-media" data-reveal>
+        <div class="frame"><img src="img/scarlet-5.jpg" alt="Model in a scarlet and marigold festive frock on a bench" /></div>
+        <div class="sprig"><svg viewBox="0 0 80 150"><use href="#sprig"/></svg></div>
+      </div>
+      <div class="story-text" data-reveal>
+        <h2 class="serif">Made by hand,<br/>made <em class="acc">for you</em>.</h2>
+        <p>Silvatein is festive eastern wear from Pakistan — <b>botanical prints, chikankari and jewel-bright colour</b>, finished by hand and stitched to order.</p>
+        <p>Every piece is sewn for one person at a time, then sent out for Eid, for weddings, for the days you dress up. Nothing sits on a shelf, and no two come out quite the same.</p>
+        <div class="story-sign">— stitched in Pakistan, worn everywhere</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- botanical divider -->
+  <div class="divider"><span class="line"></span><svg><use href="#spray"/></svg><span class="line"></span></div>
+
+  <!-- ============ how to order ============ -->
+  <section class="order" id="order" data-screen-label="How to Order">
+    <div class="order-head" data-reveal>
+      <span class="eyebrow"><span class="dot"></span>How to Order</span>
+      <h2 class="serif">Ordering is a <em class="acc">conversation</em></h2>
+      <p class="sub">No cart, no checkout. You tell us what you love, we make it and deliver it.</p>
+    </div>
+    <div class="steps">
+      <div class="step" data-reveal>
+        <span class="sn"><svg viewBox="0 0 16 20"><use href="#leaf"/></svg>01</span>
+        <h4 class="serif">Browse the edits</h4>
+        <p>Look through Eid '26, Frocks '26 and Client Diaries here or on Instagram, and save what catches your eye.</p>
+      </div>
+      <div class="step" data-reveal>
+        <span class="sn"><svg viewBox="0 0 16 20"><use href="#leaf"/></svg>02</span>
+        <h4 class="serif">Message us</h4>
+        <p>Send a DM or WhatsApp with the piece, your size and your colour. We confirm the details and timing with you.</p>
+      </div>
+      <div class="step" data-reveal>
+        <span class="sn"><svg viewBox="0 0 16 20"><use href="#leaf"/></svg>03</span>
+        <h4 class="serif">We stitch &amp; deliver</h4>
+        <p>Your piece is hand-finished to order and delivered across Pakistan and worldwide.</p>
+      </div>
+    </div>
+    <div class="order-cta" data-reveal>
+      <a class="btn btn-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Order on WhatsApp</a>
+      <a class="btn btn-fuchsia" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
+    </div>
+  </section>
+
+  <!-- ============ footer ============ -->
+  <footer id="footer" data-screen-label="Footer">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="lock">
+          <svg class="mark"><use href="#mark"/></svg>
+          <span class="lat">Silvatein</span>
+        </div>
+        <p>Premium, made-to-order women's eastern apparel from Pakistan. Festive, botanical, hand-finished — delivered worldwide.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h5>Order</h5>
+          <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
+          <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
+          <a href="/cdn-cgi/l/email-protection#a0c8c5cccccfe0d3c9ccd6c1d4c5c9ce8ec3cfcd"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+        </div>
+        <div class="foot-col">
+          <h5>Follow</h5>
+          <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>@silvateinofficial_</a>
+          <a href="https://www.tiktok.com/@silvatein" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#tt"/></svg>TikTok</a>
+        </div>
+        <div class="foot-col">
+          <h5>Explore</h5>
+          <a href="#collections">Collections</a>
+          <a href="#lookbook">Lookbook</a>
+          <a href="#story">Our Story</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="row">
+        <span>Made to order in Pakistan · Delivered worldwide</span>
+      </div>
+      <div class="row">
+        <span>© 2026 Silvatein</span>
+        <span>No cart · No checkout · Order by conversation</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  // sticky header state
+  var header=document.getElementById('header');
+  var onScroll=function(){ header.classList.toggle('scrolled', window.scrollY>12); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // mobile drawer
+  var btn=document.getElementById('menuBtn'), drawer=document.getElementById('drawer');
+  function toggle(open){
+    btn.classList.toggle('open', open);
+    drawer.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  btn.addEventListener('click', function(){ toggle(!drawer.classList.contains('open')); });
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ toggle(false); }); });
+
+  // scroll reveal
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el,i){
+    el.style.transitionDelay = (Math.min(i%3,2)*90)+'ms';
+    io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
