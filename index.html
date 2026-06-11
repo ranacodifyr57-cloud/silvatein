@@ -237,16 +237,6 @@ section{position:relative}
 .lb-a1{aspect-ratio:3/4}
 .lb-a2{aspect-ratio:3/4}
 
-/* word marquee strip */
-.wordstrip{border-block:1px solid var(--line-soft);overflow:hidden;background:var(--ink-2)}
-.wordstrip .track{display:flex;width:max-content;animation:slide 46s linear infinite}
-.wordstrip .track .w{
-  font-family:var(--display);font-style:italic;font-size:clamp(26px,7vw,46px);
-  padding:18px .55em;color:var(--white);display:inline-flex;align-items:center;gap:.6em;white-space:nowrap;
-}
-.wordstrip .track .w::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--fuchsia);opacity:.8}
-.wordstrip .track .w.urdu{font-family:var(--urdu);font-style:normal;color:var(--marigold)}
-
 /* ---------- story ---------- */
 .story{padding:clamp(56px,10vw,120px) var(--pad)}
 .story-wrap{display:flex;flex-direction:column;gap:clamp(30px,6vw,56px);align-items:center}
@@ -305,7 +295,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 [data-reveal].in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
   [data-reveal]{opacity:1;transform:none;transition:none}
-  .marquee,.wordstrip .track{animation:none}
+  .marquee{animation:none}
 }
 
 /* ---------- responsive ---------- */
@@ -515,14 +505,6 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
   </section>
 
-  <!-- ============ word strip ============ -->
-  <div class="wordstrip" aria-hidden="true">
-    <div class="track">
-      <span class="w">Festive</span><span class="w">Hand-finished</span><span class="w">Botanical</span><span class="w">Made to order</span><span class="w">Dressed up</span>
-      <span class="w">Festive</span><span class="w">Hand-finished</span><span class="w">Botanical</span><span class="w">Made to order</span><span class="w">Dressed up</span>
-    </div>
-  </div>
-
   <!-- ============ lookbook ============ -->
   <section class="lookbook" id="lookbook" data-screen-label="Lookbook">
     <div class="sec-head" data-reveal>
@@ -628,7 +610,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
           <h5>Order</h5>
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
-          <a href="/cdn-cgi/l/email-protection#aec6cbc2c2c1eeddc7c2d8cfdacbc7c080cdc1c3"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a href="/cdn-cgi/l/email-protection#137b767f7f7c53607a7f657267767a7d3d707c7e"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
