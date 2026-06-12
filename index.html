@@ -103,7 +103,7 @@ em.acc-p{font-style:italic;color:var(--pistachio)}
 .marquee span{
   display:inline-flex;align-items:center;gap:1.2em;
   padding:9px 1.4em;
-  font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+  font-size:12.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
 }
 .marquee span::after{content:"";width:5px;height:5px;background:var(--marigold);border-radius:50%;display:inline-block;opacity:.9}
 @keyframes slide{to{transform:translateX(-50%)}}
@@ -166,8 +166,8 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 }
 .drawer.open{transform:translateX(0)}
 .drawer a.dl{
-  font-family:var(--display);font-size:clamp(34px,11vw,52px);line-height:1.15;
-  padding:10px 0;border-bottom:1px solid var(--line-soft);
+  font-family:var(--display);font-size:clamp(27px,7.4vw,40px);line-height:1.1;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);
   display:flex;align-items:center;justify-content:space-between;
 }
 .drawer a.dl .idx{font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:var(--dimmer)}
@@ -335,7 +335,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 }
 @media(min-width:1024px){
   .nav-links{display:flex;align-items:center;gap:30px}
-  .nav-links a{font-size:13px;font-weight:500;letter-spacing:.04em;color:var(--dim);position:relative;padding:4px 0;transition:color .25s}
+  .nav-links a{font-size:14.5px;font-weight:500;letter-spacing:.04em;color:var(--dim);position:relative;padding:4px 0;transition:color .25s}
   .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--fuchsia);transition:width .3s}
   .nav-links a:hover{color:var(--white)}
   .nav-links a:hover::after{width:100%}
@@ -637,7 +637,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
           <!-- NOTE: Before publishing, turn OFF Cloudflare "Email Address Obfuscation" (Scrape Shield), or this mailto gets re-wrapped on deploy. -->
-          <a class="js-mail" href="/cdn-cgi/l/email-protection#92faf7fefefdd2e1fbfee4f3e6f7fbfcbcf1fdff"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a class="js-mail" href="/cdn-cgi/l/email-protection#f49c9198989bb4879d98829580919d9ada979b99"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
