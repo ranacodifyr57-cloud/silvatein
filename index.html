@@ -5,9 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Silvatein — Festive Eastern Apparel, Made to Order</title>
 <meta name="description" content="Silvatein — premium, made-to-order women's eastern apparel from Pakistan. Festive, botanical, hand-finished. Delivered worldwide. Order by DM or WhatsApp." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="canonical" href="https://silvatein.vercel.app/" />
+
+<!-- Social share (Open Graph + Twitter) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Silvatein" />
+<meta property="og:title" content="Silvatein — Festive Eastern Apparel, Made to Order" />
+<meta property="og:description" content="Botanical prints, jewel-bright colour and made-to-order silhouettes — hand-finished in Pakistan, delivered worldwide." />
+<meta property="og:url" content="https://silvatein.vercel.app/" />
+<meta property="og:image" content="https://silvatein.vercel.app/img/scarlet-1.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Silvatein — Festive Eastern Apparel, Made to Order" />
+<meta name="twitter:description" content="Made-to-order festive eastern wear from Pakistan. Delivered worldwide." />
+<meta name="twitter:image" content="https://silvatein.vercel.app/img/scarlet-1.jpg" />
+
+<!-- Inline SVG favicon (botanical mark) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0a'/%3E%3Cg fill='none' stroke='%23edaa1e' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M16 25V9'/%3E%3Cpath d='M16 18c-3-.2-5-1.7-5.5-4.5 2.8-.2 5.3 1.4 5.5 4.5z'/%3E%3Cpath d='M16 14c3-.5 5-2.5 5.2-5.4-2.8 0-5 2.3-5.2 5.4z'/%3E%3C/g%3E%3C/svg%3E" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 :root{
   --ink:#0a0a0a;
@@ -17,7 +35,7 @@
   --line-soft:rgba(245,244,242,.08);
   --white:#f5f4f2;
   --dim:rgba(245,244,242,.62);
-  --dimmer:rgba(245,244,242,.42);
+  --dimmer:rgba(245,244,242,.56);
   /* accents sampled from the product photos */
   --fuchsia:#e83397;
   --scarlet:#dd2050;
@@ -25,7 +43,6 @@
   --pistachio:#bcd083;
   --display:'Fraunces', Georgia, serif;
   --sans:'Hanken Grotesk', system-ui, sans-serif;
-  --urdu:'Noto Nastaliq Urdu', serif;
   --pad: clamp(20px, 6vw, 100px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -42,6 +59,11 @@ body{
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--fuchsia);color:#fff}
+
+/* ---------- accessibility ---------- */
+:focus-visible{outline:2px solid var(--marigold);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--marigold);color:#1a1206;font-weight:600;font-size:13px;padding:12px 18px;border-radius:0 0 8px 0}
+.skip:focus{left:0}
 
 /* ---------- reusable type ---------- */
 .eyebrow{
@@ -105,7 +127,6 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 .brand .mark{width:34px;height:34px;flex:none}
 .brand .wordmark{display:flex;flex-direction:column;line-height:1}
 .brand .latin{font-family:var(--display);font-size:19px;letter-spacing:.22em;font-weight:500;text-transform:uppercase}
-.brand .urdu{font-family:var(--urdu);font-size:14px;color:var(--fuchsia);margin-top:3px;line-height:1.2}
 .nav-links{display:none}
 .nav-cta{display:flex;align-items:center;gap:14px}
 .menu-btn{
@@ -159,10 +180,16 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 .hero-grid{display:flex;flex-direction:column;gap:clamp(28px,6vw,56px)}
 .hero-copy{position:relative;z-index:2}
 .hero .lockup{display:flex;align-items:flex-end;gap:18px;margin:18px 0 26px}
-.hero .lockup .urdu{font-family:var(--urdu);font-size:clamp(46px,16vw,92px);line-height:1.5;color:var(--white);direction:rtl;padding-bottom:.1em}
 .hero .lockup .lat{font-family:var(--display);font-size:clamp(13px,3.4vw,16px);letter-spacing:.42em;text-transform:uppercase;color:var(--dim);writing-mode:vertical-rl;transform:rotate(180deg);padding-bottom:.4em}
 .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,12.5vw,84px);line-height:.98;letter-spacing:-.015em;margin-bottom:22px}
 .hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln .t{display:block;animation:lineUp .9s cubic-bezier(.2,.8,.2,1) backwards}
+.hero h1 .ln:nth-child(1) .t{animation-delay:.05s}
+.hero h1 .ln:nth-child(2) .t{animation-delay:.18s}
+.hero h1 .ln:nth-child(3) .t{animation-delay:.31s}
+@keyframes lineUp{from{transform:translateY(110%)}to{transform:translateY(0)}}
+section[id],#top,footer{scroll-margin-top:84px}
+@media (prefers-reduced-motion:reduce){.hero h1 .ln .t{animation:none;transform:none}}
 .hero p.lede{font-size:clamp(15px,4.3vw,18px);color:var(--dim);max-width:30ch;margin-bottom:30px;line-height:1.65}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:30px}
 .hero-meta{display:flex;flex-wrap:wrap;gap:14px 22px;padding-top:22px;border-top:1px solid var(--line-soft)}
@@ -178,7 +205,6 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
   background:var(--ink);border:1px solid var(--line);
   padding:9px 16px;display:flex;align-items:center;gap:9px;
 }
-.hero-media .tag .urdu{font-family:var(--urdu);font-size:15px;color:var(--marigold)}
 .hero-media .tag b{font-family:var(--display);font-size:14px;letter-spacing:.04em;font-weight:500}
 .hero-media .flourish{position:absolute;top:-26px;right:-10px;width:110px;height:110px;opacity:.9;pointer-events:none}
 .hero-media .flourish svg{width:100%;height:100%}
@@ -245,7 +271,6 @@ section{position:relative}
 .story-media .frame img{width:100%;height:100%;object-fit:cover}
 .story-media .sprig{position:absolute;bottom:-30px;left:-22px;width:120px;height:auto;opacity:.92}
 .story-text{max-width:560px;text-align:center}
-.story-text .urdu-big{font-family:var(--urdu);font-size:clamp(34px,11vw,56px);color:var(--fuchsia);line-height:1.6;margin-bottom:14px}
 .story-text h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,8vw,52px);line-height:1.04;letter-spacing:-.015em;margin-bottom:22px}
 .story-text p{color:var(--dim);font-size:clamp(15px,4vw,17px);line-height:1.75;margin-bottom:16px}
 .story-text p b{color:var(--white);font-weight:600}
@@ -274,7 +299,6 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 .foot-brand{display:flex;flex-direction:column;gap:16px}
 .foot-brand .lock{display:flex;align-items:center;gap:14px}
 .foot-brand .lock .mark{width:40px;height:40px}
-.foot-brand .lock .urdu{font-family:var(--urdu);font-size:30px;color:var(--white);line-height:1.5}
 .foot-brand .lock .lat{font-family:var(--display);font-size:18px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
 .foot-brand p{color:var(--dim);font-size:14px;max-width:34ch;line-height:1.7}
 .foot-links{display:grid;grid-template-columns:1fr 1fr;gap:28px}
@@ -288,7 +312,6 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   font-size:12px;color:var(--dimmer);letter-spacing:.04em;
 }
 .foot-bottom .row{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
-.foot-bottom .urdu{font-family:var(--urdu);color:var(--dim);font-size:15px}
 
 /* ---------- reveal ---------- */
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
@@ -316,6 +339,8 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--fuchsia);transition:width .3s}
   .nav-links a:hover{color:var(--white)}
   .nav-links a:hover::after{width:100%}
+  .nav-links a.active{color:var(--white)}
+  .nav-links a.active::after{width:100%}
   .menu-btn{display:none}
   .header-cta{display:inline-flex}
   .foot-top{flex-direction:row;justify-content:space-between;gap:60px}
@@ -325,6 +350,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 </style>
 </head>
 <body>
+<a class="skip" href="#top">Skip to content</a>
 
 <!-- ============ SVG symbol library (botanical line-art) ============ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -410,13 +436,13 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
     <div class="nav-cta">
       <a class="btn btn-wa btn-sm header-cta" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Order</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
     </div>
   </nav>
 </header>
 
 <!-- mobile drawer -->
-<div class="drawer" id="drawer">
+<div class="drawer" id="drawer" aria-label="Mobile menu">
   <a class="dl" href="#collections">Collections <span class="idx">01</span></a>
   <a class="dl" href="#lookbook">Lookbook <span class="idx">02</span></a>
   <a class="dl" href="#story">Our Story <span class="idx">03</span></a>
@@ -431,7 +457,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 
 <main id="top">
   <!-- ============ hero ============ -->
-  <section class="hero" data-screen-label="Hero" data-comment-anchor="hero">
+  <section class="hero">
     <div class="hero-grid">
       <div class="hero-copy" data-reveal>
         <span class="eyebrow"><span class="dot"></span>Premium eastern apparel — Pakistan</span>
@@ -439,9 +465,9 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
           <span class="lat">Silvatein</span>
         </div>
         <h1 class="serif">
-          <span class="ln">Dressed for</span>
-          <span class="ln">the <em class="acc">festive</em></span>
-          <span class="ln">season.</span>
+          <span class="ln"><span class="t">Dressed for</span></span>
+          <span class="ln"><span class="t">the <em class="acc">festive</em></span></span>
+          <span class="ln"><span class="t">season.</span></span>
         </h1>
         <p class="lede">Botanical prints, jewel-bright colour and made-to-order silhouettes — hand-finished in Pakistan, sent to women everywhere.</p>
         <div class="hero-cta">
@@ -457,7 +483,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
       <div class="hero-media" data-reveal>
         <div class="flourish"><svg><use href="#corner"/></svg></div>
         <div class="frame">
-          <img src="img/jeep-full.jpg" alt="Model in a pistachio chikankari suit beside a vintage jeep and bougainvillea" />
+          <img src="img/jeep-full.jpg" alt="Model in a pistachio chikankari suit beside a vintage jeep and bougainvillea" fetchpriority="high" decoding="async" />
         </div>
         <div class="tag"><b>Eid '26</b></div>
       </div>
@@ -468,7 +494,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   <div class="divider"><span class="line"></span><svg><use href="#spray"/></svg><span class="line"></span></div>
 
   <!-- ============ collections ============ -->
-  <section class="collections" id="collections" data-screen-label="Collections">
+  <section class="collections" id="collections">
     <div class="sec-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span>The Collections</span>
       <h2 class="serif">Pick your <em class="acc-m">occasion</em></h2>
@@ -476,7 +502,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
     <div class="col-grid">
       <a class="col-card" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <div class="ph"><img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock" /></div>
+        <div class="ph"><img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock" loading="lazy" decoding="async" /></div>
         <div class="body">
           <div class="ctop"><svg><use href="#leaf"/></svg><span class="num">01</span></div>
           <h3 class="serif">Eid '26</h3>
@@ -485,7 +511,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         </div>
       </a>
       <a class="col-card" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <div class="ph"><img src="img/extra-1.jpg" alt="Blush embroidered kurta against pink bougainvillea" /></div>
+        <div class="ph"><img src="img/extra-1.jpg" alt="Blush embroidered kurta against pink bougainvillea" loading="lazy" decoding="async" /></div>
         <div class="body">
           <div class="ctop"><svg><use href="#leaf"/></svg><span class="num">02</span></div>
           <h3 class="serif">Frocks '26</h3>
@@ -494,7 +520,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         </div>
       </a>
       <a class="col-card" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <div class="ph"><img src="img/scarlet-2.jpg" alt="Two clients in their scarlet Silvatein frocks" /></div>
+        <div class="ph"><img src="img/scarlet-2.jpg" alt="Two clients in their scarlet Silvatein frocks" loading="lazy" decoding="async" /></div>
         <div class="body">
           <div class="ctop"><svg><use href="#leaf"/></svg><span class="num">03</span></div>
           <h3 class="serif">Client Diaries</h3>
@@ -506,7 +532,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   </section>
 
   <!-- ============ lookbook ============ -->
-  <section class="lookbook" id="lookbook" data-screen-label="Lookbook">
+  <section class="lookbook" id="lookbook">
     <div class="sec-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span>The Lookbook</span>
       <h2 class="serif">Out in the garden, <em class="acc-p">dressed up</em></h2>
@@ -514,17 +540,17 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
     <div class="lb-grid">
       <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <img src="img/jeep-full.jpg" alt="Pistachio chikankari suit beside a vintage jeep and bougainvillea" />
+        <img src="img/jeep-full.jpg" alt="Pistachio chikankari suit beside a vintage jeep and bougainvillea" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
         <span class="cap">Pistachio &amp; bougainvillea</span>
       </a>
       <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock on a garden bench" />
+        <img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock on a garden bench" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
         <span class="cap">Scarlet, in bloom</span>
       </a>
       <a class="lb-item lb-a2" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <img src="img/detail-hibiscus.jpg" alt="Hibiscus flowers resting on printed Silvatein fabric" />
+        <img src="img/detail-hibiscus.jpg" alt="Hibiscus flowers resting on printed Silvatein fabric" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
         <span class="cap">Hibiscus &amp; hand-work</span>
       </a>
@@ -534,7 +560,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         <span class="cap">The colour of grace — the signature pink ensemble</span>
       </a>
       <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <img src="img/scarlet-4.jpg" alt="Two women in scarlet Silvatein frocks seated in a pine garden" />
+        <img src="img/scarlet-4.jpg" alt="Two women in scarlet Silvatein frocks seated in a pine garden" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
         <span class="cap">Worn together</span>
       </a>
@@ -547,10 +573,10 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   </section>
 
   <!-- ============ story ============ -->
-  <section class="story" id="story" data-screen-label="Our Story">
+  <section class="story" id="story">
     <div class="story-wrap">
       <div class="story-media" data-reveal>
-        <div class="frame"><img src="img/scarlet-5.jpg" alt="Model in a scarlet and marigold festive frock on a bench" /></div>
+        <div class="frame"><img src="img/scarlet-5.jpg" alt="Model in a scarlet and marigold festive frock on a bench" loading="lazy" decoding="async" /></div>
         <div class="sprig"><svg viewBox="0 0 80 150"><use href="#sprig"/></svg></div>
       </div>
       <div class="story-text" data-reveal>
@@ -566,7 +592,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   <div class="divider"><span class="line"></span><svg><use href="#spray"/></svg><span class="line"></span></div>
 
   <!-- ============ how to order ============ -->
-  <section class="order" id="order" data-screen-label="How to Order">
+  <section class="order" id="order">
     <div class="order-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span>How to Order</span>
       <h2 class="serif">Ordering is a <em class="acc">conversation</em></h2>
@@ -596,7 +622,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   </section>
 
   <!-- ============ footer ============ -->
-  <footer id="footer" data-screen-label="Footer">
+  <footer id="footer">
     <div class="foot-top">
       <div class="foot-brand">
         <div class="lock">
@@ -610,7 +636,8 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
           <h5>Order</h5>
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
-          <a href="/cdn-cgi/l/email-protection#137b767f7f7c53607a7f657267767a7d3d707c7e"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <!-- NOTE: Before publishing, turn OFF Cloudflare "Email Address Obfuscation" (Scrape Shield), or this mailto gets re-wrapped on deploy. -->
+          <a class="js-mail" href="/cdn-cgi/l/email-protection#92faf7fefefdd2e1fbfee4f3e6f7fbfcbcf1fdff"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
@@ -639,30 +666,86 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
+  "use strict";
+
+  /* ============================================================
+     CONTACT — edit these once to go live.
+     PHONE: full international WhatsApp number, digits only
+            (e.g. "923001234567"). While left empty, every
+            "WhatsApp" button safely falls back to Instagram DM
+            so no button is ever dead.
+     ============================================================ */
+  /* ---- ONE config object: edit these to go live ---- */
+  var CONTACT = {
+    phone: "",                       // full intl WhatsApp number, digits only — e.g. "923001234567"
+    ig:    "silvateinofficial_",     // Instagram handle (no @)
+    email: "hello@silvatein.com"     // contact inbox
+  };
+  var igUrl   = "https://instagram.com/" + CONTACT.ig;
+  var mailUrl = "mailto:" + CONTACT.email;
+  var waMsg   = encodeURIComponent("Hi Silvatein! I'd love to order a piece from Eid '26.");
+  var waUrl   = CONTACT.phone ? "https://wa.me/" + CONTACT.phone + "?text=" + waMsg : igUrl;
+
+  // Build every contact link from the constants above (no hard-coded handles/numbers)
+  document.querySelectorAll('a[href="https://wa.me/"]').forEach(function(a){ a.setAttribute('href', waUrl); });
+  document.querySelectorAll('a[href*="instagram.com"]').forEach(function(a){ a.setAttribute('href', igUrl); });
+  document.querySelectorAll('a.js-mail, a[href*="email-protection"], a[href^="mailto:"]').forEach(function(a){ a.setAttribute('href', mailUrl); });
+
   // sticky header state
   var header=document.getElementById('header');
   var onScroll=function(){ header.classList.toggle('scrolled', window.scrollY>12); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
-  // mobile drawer
+  // mobile drawer (accessible)
   var btn=document.getElementById('menuBtn'), drawer=document.getElementById('drawer');
   function toggle(open){
     btn.classList.toggle('open', open);
     drawer.classList.toggle('open', open);
     document.body.style.overflow = open ? 'hidden' : '';
+    btn.setAttribute('aria-expanded', String(open));
     btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    drawer.inert = !open;                       // remove closed drawer from tab order
   }
+  drawer.inert = true;
   btn.addEventListener('click', function(){ toggle(!drawer.classList.contains('open')); });
   drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ toggle(false); }); });
-
-  // scroll reveal
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('[data-reveal]').forEach(function(el,i){
-    el.style.transitionDelay = (Math.min(i%3,2)*90)+'ms';
-    io.observe(el);
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && drawer.classList.contains('open')){ toggle(false); btn.focus(); }
   });
+
+  // scroll reveal — with safety net so content can never stay hidden
+  var items=document.querySelectorAll('[data-reveal]');
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var showAll=function(){ items.forEach(function(el){ el.classList.add('in'); }); };
+  if(reduce || !('IntersectionObserver' in window)){
+    showAll();
+  } else {
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    items.forEach(function(el,i){
+      el.style.transitionDelay=(Math.min(i%3,2)*90)+'ms';
+      if(el.getBoundingClientRect().top < vh){ el.classList.add('in'); }   // already in view
+      else { io.observe(el); }
+    });
+    window.addEventListener('load', function(){ setTimeout(showAll, 1400); });  // guaranteed fallback
+    setTimeout(showAll, 2600);
+  }
+
+  // active nav link as sections scroll past
+  var navMap={};
+  document.querySelectorAll('.nav-links a').forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id){ navMap[id]=a; } });
+  if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          Object.keys(navMap).forEach(function(k){ navMap[k].classList.toggle('active', k===e.target.id); });
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    ['collections','lookbook','story','order'].forEach(function(id){ var s=document.getElementById(id); if(s){ spy.observe(s); } });
+  }
 })();
 </script>
 </body>
