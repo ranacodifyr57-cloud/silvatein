@@ -313,6 +313,130 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 }
 .foot-bottom .row{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
 
+/* ============================================================
+   COMMERCE ADD-ON (cart + COD checkout) — matches existing
+   dark editorial language: hairline borders, pill buttons,
+   slide-in panel mirroring the mobile drawer.
+   ============================================================ */
+/* shop section (reuses collection-card visual language) */
+.shop{padding:clamp(40px,7vw,80px) 0}
+.shop-grid{display:grid;grid-template-columns:1fr;gap:2px;padding:0 var(--pad)}
+.shop-card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);background:var(--ink-2);overflow:hidden}
+.shop-card .ph{position:relative;aspect-ratio:3/3.5;overflow:hidden}
+.shop-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.shop-card:hover .ph img{transform:scale(1.05)}
+.shop-card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1;border-top:1px solid var(--line-soft)}
+.shop-card .clabel{display:flex;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);font-weight:600}
+.shop-card .clabel svg{width:13px;height:16px;flex:none}
+.shop-card h3{font-family:var(--display);font-size:clamp(21px,5.4vw,25px);font-weight:500;line-height:1.06}
+.shop-card .price{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--marigold)}
+.shop-card .add{width:100%;margin-top:auto}
+.shop-card .add.added{background:var(--pistachio);color:#16210a;border-color:var(--pistachio)}
+
+/* header cart button + badge */
+.cart-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;padding:8px;color:var(--white)}
+.cart-btn svg{width:23px;height:23px}
+.cart-count{
+  position:absolute;top:-1px;right:-2px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;
+  background:var(--fuchsia);color:#fff;font-size:10.5px;font-weight:700;font-family:var(--sans);
+  display:flex;align-items:center;justify-content:center;line-height:1;
+}
+.cart-count[hidden]{display:none}
+.cart-btn.bump{animation:cartBump .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes cartBump{0%{transform:scale(1)}40%{transform:scale(1.22)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.cart-btn.bump{animation:none}}
+
+/* scrim + slide-in panel (same transition/feel as the drawer) */
+.cart-scrim{position:fixed;inset:0;z-index:65;background:rgba(8,8,8,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .42s cubic-bezier(.5,0,.1,1)}
+.cart-scrim.open{opacity:1}
+.cart-scrim[hidden]{display:none}
+.cart-panel{
+  position:fixed;top:0;right:0;bottom:0;z-index:70;width:min(440px,100%);
+  background:var(--ink);border-left:1px solid var(--line);
+  transform:translateX(100%);transition:transform .42s cubic-bezier(.5,0,.1,1);
+  display:flex;flex-direction:column;
+}
+.cart-panel.open{transform:translateX(0)}
+@media (prefers-reduced-motion:reduce){.cart-panel,.cart-scrim{transition:none}}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:20px var(--pad);border-bottom:1px solid var(--line-soft);flex:none}
+.cart-title{font-family:var(--display);font-size:22px;font-weight:500}
+.cart-close{display:inline-flex;background:none;border:0;cursor:pointer;color:var(--white);padding:6px}
+.cart-close svg{width:24px;height:24px}
+.cart-scroll{flex:1;overflow-y:auto;padding:8px var(--pad) 16px}
+.cart-view{display:flex;flex-direction:column;gap:4px}
+
+/* cart lines */
+.cart-line{display:grid;grid-template-columns:62px 1fr auto;gap:14px;padding:18px 0;border-bottom:1px solid var(--line-soft)}
+.cl-thumb{width:62px;height:78px;overflow:hidden;border:1px solid var(--line)}
+.cl-thumb img{width:100%;height:100%;object-fit:cover}
+.cl-info{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cl-name{font-family:var(--display);font-size:18px;line-height:1.1}
+.cl-unit{font-size:12px;color:var(--dim)}
+.cl-controls{display:flex;align-items:center;gap:14px;margin-top:2px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.stepper button{width:30px;height:30px;background:none;border:0;color:var(--white);cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:background .2s}
+.stepper button:hover{background:rgba(255,255,255,.06)}
+.stepper .qv{min-width:26px;text-align:center;font-size:13px;font-variant-numeric:tabular-nums}
+.cl-remove{background:none;border:0;color:var(--dimmer);cursor:pointer;padding:4px;display:inline-flex;transition:color .2s}
+.cl-remove:hover{color:var(--scarlet)}
+.cl-remove svg{width:17px;height:17px}
+.cl-total{font-size:14px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* empty state */
+.cart-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:56px 0}
+.cart-empty svg{width:40px;height:40px;color:var(--dimmer)}
+.cart-empty p{font-family:var(--display);font-size:22px}
+.cart-empty[hidden]{display:none}
+
+/* checkout */
+.co-summary{display:flex;flex-direction:column;gap:10px;padding:8px 0 18px;border-bottom:1px solid var(--line-soft);margin-bottom:18px}
+.co-sum-line{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:var(--dim)}
+.co-sum-line .nm{color:var(--white)}
+.co-sum-line .vl{font-variant-numeric:tabular-nums;white-space:nowrap}
+.co-form{display:flex;flex-direction:column;gap:14px}
+.co-form label{display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.co-form input,.co-form textarea{
+  font-family:var(--sans);font-size:15px;color:var(--white);background:var(--ink-3);
+  border:1px solid var(--line);border-radius:8px;padding:12px 14px;width:100%;resize:vertical;
+  transition:border-color .2s;letter-spacing:0;text-transform:none;font-weight:400;
+}
+.co-form input:focus,.co-form textarea:focus{outline:none;border-color:var(--fuchsia)}
+.co-form .invalid{border-color:var(--scarlet)}
+/* payment block */
+.co-pay{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.co-pay-h{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.pay-opt{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s}
+.pay-opt.selected{border-color:var(--marigold);background:rgba(237,170,30,.06)}
+.pay-opt input{accent-color:var(--marigold);width:16px;height:16px;flex:none}
+.pay-opt .pay-main{font-size:14px;font-weight:600;color:var(--white);display:flex;align-items:center;gap:8px}
+.pay-opt .pay-sub{flex-basis:100%;padding-left:26px;font-size:12px;color:var(--dim)}
+.pay-opt.disabled{opacity:.5;cursor:not-allowed}
+.pay-opt .soon{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--marigold);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+
+/* confirmation */
+.co-done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:38px 0}
+.co-check{width:60px;height:60px;border-radius:50%;border:1px solid var(--pistachio);display:flex;align-items:center;justify-content:center;color:var(--pistachio)}
+.co-check svg{width:30px;height:30px}
+.co-done h3{font-family:var(--display);font-size:30px;font-weight:500}
+.co-done p{color:var(--dim);font-size:14.5px;max-width:34ch;line-height:1.65}
+.co-done b{color:var(--white)}
+.co-done .btn{width:100%}
+
+/* sticky panel foot */
+.cart-foot{padding:18px var(--pad) calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line-soft);display:flex;flex-direction:column;gap:12px;flex:none}
+.cart-foot[hidden]{display:none}
+.cart-row.total{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
+.cart-row.total b{font-family:var(--display);font-size:22px;color:var(--white);font-weight:500;letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
+.cart-foot .btn{width:100%}
+.cart-back{background:none;border:0;color:var(--dim);cursor:pointer;font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;padding:2px;transition:color .2s}
+.cart-back:hover{color:var(--white)}
+.cart-foot .btn[disabled]{opacity:.55;cursor:not-allowed}
+.co-error{margin:0 0 2px;padding:11px 13px;border:1px solid var(--scarlet);border-radius:8px;background:rgba(221,32,80,.08);color:var(--white);font-size:13px;line-height:1.45}
+.co-error[hidden]{display:none}
+
+@media(min-width:560px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:980px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
+
 /* ---------- reveal ---------- */
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
 [data-reveal].in{opacity:1;transform:none}
@@ -408,6 +532,10 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     <symbol id="tt" viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.2v12.96a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.78.12v-3.3a5.9 5.9 0 0 0-.78-.05A5.89 5.89 0 1 0 15.64 16V9.4a7.5 7.5 0 0 0 4.36 1.4V7.6a4.28 4.28 0 0 1-3.4-1.78z" fill="currentColor"/></symbol>
     <symbol id="mail" viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.5L20 7H4l8 5.5zM4 9.2V17h16V9.2l-8 5.5-8-5.5z" fill="currentColor"/></symbol>
     <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="bag" viewBox="0 0 24 24"><path d="M6.5 8h11l-.7 11.3a1.2 1.2 0 0 1-1.2 1.1H8.4a1.2 1.2 0 0 1-1.2-1.1L6.5 8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9.2 9V7.2a2.8 2.8 0 0 1 5.6 0V9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="trash" viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V5.4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V7m2.2 0-.7 12.1a1 1 0 0 1-1 .9H7.7a1 1 0 0 1-1-.9L6 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M5 13l4 4 10-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
   </defs>
 </svg>
 
@@ -430,11 +558,16 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </a>
     <div class="nav-links">
       <a href="#collections">Collections</a>
+      <a href="#shop">Shop</a>
       <a href="#lookbook">Lookbook</a>
       <a href="#story">Our Story</a>
       <a href="#order">How to Order</a>
     </div>
     <div class="nav-cta">
+      <button class="cart-btn" id="cartBtn" aria-label="Open cart" aria-haspopup="dialog" aria-expanded="false" aria-controls="cartPanel">
+        <svg viewBox="0 0 24 24"><use href="#bag"/></svg>
+        <span class="cart-count" id="cartCount" aria-live="polite" aria-label="items in cart" hidden>0</span>
+      </button>
       <a class="btn btn-wa btn-sm header-cta" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Order</a>
       <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
     </div>
@@ -444,9 +577,10 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 <!-- mobile drawer -->
 <div class="drawer" id="drawer" aria-label="Mobile menu">
   <a class="dl" href="#collections">Collections <span class="idx">01</span></a>
-  <a class="dl" href="#lookbook">Lookbook <span class="idx">02</span></a>
-  <a class="dl" href="#story">Our Story <span class="idx">03</span></a>
-  <a class="dl" href="#order">How to Order <span class="idx">04</span></a>
+  <a class="dl" href="#shop">Shop <span class="idx">02</span></a>
+  <a class="dl" href="#lookbook">Lookbook <span class="idx">03</span></a>
+  <a class="dl" href="#story">Our Story <span class="idx">04</span></a>
+  <a class="dl" href="#order">How to Order <span class="idx">05</span></a>
   <div class="drawer-foot">
     <div class="drawer-cta">
       <a class="btn btn-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
@@ -454,6 +588,76 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
   </div>
 </div>
+
+<!-- ============ cart + checkout panel ============ -->
+<div class="cart-scrim" id="cartScrim" hidden></div>
+<aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
+  <div class="cart-head">
+    <span class="cart-title" id="cartTitle">Your cart</span>
+    <button class="cart-close" id="cartClose" aria-label="Close cart"><svg viewBox="0 0 24 24"><use href="#close"/></svg></button>
+  </div>
+
+  <div class="cart-scroll">
+    <!-- view: cart -->
+    <div class="cart-view" id="viewCart">
+      <div id="cartLines"></div>
+      <div class="cart-empty" id="cartEmpty" hidden>
+        <svg viewBox="0 0 24 24"><use href="#bag"/></svg>
+        <p>Your cart is empty</p>
+        <button class="btn btn-ig" id="emptyShop">Browse the shop</button>
+      </div>
+    </div>
+
+    <!-- view: checkout -->
+    <div class="cart-view" id="viewCheckout" hidden>
+      <div class="co-summary" id="coSummary"></div>
+      <form class="co-form" id="coForm" novalidate>
+        <label>Full name<input name="name" autocomplete="name" required /></label>
+        <label>WhatsApp / phone<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required /></label>
+        <label>Delivery address<textarea name="address" rows="2" autocomplete="street-address" required></textarea></label>
+        <label>City<input name="city" autocomplete="address-level2" required /></label>
+        <label>Order note (optional)<textarea name="note" rows="2"></textarea></label>
+        <div class="co-pay">
+          <span class="co-pay-h">Payment method</span>
+          <label class="pay-opt selected">
+            <input type="radio" name="pay" value="cod" checked />
+            <span class="pay-main">Cash on Delivery (COD)</span>
+            <span class="pay-sub">Pay in cash when your order is delivered.</span>
+          </label>
+          <label class="pay-opt disabled">
+            <input type="radio" name="pay" value="card" disabled />
+            <span class="pay-main">Card / online payment <span class="soon">Coming soon</span></span>
+            <span class="pay-sub">Online card payments open shortly.</span>
+          </label>
+        </div>
+      </form>
+    </div>
+
+    <!-- view: confirmation -->
+    <div class="cart-view" id="viewConfirm" hidden>
+      <div class="co-done">
+        <div class="co-check"><svg viewBox="0 0 24 24"><use href="#check"/></svg></div>
+        <h3 class="serif">Thank you</h3>
+        <p>Your order <b id="orderRef">SLV-000000</b> is confirmed for <b>Cash on Delivery</b>. Send it to us on WhatsApp and we'll arrange your delivery.</p>
+        <a class="btn btn-wa" id="sendWa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Send order on WhatsApp</a>
+        <button class="btn btn-ig" id="confirmClose">Continue browsing</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- sticky foot: cart -->
+  <div class="cart-foot" id="footCart" hidden>
+    <div class="cart-row total"><span>Subtotal</span><b id="cartSubtotal">Rs 0</b></div>
+    <button class="btn btn-wa" id="goCheckout">Checkout</button>
+  </div>
+  <!-- sticky foot: checkout -->
+  <div class="cart-foot" id="footCheckout" hidden>
+    <p class="co-error" id="coError" role="alert" hidden></p>
+    <div class="cart-row total"><span>Total · Cash on delivery</span><b id="coTotal">Rs 0</b></div>
+    <button class="btn btn-wa" id="placeOrder">Place order</button>
+    <button class="cart-back" id="backToCart">&larr; Back to cart</button>
+  </div>
+</aside>
 
 <main id="top">
   <!-- ============ hero ============ -->
@@ -531,6 +735,16 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
   </section>
 
+  <!-- ============ shop (cart commerce) ============ -->
+  <section class="shop" id="shop">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow"><span class="dot"></span>The Shop</span>
+      <h2 class="serif">Shop the <em class="acc-m">edit</em></h2>
+      <p class="sub">Ready-to-order pieces with cash on delivery across Pakistan. Add to your cart and check out in a minute.</p>
+    </div>
+    <div class="shop-grid" id="shopGrid" data-reveal></div>
+  </section>
+
   <!-- ============ lookbook ============ -->
   <section class="lookbook" id="lookbook">
     <div class="sec-head" data-reveal>
@@ -595,8 +809,8 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   <section class="order" id="order">
     <div class="order-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span>How to Order</span>
-      <h2 class="serif">Ordering is a <em class="acc">conversation</em></h2>
-      <p class="sub">No cart, no checkout. You tell us what you love, we make it and deliver it.</p>
+      <h2 class="serif">Two ways to <em class="acc">order</em></h2>
+      <p class="sub">Add ready pieces to your cart and check out with cash on delivery — or message us to have a piece made just for you.</p>
     </div>
     <div class="steps">
       <div class="step" data-reveal>
@@ -637,7 +851,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
           <!-- NOTE: Before publishing, turn OFF Cloudflare "Email Address Obfuscation" (Scrape Shield), or this mailto gets re-wrapped on deploy. -->
-          <a class="js-mail" href="/cdn-cgi/l/email-protection#f49c9198989bb4879d98829580919d9ada979b99"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a class="js-mail" href="/cdn-cgi/l/email-protection#325a575e5e5d72415b5e445346575b5c1c515d5f"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
@@ -658,7 +872,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
       </div>
       <div class="row">
         <span>© 2026 Silvatein</span>
-        <span>No cart · No checkout · Order by conversation</span>
+        <span>Cash on delivery · Delivered across Pakistan &amp; worldwide</span>
       </div>
     </div>
   </footer>
@@ -677,10 +891,19 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
      ============================================================ */
   /* ---- ONE config object: edit these to go live ---- */
   var CONTACT = {
-    phone: "",                       // full intl WhatsApp number, digits only — e.g. "923001234567"
+    phone: "",                       // TODO: paste real WhatsApp number, digits only — e.g. "923001234567"
     ig:    "silvateinofficial_",     // Instagram handle (no @)
-    email: "hello@silvatein.com"     // contact inbox
+    email: "hello@silvatein.com"     // TODO: business inbox shown in the footer "Email us" link
   };
+
+  /* ---- Web3Forms: emails every order to the business (no backend needed) ----
+     1. Get a free access key at https://web3forms.com (enter the business
+        email; the key is tied to that inbox — that's where orders arrive).
+     2. Paste the key below. That's the only required step to receive orders.   */
+  var WEB3FORMS = {
+    key: "YOUR-WEB3FORMS-ACCESS-KEY"   // TODO: paste your Web3Forms access key
+  };
+  function web3Ready(){ return WEB3FORMS.key && WEB3FORMS.key.indexOf("YOUR-") !== 0; }
   var igUrl   = "https://instagram.com/" + CONTACT.ig;
   var mailUrl = "mailto:" + CONTACT.email;
   var waMsg   = encodeURIComponent("Hi Silvatein! I'd love to order a piece from Eid '26.");
@@ -744,8 +967,316 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         }
       });
     }, {rootMargin:'-45% 0px -50% 0px'});
-    ['collections','lookbook','story','order'].forEach(function(id){ var s=document.getElementById(id); if(s){ spy.observe(s); } });
+    ['collections','shop','lookbook','story','order'].forEach(function(id){ var s=document.getElementById(id); if(s){ spy.observe(s); } });
   }
+
+  /* ============================================================
+     COMMERCE — products, cart, COD checkout (vanilla, no deps)
+     ============================================================ */
+
+  /* ---- ONE editable PRODUCTS array: paste real products here ----
+     Each: { id, name, collection, price (PKR number), image, alt }
+     // TODO: replace with the client's real products & prices       */
+  var PRODUCTS = [
+    { id:'slv-01', name:'Scarlet Festive Frock',     collection:"Eid '26",        price:14500, image:'img/scarlet-1.jpg',       alt:'Scarlet and marigold festive frock' },
+    { id:'slv-02', name:'Blush Chikankari Kurta',    collection:"Frocks '26",     price:9800,  image:'img/extra-1.jpg',         alt:'Blush embroidered kurta against pink bougainvillea' },
+    { id:'slv-03', name:'Pistachio Chikankari Suit', collection:"Eid '26",        price:16500, image:'img/jeep-full.jpg',       alt:'Pistachio chikankari suit beside a vintage jeep' },
+    { id:'slv-04', name:'Marigold Garden Frock',     collection:"Frocks '26",     price:12500, image:'img/scarlet-5.jpg',       alt:'Scarlet and marigold festive frock on a bench' },
+    { id:'slv-05', name:'Rosewood Twin Set',         collection:'Client Diaries', price:13800, image:'img/scarlet-2.jpg',       alt:'Two clients in their scarlet Silvatein frocks' },
+    { id:'slv-06', name:'Garden Party Frock',        collection:'Client Diaries', price:11900, image:'img/scarlet-4.jpg',       alt:'Two women in scarlet Silvatein frocks in a garden' }
+  ];
+
+  var STORE_KEY = 'silvatein_cart_v1';
+  var cart = [];                 // [{ id, qty }]
+  var lastOrder = null;          // captured details for the WhatsApp link
+
+  function prod(id){ for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; } return null; }
+  function money(n){ return 'Rs ' + Number(n||0).toLocaleString('en-US'); }
+  function count(){ return cart.reduce(function(s,it){ return s+it.qty; },0); }
+  function subtotal(){ return cart.reduce(function(s,it){ var p=prod(it.id); return s + (p?p.price*it.qty:0); },0); }
+
+  /* ---- persistence (degrades gracefully) ---- */
+  function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(cart)); }catch(e){} }
+  function load(){
+    try{
+      var raw=localStorage.getItem(STORE_KEY);
+      if(!raw) return;
+      var data=JSON.parse(raw);
+      if(Array.isArray(data)){
+        cart = data.filter(function(it){ return it && prod(it.id) && it.qty>0; })
+                   .map(function(it){ return { id:it.id, qty:Math.max(1, it.qty|0) }; });
+      }
+    }catch(e){ cart=[]; }
+  }
+
+  /* ---- DOM refs ---- */
+  var shopGrid=document.getElementById('shopGrid');
+  var cartBtn=document.getElementById('cartBtn'), cartCount=document.getElementById('cartCount');
+  var scrim=document.getElementById('cartScrim'), panel=document.getElementById('cartPanel');
+  var cartClose=document.getElementById('cartClose'), cartTitle=document.getElementById('cartTitle');
+  var viewCart=document.getElementById('viewCart'), viewCheckout=document.getElementById('viewCheckout'), viewConfirm=document.getElementById('viewConfirm');
+  var cartLines=document.getElementById('cartLines'), cartEmpty=document.getElementById('cartEmpty');
+  var footCart=document.getElementById('footCart'), footCheckout=document.getElementById('footCheckout');
+  var cartSubtotal=document.getElementById('cartSubtotal'), coTotal=document.getElementById('coTotal'), coSummary=document.getElementById('coSummary');
+  var coForm=document.getElementById('coForm');
+  var goCheckout=document.getElementById('goCheckout'), placeOrder=document.getElementById('placeOrder'), backToCart=document.getElementById('backToCart');
+  var emptyShop=document.getElementById('emptyShop'), confirmClose=document.getElementById('confirmClose');
+  var orderRef=document.getElementById('orderRef'), sendWa=document.getElementById('sendWa');
+  var coError=document.getElementById('coError');
+
+  /* ---- render shop ---- */
+  function renderShop(){
+    if(!shopGrid) return;
+    shopGrid.innerHTML = PRODUCTS.map(function(p){
+      return '<article class="shop-card">'+
+        '<div class="ph"><img src="'+p.image+'" alt="'+p.alt+'" loading="lazy" decoding="async" /></div>'+
+        '<div class="body">'+
+          '<span class="clabel"><svg viewBox="0 0 16 20"><use href="#leaf"/></svg>'+p.collection+'</span>'+
+          '<h3 class="serif">'+p.name+'</h3>'+
+          '<span class="price">'+money(p.price)+'</span>'+
+          '<button class="btn btn-ig add" data-add="'+p.id+'"><svg viewBox="0 0 24 24"><use href="#bag"/></svg>Add to cart</button>'+
+        '</div>'+
+      '</article>';
+    }).join('');
+  }
+
+  /* ---- header badge ---- */
+  function renderBadge(){
+    var c=count();
+    if(c>0){ cartCount.textContent=c; cartCount.hidden=false; }
+    else { cartCount.hidden=true; }
+  }
+  function bump(){ cartBtn.classList.remove('bump'); void cartBtn.offsetWidth; cartBtn.classList.add('bump'); }
+
+  /* ---- render cart lines ---- */
+  function renderCart(){
+    if(cart.length===0){
+      cartLines.innerHTML=''; cartEmpty.hidden=false; footCart.hidden=true;
+    } else {
+      cartEmpty.hidden=true; footCart.hidden=false;
+      cartLines.innerHTML = cart.map(function(it){
+        var p=prod(it.id); if(!p) return '';
+        return '<div class="cart-line" data-line="'+p.id+'">'+
+          '<div class="cl-thumb"><img src="'+p.image+'" alt="'+p.alt+'" loading="lazy" /></div>'+
+          '<div class="cl-info">'+
+            '<div class="cl-name">'+p.name+'</div>'+
+            '<div class="cl-unit">'+money(p.price)+'</div>'+
+            '<div class="cl-controls">'+
+              '<div class="stepper">'+
+                '<button type="button" class="dec" data-dec="'+p.id+'" aria-label="Decrease quantity of '+p.name+'">&minus;</button>'+
+                '<span class="qv" aria-live="polite">'+it.qty+'</span>'+
+                '<button type="button" class="inc" data-inc="'+p.id+'" aria-label="Increase quantity of '+p.name+'">+</button>'+
+              '</div>'+
+              '<button type="button" class="cl-remove" data-rm="'+p.id+'" aria-label="Remove '+p.name+'"><svg viewBox="0 0 24 24"><use href="#trash"/></svg></button>'+
+            '</div>'+
+          '</div>'+
+          '<div class="cl-total">'+money(p.price*it.qty)+'</div>'+
+        '</div>';
+      }).join('');
+    }
+    cartSubtotal.textContent = money(subtotal());
+    renderBadge();
+  }
+
+  /* ---- cart mutations ---- */
+  function add(id){
+    var line=null; for(var i=0;i<cart.length;i++){ if(cart[i].id===id){ line=cart[i]; break; } }
+    if(line){ line.qty++; } else { cart.push({ id:id, qty:1 }); }
+    save(); renderCart(); renderBadge(); bump();
+  }
+  function setQty(id,q){
+    for(var i=0;i<cart.length;i++){
+      if(cart[i].id===id){
+        if(q<=0){ cart.splice(i,1); } else { cart[i].qty=q; }
+        break;
+      }
+    }
+    save(); renderCart();
+  }
+  function remove(id){ setQty(id,0); }
+
+  /* ---- views ---- */
+  function showView(name){
+    viewCart.hidden = name!=='cart';
+    viewCheckout.hidden = name!=='checkout';
+    viewConfirm.hidden = name!=='confirm';
+    footCart.hidden = !(name==='cart' && cart.length>0);
+    footCheckout.hidden = name!=='checkout';
+    cartTitle.textContent = name==='checkout' ? 'Checkout' : (name==='confirm' ? 'Order confirmed' : 'Your cart');
+    panel.querySelector('.cart-scroll').scrollTop = 0;
+  }
+
+  /* ---- open / close (mirrors drawer: inert, Escape, focus, scrim) ---- */
+  var lastFocus=null;
+  function openCart(){
+    lastFocus=document.activeElement;
+    scrim.hidden=false; requestAnimationFrame(function(){ scrim.classList.add('open'); panel.classList.add('open'); });
+    panel.inert=false; panel.setAttribute('aria-hidden','false');
+    cartBtn.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+    if(cart.length>0 && !viewConfirm.hidden){ /* keep confirm if showing */ }
+    else { showView('cart'); }
+    renderCart();
+    setTimeout(function(){ cartClose.focus(); }, 60);
+  }
+  function closeCart(){
+    scrim.classList.remove('open'); panel.classList.remove('open');
+    panel.inert=true; panel.setAttribute('aria-hidden','true');
+    cartBtn.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+    setTimeout(function(){ scrim.hidden=true; }, 420);
+    if(lastFocus && lastFocus.focus){ lastFocus.focus(); }
+  }
+  panel.inert=true;
+
+  /* ---- checkout ---- */
+  function renderSummary(){
+    var rows = cart.map(function(it){
+      var p=prod(it.id);
+      return '<div class="co-sum-line"><span class="nm">'+p.name+' &times;'+it.qty+'</span><span class="vl">'+money(p.price*it.qty)+'</span></div>';
+    }).join('');
+    var tot=subtotal();
+    rows += '<div class="co-sum-line"><span class="nm">Delivery</span><span class="vl">Free</span></div>'+
+            '<div class="co-sum-line"><span class="nm"><b>Total</b></span><span class="vl"><b>'+money(tot)+'</b></span></div>';
+    coSummary.innerHTML=rows;
+    coTotal.textContent=money(tot);
+  }
+  function genRef(){
+    var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s='';
+    for(var i=0;i<6;i++){ s+=c.charAt(Math.floor(Math.random()*c.length)); }
+    return 'SLV-'+s;
+  }
+  function buildWaOrder(ref, fields, tot){
+    var lines = cart.map(function(it){ var p=prod(it.id); return '• '+p.name+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
+    var msg = 'New order '+ref+'\n\n'+lines+'\n\nTotal (COD): '+money(tot)+
+      '\n\nName: '+fields.name+'\nPhone: '+fields.phone+'\nAddress: '+fields.address+', '+fields.city+
+      (fields.note ? ('\nNote: '+fields.note) : '')+'\n\nPayment: Cash on Delivery';
+    return CONTACT.phone ? 'https://wa.me/'+CONTACT.phone+'?text='+encodeURIComponent(msg) : igUrl;
+  }
+
+  /* ---- events ---- */
+  shopGrid && shopGrid.addEventListener('click', function(e){
+    var b=e.target.closest('[data-add]'); if(!b) return;
+    add(b.getAttribute('data-add'));
+    b.classList.add('added'); var t=b.querySelector('svg'); var label=b.childNodes;
+    b.innerHTML='<svg viewBox="0 0 24 24"><use href="#check"/></svg>Added';
+    setTimeout(function(){ b.classList.remove('added'); b.innerHTML='<svg viewBox="0 0 24 24"><use href="#bag"/></svg>Add to cart'; }, 1300);
+  });
+
+  cartLines.addEventListener('click', function(e){
+    var inc=e.target.closest('[data-inc]'), dec=e.target.closest('[data-dec]'), rm=e.target.closest('[data-rm]');
+    if(inc){ var id=inc.getAttribute('data-inc'); var l=cart.filter(function(x){return x.id===id;})[0]; setQty(id, (l?l.qty:0)+1); }
+    else if(dec){ var id2=dec.getAttribute('data-dec'); var l2=cart.filter(function(x){return x.id===id2;})[0]; setQty(id2, (l2?l2.qty:1)-1); }
+    else if(rm){ remove(rm.getAttribute('data-rm')); }
+  });
+
+  cartBtn.addEventListener('click', openCart);
+  cartClose.addEventListener('click', closeCart);
+  scrim.addEventListener('click', closeCart);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && panel.classList.contains('open')){ closeCart(); } });
+
+  emptyShop.addEventListener('click', function(){ closeCart(); var s=document.getElementById('shop'); if(s){ s.scrollIntoView({behavior:'smooth'}); } });
+  confirmClose.addEventListener('click', closeCart);
+
+  goCheckout.addEventListener('click', function(){ if(cart.length===0) return; renderSummary(); showView('checkout'); });
+  backToCart.addEventListener('click', function(){ showView('cart'); renderCart(); });
+
+  placeOrder.addEventListener('click', function(){
+    // validate required fields
+    var firstInvalid=null;
+    ['name','phone','address','city'].forEach(function(n){
+      var el=coForm.elements[n]; var ok=el.value.trim().length>0;
+      el.classList.toggle('invalid', !ok);
+      if(!ok && !firstInvalid){ firstInvalid=el; }
+    });
+    if(firstInvalid){ firstInvalid.focus(); return; }
+
+    var fields={
+      name:coForm.elements.name.value.trim(),
+      phone:coForm.elements.phone.value.trim(),
+      address:coForm.elements.address.value.trim(),
+      city:coForm.elements.city.value.trim(),
+      note:coForm.elements.note.value.trim()
+    };
+    var tot=subtotal();
+    var ref=genRef();
+    var itemsText = cart.map(function(it){ var p=prod(it.id); return p.name+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
+
+    // in-flight UI state
+    function setSending(on){
+      placeOrder.disabled=on; backToCart.disabled=on;
+      placeOrder.textContent = on ? 'Sending\u2026' : 'Place order';
+    }
+
+    // on a successful send: show confirmation, wire WhatsApp, clear cart
+    function onSuccess(){
+      orderRef.textContent=ref;
+      var url=buildWaOrder(ref, fields, tot);
+      sendWa.setAttribute('href', url);
+      if(!CONTACT.phone){ sendWa.innerHTML='<svg viewBox="0 0 24 24"><use href="#ig"/></svg>Send order on Instagram'; }
+      showView('confirm');
+      cart=[]; save(); renderBadge(); coForm.reset();
+      try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+    }
+    // on failure: keep the cart so the customer can retry
+    function onError(msg){
+      coError.textContent = msg || 'Your order could not be sent. Please check your connection and try again.';
+      coError.hidden=false;
+      setSending(false);
+    }
+
+    coError.hidden=true;
+
+    if(!web3Ready()){
+      onError('Order email is not configured yet. Add your Web3Forms key to enable checkout.');
+      return;
+    }
+
+    setSending(true);
+
+    // EMAIL the order to the business via Web3Forms (primary delivery)
+    var payload = {
+      access_key: WEB3FORMS.key,
+      subject: 'New COD order ' + ref + ' \u2014 Silvatein',
+      from_name: 'Silvatein Shop',
+      // structured fields — each becomes a labelled row in the email
+      order_number: ref,
+      payment_method: 'Cash on Delivery',
+      items: itemsText,
+      grand_total: money(tot),
+      customer_name: fields.name,
+      phone: fields.phone,
+      address: fields.address,
+      city: fields.city,
+      note: fields.note || '\u2014'
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if(data && data.success){ onSuccess(); }
+      else { onError((data && data.message) ? ('Could not send order: ' + data.message) : null); }
+    })
+    .catch(function(){ onError(); });
+  });
+
+  // keep the COD/card radio selection styling in sync
+  coForm.addEventListener('change', function(e){
+    if(e.target.name==='pay'){
+      coForm.querySelectorAll('.pay-opt').forEach(function(o){ o.classList.remove('selected'); });
+      var opt=e.target.closest('.pay-opt'); if(opt) opt.classList.add('selected');
+    }
+  });
+
+  /* ---- init ---- */
+  load();
+  renderShop();
+  renderCart();
+  renderBadge();
 })();
 </script>
 </body>
