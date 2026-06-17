@@ -851,7 +851,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
           <!-- NOTE: Before publishing, turn OFF Cloudflare "Email Address Obfuscation" (Scrape Shield), or this mailto gets re-wrapped on deploy. -->
-          <a class="js-mail" href="/cdn-cgi/l/email-protection#325a575e5e5d72415b5e445346575b5c1c515d5f"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a class="js-mail" href="mailto:rana.codifyr57@gmail.com"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
@@ -878,7 +878,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   </footer>
 </main>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
   "use strict";
 
@@ -891,9 +891,9 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
      ============================================================ */
   /* ---- ONE config object: edit these to go live ---- */
   var CONTACT = {
-    phone: "",                       // TODO: paste real WhatsApp number, digits only — e.g. "923001234567"
+    phone: "923247352486",           // WhatsApp number, digits only
     ig:    "silvateinofficial_",     // Instagram handle (no @)
-    email: "hello@silvatein.com"     // TODO: business inbox shown in the footer "Email us" link
+    email: "rana.codifyr57@gmail.com" // business inbox shown in the footer "Email us" link
   };
 
   /* ---- Web3Forms: emails every order to the business (no backend needed) ----
@@ -901,7 +901,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         email; the key is tied to that inbox — that's where orders arrive).
      2. Paste the key below. That's the only required step to receive orders.   */
   var WEB3FORMS = {
-    key: "YOUR-WEB3FORMS-ACCESS-KEY"   // TODO: paste your Web3Forms access key
+    key: "239bbb5c-46ac-4798-b61f-bfba2da023a4"   // Web3Forms access key
   };
   function web3Ready(){ return WEB3FORMS.key && WEB3FORMS.key.indexOf("YOUR-") !== 0; }
   var igUrl   = "https://instagram.com/" + CONTACT.ig;
