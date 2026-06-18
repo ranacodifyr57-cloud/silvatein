@@ -251,6 +251,11 @@ section{position:relative}
 .lb-item{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--ink-2)}
 .lb-item img,.lb-item video{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
 .lb-item:hover img,.lb-item:hover video{transform:scale(1.06)}
+/* best-effort watermark crop: zooms a video so a corner logo sits outside the frame.
+   NOTE: a baked-in TikTok watermark that moves between corners can't be fully removed
+   this way — supply a clean original for a perfect result. */
+.lb-item video.wm-crop{transform:scale(1.2)}
+.lb-item:hover video.wm-crop{transform:scale(1.26)}
 .lb-item.tall{grid-row:span 2;aspect-ratio:auto}
 .lb-item .cap{
   position:absolute;left:12px;bottom:12px;z-index:2;opacity:0;transform:translateY(8px);
@@ -332,6 +337,15 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 .shop-card .price{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--marigold)}
 .shop-card .add{width:100%;margin-top:auto}
 .shop-card .add.added{background:var(--pistachio);color:#16210a;border-color:var(--pistachio)}
+.shop-card .size-label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);font-weight:600;margin-top:6px}
+.shop-card .sizes{display:flex;flex-wrap:wrap;gap:6px;margin-top:1px}
+.shop-card .size-pill{min-width:38px;padding:7px 11px;background:none;border:1px solid var(--line);color:var(--dim);border-radius:999px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.shop-card .size-pill:hover{border-color:rgba(255,255,255,.42);color:var(--white)}
+.shop-card .size-pill[aria-pressed="true"]{background:var(--white);color:#0a0a0a;border-color:var(--white)}
+.shop-card .size-hint{font-size:11.5px;color:var(--scarlet);opacity:0;height:0;overflow:hidden;transition:opacity .2s}
+.shop-card .size-hint.show{opacity:1;height:auto;margin-top:2px}
+.cl-size{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dimmer);font-weight:600}
+.co-sum-size{color:var(--dimmer)}
 
 /* header cart button + badge */
 .cart-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;padding:8px;color:var(--white)}
@@ -754,9 +768,14 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
     <div class="lb-grid">
       <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <img src="img/jeep-full.jpg" alt="Pistachio chikankari suit beside a vintage jeep and bougainvillea" loading="lazy" decoding="async" />
+        <video class="wm-crop" src="video/design-reel.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Silvatein festive reel in motion"></video>
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
-        <span class="cap">Pistachio &amp; bougainvillea</span>
+        <span class="cap">In motion — the festive reel</span>
+      </a>
+      <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <video src="video/anarkali.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Classic Anarkali frock in motion"></video>
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Classic Anarkali, in motion</span>
       </a>
       <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
         <img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock on a garden bench" loading="lazy" decoding="async" />
@@ -782,6 +801,16 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         <video src="video/black-legacy.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The black ensemble — adorned in legacy"></video>
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
         <span class="cap">Now in black — adorned in legacy</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/red-anarkali.jpg" alt="Model in a red and pink floral Anarkali frock on a sofa" loading="lazy" decoding="async" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Red floral Anarkali</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/teal-set.jpg" alt="Model in a teal embellished co-ord set" loading="lazy" decoding="async" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Teal, embellished</span>
       </a>
     </div>
   </section>
@@ -856,6 +885,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         <div class="foot-col">
           <h5>Follow</h5>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>@silvateinofficial_</a>
+          <a data-ig2 href="https://instagram.com/dkoraesthetics" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>@dkoraesthetics</a>
           <a href="https://www.tiktok.com/@silvatein" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#tt"/></svg>TikTok</a>
         </div>
         <div class="foot-col">
@@ -891,9 +921,11 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
      ============================================================ */
   /* ---- ONE config object: edit these to go live ---- */
   var CONTACT = {
-    phone: "923247352486",           // WhatsApp number, digits only
-    ig:    "silvateinofficial_",     // Instagram handle (no @)
-    email: "rana.codifyr57@gmail.com" // business inbox shown in the footer "Email us" link
+    phone:  "923247352486",            // WhatsApp number, digits only
+    ig:     "silvateinofficial_",      // primary Instagram handle (no @)
+    ig2:    "dkoraesthetics",          // secondary Instagram, shown under "Follow"
+    tiktok: "dkoraesthetics",          // TikTok handle (no @)
+    email:  "rana.codifyr57@gmail.com" // business inbox shown in the footer "Email us" link
   };
 
   /* ---- Web3Forms: emails every order to the business (no backend needed) ----
@@ -908,10 +940,14 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   var mailUrl = "mailto:" + CONTACT.email;
   var waMsg   = encodeURIComponent("Hi Silvatein! I'd love to order a piece from Eid '26.");
   var waUrl   = CONTACT.phone ? "https://wa.me/" + CONTACT.phone + "?text=" + waMsg : igUrl;
+  var ttUrl   = CONTACT.tiktok ? "https://www.tiktok.com/@" + CONTACT.tiktok : igUrl;
+  var ig2Url  = CONTACT.ig2 ? "https://instagram.com/" + CONTACT.ig2 : igUrl;
 
   // Build every contact link from the constants above (no hard-coded handles/numbers)
   document.querySelectorAll('a[href="https://wa.me/"]').forEach(function(a){ a.setAttribute('href', waUrl); });
-  document.querySelectorAll('a[href*="instagram.com"]').forEach(function(a){ a.setAttribute('href', igUrl); });
+  document.querySelectorAll('a[href*="instagram.com"]:not([data-ig2])').forEach(function(a){ a.setAttribute('href', igUrl); });
+  document.querySelectorAll('a[data-ig2]').forEach(function(a){ a.setAttribute('href', ig2Url); });
+  document.querySelectorAll('a[href*="tiktok.com"]').forEach(function(a){ a.setAttribute('href', ttUrl); });
   document.querySelectorAll('a.js-mail, a[href*="email-protection"], a[href^="mailto:"]').forEach(function(a){ a.setAttribute('href', mailUrl); });
 
   // sticky header state
@@ -974,26 +1010,32 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
      COMMERCE — products, cart, COD checkout (vanilla, no deps)
      ============================================================ */
 
-  /* ---- ONE editable PRODUCTS array: paste real products here ----
-     Each: { id, name, collection, price (PKR number), image, alt }
-     // TODO: replace with the client's real products & prices       */
+  /* ---- ONE editable PRODUCTS array ----
+     Each: { id, name, collection, price (PKR number), image, alt, sizes:[..] }
+     · sizes is an array of labels shown as pickable pills on the card.
+     · a size MUST be chosen before "Add to cart" works.
+     · for an unstitched / one-size item, use sizes:['Free size'].
+     To list a real product, copy a line and change the values + image file.  */
+  var SIZES = ['XS','S','M','L','XL'];   // standard size set, reused below
   var PRODUCTS = [
-    { id:'slv-01', name:'Scarlet Festive Frock',     collection:"Eid '26",        price:14500, image:'img/scarlet-1.jpg',       alt:'Scarlet and marigold festive frock' },
-    { id:'slv-02', name:'Blush Chikankari Kurta',    collection:"Frocks '26",     price:9800,  image:'img/extra-1.jpg',         alt:'Blush embroidered kurta against pink bougainvillea' },
-    { id:'slv-03', name:'Pistachio Chikankari Suit', collection:"Eid '26",        price:16500, image:'img/jeep-full.jpg',       alt:'Pistachio chikankari suit beside a vintage jeep' },
-    { id:'slv-04', name:'Marigold Garden Frock',     collection:"Frocks '26",     price:12500, image:'img/scarlet-5.jpg',       alt:'Scarlet and marigold festive frock on a bench' },
-    { id:'slv-05', name:'Rosewood Twin Set',         collection:'Client Diaries', price:13800, image:'img/scarlet-2.jpg',       alt:'Two clients in their scarlet Silvatein frocks' },
-    { id:'slv-06', name:'Garden Party Frock',        collection:'Client Diaries', price:11900, image:'img/scarlet-4.jpg',       alt:'Two women in scarlet Silvatein frocks in a garden' }
+    { id:'slv-01', name:'Scarlet Festive Frock',     collection:"Eid '26",        price:14500, image:'img/scarlet-1.jpg', alt:'Scarlet and marigold festive frock',                    sizes:SIZES },
+    { id:'slv-02', name:'Blush Chikankari Kurta',    collection:"Frocks '26",     price:9800,  image:'img/extra-1.jpg',   alt:'Blush embroidered kurta against pink bougainvillea',    sizes:SIZES },
+    { id:'slv-03', name:'Pistachio Chikankari Suit', collection:"Eid '26",        price:16500, image:'img/jeep-full.jpg', alt:'Pistachio chikankari suit beside a vintage jeep',       sizes:SIZES },
+    { id:'slv-04', name:'Marigold Garden Frock',     collection:"Frocks '26",     price:12500, image:'img/scarlet-5.jpg', alt:'Scarlet and marigold festive frock on a bench',         sizes:SIZES },
+    { id:'slv-05', name:'Rosewood Twin Set',         collection:'Client Diaries', price:13800, image:'img/scarlet-2.jpg', alt:'Two clients in their scarlet Silvatein frocks',         sizes:SIZES },
+    { id:'slv-06', name:'Garden Party Frock',        collection:'Client Diaries', price:11900, image:'img/scarlet-4.jpg', alt:'Two women in scarlet Silvatein frocks in a garden',     sizes:SIZES }
   ];
 
-  var STORE_KEY = 'silvatein_cart_v1';
-  var cart = [];                 // [{ id, qty }]
+  var STORE_KEY = 'silvatein_cart_v2';   // v2: cart lines now carry a size
+  var cart = [];                 // [{ id, size, qty }]
   var lastOrder = null;          // captured details for the WhatsApp link
 
   function prod(id){ for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; } return null; }
   function money(n){ return 'Rs ' + Number(n||0).toLocaleString('en-US'); }
   function count(){ return cart.reduce(function(s,it){ return s+it.qty; },0); }
   function subtotal(){ return cart.reduce(function(s,it){ var p=prod(it.id); return s + (p?p.price*it.qty:0); },0); }
+  /* a cart line is unique by product id + chosen size */
+  function findLine(id,size){ for(var i=0;i<cart.length;i++){ if(cart[i].id===id && cart[i].size===size) return cart[i]; } return null; }
 
   /* ---- persistence (degrades gracefully) ---- */
   function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(cart)); }catch(e){} }
@@ -1004,7 +1046,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
       var data=JSON.parse(raw);
       if(Array.isArray(data)){
         cart = data.filter(function(it){ return it && prod(it.id) && it.qty>0; })
-                   .map(function(it){ return { id:it.id, qty:Math.max(1, it.qty|0) }; });
+                   .map(function(it){ return { id:it.id, size:(it.size||''), qty:Math.max(1, it.qty|0) }; });
       }
     }catch(e){ cart=[]; }
   }
@@ -1028,12 +1070,19 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   function renderShop(){
     if(!shopGrid) return;
     shopGrid.innerHTML = PRODUCTS.map(function(p){
-      return '<article class="shop-card">'+
+      var hasSizes = p.sizes && p.sizes.length;
+      var sizes = hasSizes ? p.sizes.map(function(sz){
+        return '<button type="button" class="size-pill" data-size="'+sz+'" aria-pressed="false" aria-label="Size '+sz+'">'+sz+'</button>';
+      }).join('') : '';
+      return '<article class="shop-card" data-card="'+p.id+'">'+
         '<div class="ph"><img src="'+p.image+'" alt="'+p.alt+'" loading="lazy" decoding="async" /></div>'+
         '<div class="body">'+
           '<span class="clabel"><svg viewBox="0 0 16 20"><use href="#leaf"/></svg>'+p.collection+'</span>'+
           '<h3 class="serif">'+p.name+'</h3>'+
           '<span class="price">'+money(p.price)+'</span>'+
+          (hasSizes ? ('<span class="size-label">Select size</span>'+
+            '<div class="sizes" role="group" aria-label="Choose a size for '+p.name+'">'+sizes+'</div>'+
+            '<span class="size-hint" aria-live="polite">Please choose a size first</span>') : '')+
           '<button class="btn btn-ig add" data-add="'+p.id+'"><svg viewBox="0 0 24 24"><use href="#bag"/></svg>Add to cart</button>'+
         '</div>'+
       '</article>';
@@ -1056,18 +1105,21 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
       cartEmpty.hidden=true; footCart.hidden=false;
       cartLines.innerHTML = cart.map(function(it){
         var p=prod(it.id); if(!p) return '';
-        return '<div class="cart-line" data-line="'+p.id+'">'+
+        var sz = it.size || '';
+        var szTxt = sz ? (' size '+sz) : '';
+        return '<div class="cart-line" data-id="'+p.id+'" data-size="'+sz+'">'+
           '<div class="cl-thumb"><img src="'+p.image+'" alt="'+p.alt+'" loading="lazy" /></div>'+
           '<div class="cl-info">'+
             '<div class="cl-name">'+p.name+'</div>'+
+            (sz ? '<div class="cl-size">Size &middot; '+sz+'</div>' : '')+
             '<div class="cl-unit">'+money(p.price)+'</div>'+
             '<div class="cl-controls">'+
               '<div class="stepper">'+
-                '<button type="button" class="dec" data-dec="'+p.id+'" aria-label="Decrease quantity of '+p.name+'">&minus;</button>'+
+                '<button type="button" class="dec" data-dec aria-label="Decrease quantity of '+p.name+szTxt+'">&minus;</button>'+
                 '<span class="qv" aria-live="polite">'+it.qty+'</span>'+
-                '<button type="button" class="inc" data-inc="'+p.id+'" aria-label="Increase quantity of '+p.name+'">+</button>'+
+                '<button type="button" class="inc" data-inc aria-label="Increase quantity of '+p.name+szTxt+'">+</button>'+
               '</div>'+
-              '<button type="button" class="cl-remove" data-rm="'+p.id+'" aria-label="Remove '+p.name+'"><svg viewBox="0 0 24 24"><use href="#trash"/></svg></button>'+
+              '<button type="button" class="cl-remove" data-rm aria-label="Remove '+p.name+szTxt+'"><svg viewBox="0 0 24 24"><use href="#trash"/></svg></button>'+
             '</div>'+
           '</div>'+
           '<div class="cl-total">'+money(p.price*it.qty)+'</div>'+
@@ -1079,21 +1131,21 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   }
 
   /* ---- cart mutations ---- */
-  function add(id){
-    var line=null; for(var i=0;i<cart.length;i++){ if(cart[i].id===id){ line=cart[i]; break; } }
-    if(line){ line.qty++; } else { cart.push({ id:id, qty:1 }); }
+  function add(id,size){
+    var line=findLine(id,size);
+    if(line){ line.qty++; } else { cart.push({ id:id, size:(size||''), qty:1 }); }
     save(); renderCart(); renderBadge(); bump();
   }
-  function setQty(id,q){
+  function setQty(id,size,q){
     for(var i=0;i<cart.length;i++){
-      if(cart[i].id===id){
+      if(cart[i].id===id && cart[i].size===size){
         if(q<=0){ cart.splice(i,1); } else { cart[i].qty=q; }
         break;
       }
     }
     save(); renderCart();
   }
-  function remove(id){ setQty(id,0); }
+  function remove(id,size){ setQty(id,size,0); }
 
   /* ---- views ---- */
   function showView(name){
@@ -1133,7 +1185,8 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   function renderSummary(){
     var rows = cart.map(function(it){
       var p=prod(it.id);
-      return '<div class="co-sum-line"><span class="nm">'+p.name+' &times;'+it.qty+'</span><span class="vl">'+money(p.price*it.qty)+'</span></div>';
+      var sz = it.size ? ' <span class="co-sum-size">('+it.size+')</span>' : '';
+      return '<div class="co-sum-line"><span class="nm">'+p.name+sz+' &times;'+it.qty+'</span><span class="vl">'+money(p.price*it.qty)+'</span></div>';
     }).join('');
     var tot=subtotal();
     rows += '<div class="co-sum-line"><span class="nm">Delivery</span><span class="vl">Free</span></div>'+
@@ -1147,7 +1200,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     return 'SLV-'+s;
   }
   function buildWaOrder(ref, fields, tot){
-    var lines = cart.map(function(it){ var p=prod(it.id); return '• '+p.name+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
+    var lines = cart.map(function(it){ var p=prod(it.id); var sz=it.size?(' ['+it.size+']'):''; return '• '+p.name+sz+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
     var msg = 'New order '+ref+'\n\n'+lines+'\n\nTotal (COD): '+money(tot)+
       '\n\nName: '+fields.name+'\nPhone: '+fields.phone+'\nAddress: '+fields.address+', '+fields.city+
       (fields.note ? ('\nNote: '+fields.note) : '')+'\n\nPayment: Cash on Delivery';
@@ -1156,18 +1209,36 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 
   /* ---- events ---- */
   shopGrid && shopGrid.addEventListener('click', function(e){
+    // 1) size pill selection
+    var pill=e.target.closest('.size-pill');
+    if(pill){
+      var grp=pill.parentNode;
+      grp.querySelectorAll('.size-pill').forEach(function(b){ b.setAttribute('aria-pressed', b===pill ? 'true':'false'); });
+      var c0=pill.closest('.shop-card'); var h0=c0 && c0.querySelector('.size-hint'); if(h0) h0.classList.remove('show');
+      return;
+    }
+    // 2) add to cart (requires a size if the product has sizes)
     var b=e.target.closest('[data-add]'); if(!b) return;
-    add(b.getAttribute('data-add'));
-    b.classList.add('added'); var t=b.querySelector('svg'); var label=b.childNodes;
+    var id=b.getAttribute('data-add');
+    var card=b.closest('.shop-card');
+    var hasSizes=card && card.querySelector('.size-pill');
+    var sel=card && card.querySelector('.size-pill[aria-pressed="true"]');
+    var hint=card && card.querySelector('.size-hint');
+    if(hasSizes && !sel){ if(hint) hint.classList.add('show'); return; }
+    var size = sel ? sel.getAttribute('data-size') : '';
+    add(id, size);
+    b.classList.add('added');
     b.innerHTML='<svg viewBox="0 0 24 24"><use href="#check"/></svg>Added';
     setTimeout(function(){ b.classList.remove('added'); b.innerHTML='<svg viewBox="0 0 24 24"><use href="#bag"/></svg>Add to cart'; }, 1300);
   });
 
   cartLines.addEventListener('click', function(e){
-    var inc=e.target.closest('[data-inc]'), dec=e.target.closest('[data-dec]'), rm=e.target.closest('[data-rm]');
-    if(inc){ var id=inc.getAttribute('data-inc'); var l=cart.filter(function(x){return x.id===id;})[0]; setQty(id, (l?l.qty:0)+1); }
-    else if(dec){ var id2=dec.getAttribute('data-dec'); var l2=cart.filter(function(x){return x.id===id2;})[0]; setQty(id2, (l2?l2.qty:1)-1); }
-    else if(rm){ remove(rm.getAttribute('data-rm')); }
+    var line=e.target.closest('.cart-line'); if(!line) return;
+    var id=line.getAttribute('data-id'), size=line.getAttribute('data-size');
+    var cur=findLine(id,size); var q=cur?cur.qty:0;
+    if(e.target.closest('[data-inc]')){ setQty(id,size,q+1); }
+    else if(e.target.closest('[data-dec]')){ setQty(id,size,q-1); }
+    else if(e.target.closest('[data-rm]')){ remove(id,size); }
   });
 
   cartBtn.addEventListener('click', openCart);
@@ -1200,7 +1271,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     };
     var tot=subtotal();
     var ref=genRef();
-    var itemsText = cart.map(function(it){ var p=prod(it.id); return p.name+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
+    var itemsText = cart.map(function(it){ var p=prod(it.id); var sz=it.size?(' ['+it.size+']'):''; return p.name+sz+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
 
     // in-flight UI state
     function setSending(on){
