@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Silvatein — Festive Eastern Apparel, Made to Order</title>
 <meta name="description" content="Silvatein — premium, made-to-order women's eastern apparel from Pakistan. Festive, botanical, hand-finished. Delivered worldwide. Order by DM or WhatsApp." />
-<meta name="theme-color" content="#0a0a0a" />
+<meta name="theme-color" content="#0E0C0B" />
 <link rel="canonical" href="https://silvatein.vercel.app/" />
 
 <!-- Social share (Open Graph + Twitter) -->
@@ -21,32 +21,38 @@
 <meta name="twitter:image" content="https://silvatein.vercel.app/img/scarlet-1.jpg" />
 
 <!-- Inline SVG favicon (botanical mark) -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0a'/%3E%3Cg fill='none' stroke='%23edaa1e' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M16 25V9'/%3E%3Cpath d='M16 18c-3-.2-5-1.7-5.5-4.5 2.8-.2 5.3 1.4 5.5 4.5z'/%3E%3Cpath d='M16 14c3-.5 5-2.5 5.2-5.4-2.8 0-5 2.3-5.2 5.4z'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E0C0B'/%3E%3Cg fill='none' stroke='%23E8A33D' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M16 25V9'/%3E%3Cpath d='M16 18c-3-.2-5-1.7-5.5-4.5 2.8-.2 5.3 1.4 5.5 4.5z'/%3E%3Cpath d='M16 14c3-.5 5-2.5 5.2-5.4-2.8 0-5 2.3-5.2 5.4z'/%3E%3C/g%3E%3C/svg%3E" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 :root{
-  --ink:#0a0a0a;
-  --ink-2:#101010;
-  --ink-3:#161616;
-  --line:rgba(245,244,242,.14);
-  --line-soft:rgba(245,244,242,.08);
-  --white:#f5f4f2;
-  --dim:rgba(245,244,242,.62);
-  --dimmer:rgba(245,244,242,.56);
-  /* accents sampled from the product photos */
-  --fuchsia:#e83397;
-  --scarlet:#dd2050;
-  --marigold:#edaa1e;
-  --pistachio:#bcd083;
+  /* ===== ONE disciplined token system ===== */
+  --bg:#0E0C0B;            /* warm off-black (not pure #000) */
+  --surface:#171412;       /* cards: bg + ~4% warm lift */
+  --accent:#E8A33D;        /* marigold amber — the SINGLE accent */
+  --accent-hover:#F2B658;  /* one step lighter, for hovers */
+  --accent-2:#C0395B;      /* deep rose — rare: errors / sale tag only */
+  --radius:2px;            /* one radius language: squared / editorial */
+  /* spacing scale (use these only): 8 / 16 / 24 / 32 / 48 / 64 */
+
+  /* legacy names remapped onto the system so every existing rule
+     resolves to the new palette without per-rule edits */
+  --ink:var(--bg);
+  --ink-2:var(--surface);
+  --ink-3:#1E1A16;         /* inputs / order band */
+  --line:#2A2622;          /* hairline borders */
+  --line-soft:rgba(245,241,234,.07);
+  --white:#F5F1EA;         /* warm white (not #fff) */
+  --dim:#A39B90;           /* muted secondary text */
+  --dimmer:rgba(245,241,234,.46);
   --display:'Fraunces', Georgia, serif;
   --sans:'Hanken Grotesk', system-ui, sans-serif;
   --pad: clamp(20px, 6vw, 100px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--bg)}
 body{
   background:var(--ink);
   color:var(--white);
@@ -58,11 +64,11 @@ body{
 }
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
-::selection{background:var(--fuchsia);color:#fff}
+::selection{background:var(--accent);color:#1a1206}
 
 /* ---------- accessibility ---------- */
-:focus-visible{outline:2px solid var(--marigold);outline-offset:3px;border-radius:2px}
-.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--marigold);color:#1a1206;font-weight:600;font-size:13px;padding:12px 18px;border-radius:0 0 8px 0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--accent);color:#1a1206;font-weight:600;font-size:13px;padding:12px 18px;border-radius:0 0 8px 0}
 .skip:focus{left:0}
 
 /* ---------- reusable type ---------- */
@@ -77,11 +83,9 @@ a{color:inherit;text-decoration:none}
   align-items:center;
   gap:.7em;
 }
-.eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--fuchsia);flex:none}
+.eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--accent);flex:none}
 .serif{font-family:var(--display);font-weight:400;line-height:1.04;letter-spacing:-.01em}
-em.acc{font-style:italic;color:var(--fuchsia)}
-em.acc-m{font-style:italic;color:var(--marigold)}
-em.acc-p{font-style:italic;color:var(--pistachio)}
+em.acc{font-style:italic;color:var(--accent)}
 
 /* botanical stroke colour helper */
 .bot{stroke:var(--white);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
@@ -105,7 +109,7 @@ em.acc-p{font-style:italic;color:var(--pistachio)}
   padding:9px 1.4em;
   font-size:12.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
 }
-.marquee span::after{content:"";width:5px;height:5px;background:var(--marigold);border-radius:50%;display:inline-block;opacity:.9}
+.marquee span::after{content:"";width:5px;height:5px;background:var(--accent);border-radius:50%;display:inline-block;opacity:.9}
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* ---------- header ---------- */
@@ -140,17 +144,15 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.6em;
   font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.02em;
-  padding:13px 22px;border-radius:999px;cursor:pointer;border:1px solid transparent;
+  padding:13px 22px;border-radius:var(--radius);cursor:pointer;border:1px solid transparent;
   transition:transform .25s cubic-bezier(.2,.8,.2,1), background .25s, color .25s, border-color .25s;
   white-space:nowrap;
 }
 .btn svg{width:16px;height:16px;flex:none}
-.btn-wa{background:var(--marigold);color:#1a1206}
-.btn-wa:hover{background:#ffbe3a;transform:translateY(-2px)}
-.btn-ig{border-color:var(--line);color:var(--white);background:rgba(255,255,255,.02)}
-.btn-ig:hover{border-color:var(--fuchsia);color:var(--fuchsia);transform:translateY(-2px)}
-.btn-fuchsia{background:var(--fuchsia);color:#fff}
-.btn-fuchsia:hover{background:#ff4aad;transform:translateY(-2px)}
+.btn-wa{background:var(--accent);color:#1a1206}
+.btn-wa:hover{background:var(--accent-hover);transform:translateY(-2px)}
+.btn-ig{border-color:var(--line);color:var(--white);background:transparent}
+.btn-ig:hover{border-color:var(--white);transform:translateY(-2px)}
 .btn-sm{padding:10px 18px;font-size:12px}
 .header-cta{display:none}
 
@@ -176,12 +178,12 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 .drawer .drawer-cta .btn{flex:1}
 
 /* ---------- hero ---------- */
-.hero{position:relative;padding:clamp(40px,9vw,90px) var(--pad) clamp(48px,8vw,80px)}
+.hero{position:relative;padding:clamp(20px,4vw,40px) var(--pad) clamp(32px,6vw,56px)}
 .hero-grid{display:flex;flex-direction:column;gap:clamp(28px,6vw,56px)}
 .hero-copy{position:relative;z-index:2}
-.hero .lockup{display:flex;align-items:flex-end;gap:18px;margin:18px 0 26px}
+.hero .lockup{display:none}
 .hero .lockup .lat{font-family:var(--display);font-size:clamp(13px,3.4vw,16px);letter-spacing:.42em;text-transform:uppercase;color:var(--dim);writing-mode:vertical-rl;transform:rotate(180deg);padding-bottom:.4em}
-.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,12.5vw,84px);line-height:.98;letter-spacing:-.015em;margin-bottom:22px}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
 .hero h1 .ln{display:block;overflow:hidden}
 .hero h1 .ln .t{display:block;animation:lineUp .9s cubic-bezier(.2,.8,.2,1) backwards}
 .hero h1 .ln:nth-child(1) .t{animation-delay:.05s}
@@ -196,8 +198,8 @@ section[id],#top,footer{scroll-margin-top:84px}
 .hero-meta .mi{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.04em;color:var(--dim)}
 .hero-meta .mi svg{width:15px;height:18px;flex:none}
 
-.hero-media{position:relative}
-.hero-media .frame{position:relative;border:1px solid var(--line);overflow:hidden;aspect-ratio:4/4.6}
+.hero-media{position:relative;width:100%;max-width:400px;margin-inline:auto}
+.hero-media .frame{position:relative;border:1px solid var(--line);overflow:hidden;aspect-ratio:4/3.2;border-radius:20px}
 .hero-media .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
 .hero-media:hover .frame img{transform:scale(1.04)}
 .hero-media .tag{
@@ -211,95 +213,93 @@ section[id],#top,footer{scroll-margin-top:84px}
 
 /* ---------- section frame ---------- */
 section{position:relative}
-.sec-head{display:flex;flex-direction:column;gap:14px;padding:0 var(--pad);margin-bottom:clamp(28px,5vw,46px)}
-.sec-head h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,9vw,62px);line-height:1;letter-spacing:-.02em}
-.sec-head .sub{color:var(--dim);max-width:46ch;font-size:clamp(14px,3.8vw,16px)}
+.sec-head{display:flex;flex-direction:column;gap:12px;padding:0 var(--pad);margin:0 0 clamp(18px,3vw,30px)}
+.sec-head h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,4.6vw,38px);line-height:1.04;letter-spacing:-.02em}
+.sec-head .sub{color:var(--dim);max-width:46ch;font-size:clamp(13px,3.2vw,15px)}
 
 /* botanical divider */
-.divider{display:flex;align-items:center;justify-content:center;gap:18px;padding:clamp(34px,7vw,64px) var(--pad)}
+.divider{display:flex;align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,40px) var(--pad)}
 .divider .line{height:1px;background:var(--line);flex:1;max-width:240px}
 .divider svg{width:clamp(120px,40vw,200px);height:auto;flex:none}
 
 /* ---------- collections ---------- */
-.collections{padding:clamp(40px,7vw,80px) 0}
-.col-grid{display:grid;grid-template-columns:1fr;gap:2px;padding:0 var(--pad)}
+.collections{padding:0 0 clamp(28px,5vw,52px)}
+.col-grid{display:grid;grid-template-columns:1fr;gap:10px;padding:0 var(--pad)}
 .col-card{
-  position:relative;display:block;overflow:hidden;
+  position:relative;display:block;overflow:hidden;border-radius:20px;
   border:1px solid var(--line);
   background:var(--ink-2);
 }
-.col-card .ph{position:relative;aspect-ratio:3/3.4;overflow:hidden}
-.col-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.col-card:hover .ph img{transform:scale(1.05)}
-.col-card .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line-soft);background:var(--ink-2)}
-.col-card .ctop{display:flex;align-items:center;gap:9px}
-.col-card .ctop svg{width:15px;height:18px;flex:none}
-.col-card .ctop .num{font-size:11px;letter-spacing:.22em;color:var(--dimmer);font-weight:600}
-.col-card h3{font-family:var(--display);font-size:clamp(28px,7vw,38px);font-weight:500;line-height:1}
-.col-card .desc{color:var(--dim);font-size:14px;max-width:30ch}
+.col-card .ph{position:relative;aspect-ratio:4/3.2;overflow:hidden;background:var(--surface)}
+.col-card .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;transition:opacity .4s ease}
+.col-card:hover .ph img{opacity:.92}
+.col-card .body{padding:14px 18px 18px;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line-soft);background:var(--ink-2)}
+.col-card .ctop{display:flex;align-items:center;gap:8px}
+.col-card .ctop svg{width:13px;height:16px;flex:none}
+.col-card .ctop .num{font-size:10px;letter-spacing:.2em;color:var(--dimmer);font-weight:600}
+.col-card h3{font-family:var(--display);font-size:clamp(20px,5vw,26px);font-weight:500;line-height:1.04}
+.col-card .desc{color:var(--dim);font-size:13px;max-width:32ch}
 .col-card .order{
-  display:inline-flex;align-items:center;gap:8px;margin-top:6px;
-  font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--marigold);
+  display:inline-flex;align-items:center;gap:8px;margin-top:8px;
+  font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
   transition:gap .25s,color .25s;
 }
-.col-card:hover .order{gap:14px;color:var(--fuchsia)}
+.col-card:hover .order{gap:14px;color:var(--accent-hover)}
 .col-card .order svg{width:16px;height:16px}
 
 /* ---------- lookbook ---------- */
-.lookbook{padding:clamp(40px,7vw,80px) 0}
-.lb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;padding:0 var(--pad)}
-.lb-item{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--ink-2)}
+.lookbook{padding:0 0 clamp(28px,5vw,52px)}
+.lb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;padding:0 var(--pad)}
+.lb-item{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--ink-2);border-radius:10px;aspect-ratio:4/3.2}
 .lb-item img,.lb-item video{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
 .lb-item:hover img,.lb-item:hover video{transform:scale(1.06)}
-/* best-effort watermark crop: zooms a video so a corner logo sits outside the frame.
-   NOTE: a baked-in TikTok watermark that moves between corners can't be fully removed
-   this way — supply a clean original for a perfect result. */
 .lb-item video.wm-crop{transform:scale(1.2)}
 .lb-item:hover video.wm-crop{transform:scale(1.26)}
-.lb-item.tall{grid-row:span 2;aspect-ratio:auto}
 .lb-item .cap{
   position:absolute;left:12px;bottom:12px;z-index:2;opacity:0;transform:translateY(8px);
+  max-width:calc(100% - 24px);overflow-wrap:anywhere;
   transition:.4s;font-family:var(--display);font-style:italic;font-size:15px;
   background:rgba(10,10,10,.6);padding:4px 11px;border:1px solid var(--line-soft);
 }
 .lb-item:hover .cap{opacity:1;transform:translateY(0)}
 .lb-item .corner{position:absolute;top:8px;right:8px;width:30px;height:30px;opacity:0;transition:.4s;z-index:2}
 .lb-item:hover .corner{opacity:.85}
-.lb-a1{aspect-ratio:3/4}
-.lb-a2{aspect-ratio:3/4}
+.lb-a1{aspect-ratio:4/3.2}
+.lb-a2{aspect-ratio:4/3.2}
+.lb-item.tall{aspect-ratio:4/3.2}
 
 /* ---------- story ---------- */
-.story{padding:clamp(56px,10vw,120px) var(--pad)}
+.story{padding:clamp(36px,7vw,72px) var(--pad)}
 .story-wrap{display:flex;flex-direction:column;gap:clamp(30px,6vw,56px);align-items:center}
 .story-media{position:relative;width:100%;max-width:420px}
-.story-media .frame{border:1px solid var(--line);overflow:hidden;aspect-ratio:3/3.7}
+.story-media .frame{border:1px solid var(--line);overflow:hidden;aspect-ratio:4/3.2;border-radius:20px}
 .story-media .frame img{width:100%;height:100%;object-fit:cover}
 .story-media .sprig{position:absolute;bottom:-30px;left:-22px;width:120px;height:auto;opacity:.92}
 .story-text{max-width:560px;text-align:center}
 .story-text h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,8vw,52px);line-height:1.04;letter-spacing:-.015em;margin-bottom:22px}
 .story-text p{color:var(--dim);font-size:clamp(15px,4vw,17px);line-height:1.75;margin-bottom:16px}
 .story-text p b{color:var(--white);font-weight:600}
-.story-sign{font-family:var(--display);font-style:italic;font-size:20px;color:var(--marigold);margin-top:8px}
+.story-sign{font-family:var(--display);font-style:italic;font-size:20px;color:var(--accent);margin-top:8px}
 
 /* ---------- how to order ---------- */
-.order{padding:clamp(48px,8vw,96px) var(--pad);background:var(--ink-2);border-block:1px solid var(--line-soft)}
-.order-head{text-align:center;margin-bottom:clamp(34px,6vw,56px);display:flex;flex-direction:column;align-items:center;gap:14px}
-.order-head h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,9vw,58px);line-height:1;letter-spacing:-.02em}
-.order-head .sub{color:var(--dim);max-width:40ch}
+.order{padding:clamp(18px,3vw,30px) var(--pad) clamp(28px,5vw,48px);background:var(--ink-2);border-block:1px solid var(--line-soft)}
+.order-head{text-align:center;margin:0 0 clamp(24px,4vw,40px);display:flex;flex-direction:column;align-items:center;gap:12px}
+.order-head h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,4.6vw,38px);line-height:1.04;letter-spacing:-.02em}
+.order-head .sub{color:var(--dim);max-width:40ch;font-size:clamp(13px,3.2vw,15px)}
 .steps{display:grid;grid-template-columns:1fr;gap:2px;max-width:1000px;margin:0 auto 42px}
 .step{
   position:relative;padding:30px 26px;border:1px solid var(--line);background:var(--ink);
   display:flex;flex-direction:column;gap:12px;
 }
-.step .sn{font-family:var(--display);font-size:34px;color:var(--fuchsia);line-height:1;display:flex;align-items:baseline;gap:10px}
+.step .sn{font-family:var(--display);font-size:34px;color:var(--accent);line-height:1;display:flex;align-items:baseline;gap:10px}
 .step .sn svg{width:22px;height:26px}
-.step h4{font-family:var(--display);font-size:22px;font-weight:500}
-.step p{color:var(--dim);font-size:14px;line-height:1.6}
+.step h4{font-family:var(--display);font-size:19px;font-weight:500}
+.step p{color:var(--dim);font-size:13px;line-height:1.6}
 .order-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 .order-cta .btn{flex:1;min-width:200px;max-width:280px;padding:16px 24px;font-size:14px}
 
 /* ---------- footer ---------- */
-footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
+footer{padding:clamp(32px,6vw,60px) var(--pad) 28px;background:var(--ink)}
 .foot-top{display:flex;flex-direction:column;gap:34px}
 .foot-brand{display:flex;flex-direction:column;gap:16px}
 .foot-brand .lock{display:flex;align-items:center;gap:14px}
@@ -309,7 +309,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 .foot-links{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .foot-col h5{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dimmer);margin-bottom:14px;font-weight:600}
 .foot-col a{display:flex;align-items:center;gap:9px;padding:6px 0;color:var(--dim);font-size:14px;transition:color .25s,gap .25s}
-.foot-col a:hover{color:var(--fuchsia);gap:13px}
+.foot-col a:hover{color:var(--accent);gap:13px}
 .foot-col a svg{width:15px;height:15px;flex:none}
 .foot-bottom{
   margin-top:42px;padding-top:24px;border-top:1px solid var(--line-soft);
@@ -324,25 +324,25 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
    slide-in panel mirroring the mobile drawer.
    ============================================================ */
 /* shop section (reuses collection-card visual language) */
-.shop{padding:clamp(40px,7vw,80px) 0}
-.shop-grid{display:grid;grid-template-columns:1fr;gap:2px;padding:0 var(--pad)}
-.shop-card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);background:var(--ink-2);overflow:hidden}
-.shop-card .ph{position:relative;aspect-ratio:3/3.5;overflow:hidden}
-.shop-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.shop-card:hover .ph img{transform:scale(1.05)}
-.shop-card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1;border-top:1px solid var(--line-soft)}
-.shop-card .clabel{display:flex;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);font-weight:600}
-.shop-card .clabel svg{width:13px;height:16px;flex:none}
-.shop-card h3{font-family:var(--display);font-size:clamp(21px,5.4vw,25px);font-weight:500;line-height:1.06}
-.shop-card .price{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--marigold)}
+.shop{padding:0 0 clamp(28px,5vw,52px)}
+.shop-grid{display:grid;grid-template-columns:1fr;gap:10px;padding:0 var(--pad)}
+.shop-card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);background:var(--ink-2);overflow:hidden;border-radius:20px}
+.shop-card .ph{position:relative;aspect-ratio:4/3.2;overflow:hidden;background:var(--surface)}
+.shop-card .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;transition:opacity .4s ease}
+.shop-card:hover .ph img{opacity:.92}
+.shop-card .body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:5px;flex:1;border-top:1px solid var(--line-soft)}
+.shop-card .clabel{display:flex;align-items:center;gap:6px;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);font-weight:600}
+.shop-card .clabel svg{width:11px;height:14px;flex:none}
+.shop-card h3{font-family:var(--display);font-size:clamp(17px,4.4vw,20px);font-weight:500;line-height:1.08}
+.shop-card .price{font-size:13.5px;font-weight:600;letter-spacing:.02em;color:var(--accent)}
 .shop-card .add{width:100%;margin-top:auto}
-.shop-card .add.added{background:var(--pistachio);color:#16210a;border-color:var(--pistachio)}
-.shop-card .size-label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);font-weight:600;margin-top:6px}
-.shop-card .sizes{display:flex;flex-wrap:wrap;gap:6px;margin-top:1px}
-.shop-card .size-pill{min-width:38px;padding:10px 11px;background:none;border:1px solid var(--line);color:var(--dim);border-radius:999px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.shop-card .add.added{background:var(--accent);color:#1a1206;border-color:var(--accent)}
+.shop-card .size-label{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);font-weight:600;margin-top:5px}
+.shop-card .sizes{display:flex;flex-wrap:wrap;gap:5px;margin-top:1px}
+.shop-card .size-pill{min-width:32px;padding:7px 9px;background:none;border:1px solid var(--line);color:var(--dim);border-radius:var(--radius);font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
 .shop-card .size-pill:hover{border-color:rgba(255,255,255,.42);color:var(--white)}
 .shop-card .size-pill[aria-pressed="true"]{background:var(--white);color:#0a0a0a;border-color:var(--white)}
-.shop-card .size-hint{font-size:11.5px;color:var(--scarlet);opacity:0;height:0;overflow:hidden;transition:opacity .2s}
+.shop-card .size-hint{font-size:11.5px;color:var(--accent-2);opacity:0;height:0;overflow:hidden;transition:opacity .2s}
 .shop-card .size-hint.show{opacity:1;height:auto;margin-top:2px}
 .cl-size{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dimmer);font-weight:600}
 .co-sum-size{color:var(--dimmer)}
@@ -352,7 +352,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 .cart-btn svg{width:23px;height:23px}
 .cart-count{
   position:absolute;top:-1px;right:-2px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;
-  background:var(--fuchsia);color:#fff;font-size:10.5px;font-weight:700;font-family:var(--sans);
+  background:var(--accent);color:#1a1206;font-size:10.5px;font-weight:700;font-family:var(--sans);
   display:flex;align-items:center;justify-content:center;line-height:1;
 }
 .cart-count[hidden]{display:none}
@@ -387,12 +387,12 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 .cl-name{font-family:var(--display);font-size:18px;line-height:1.1;overflow-wrap:anywhere}
 .cl-unit{font-size:12px;color:var(--dim)}
 .cl-controls{display:flex;align-items:center;gap:14px;margin-top:2px}
-.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .stepper button{width:36px;height:36px;background:none;border:0;color:var(--white);cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:background .2s}
 .stepper button:hover{background:rgba(255,255,255,.06)}
 .stepper .qv{min-width:26px;text-align:center;font-size:13px;font-variant-numeric:tabular-nums}
 .cl-remove{background:none;border:0;color:var(--dimmer);cursor:pointer;padding:10px;display:inline-flex;transition:color .2s}
-.cl-remove:hover{color:var(--scarlet)}
+.cl-remove:hover{color:var(--accent-2)}
 .cl-remove svg{width:17px;height:17px}
 .cl-total{font-size:14px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:360px){ .cart-line{gap:10px} .cl-controls{gap:10px} }
@@ -412,25 +412,25 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 .co-form label{display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
 .co-form input,.co-form textarea{
   font-family:var(--sans);font-size:16px;color:var(--white);background:var(--ink-3);
-  border:1px solid var(--line);border-radius:8px;padding:12px 14px;width:100%;resize:vertical;
+  border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;width:100%;resize:vertical;
   transition:border-color .2s;letter-spacing:0;text-transform:none;font-weight:400;
 }
-.co-form input:focus,.co-form textarea:focus{outline:none;border-color:var(--fuchsia)}
-.co-form .invalid{border-color:var(--scarlet)}
+.co-form input:focus,.co-form textarea:focus{outline:none;border-color:var(--accent)}
+.co-form .invalid{border-color:var(--accent-2)}
 /* payment block */
 .co-pay{display:flex;flex-direction:column;gap:10px;margin-top:6px}
 .co-pay-h{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
-.pay-opt{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s}
-.pay-opt.selected{border-color:var(--marigold);background:rgba(237,170,30,.06)}
-.pay-opt input{accent-color:var(--marigold);width:16px;height:16px;flex:none}
+.pay-opt{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s}
+.pay-opt.selected{border-color:var(--accent);background:rgba(232,163,61,.07)}
+.pay-opt input{accent-color:var(--accent);width:16px;height:16px;flex:none}
 .pay-opt .pay-main{font-size:14px;font-weight:600;color:var(--white);display:flex;align-items:center;gap:8px}
 .pay-opt .pay-sub{flex-basis:100%;padding-left:26px;font-size:12px;color:var(--dim)}
 .pay-opt.disabled{opacity:.5;cursor:not-allowed}
-.pay-opt .soon{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--marigold);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+.pay-opt .soon{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);border:1px solid var(--line);border-radius:var(--radius);padding:2px 8px}
 
 /* confirmation */
 .co-done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:38px 0}
-.co-check{width:60px;height:60px;border-radius:50%;border:1px solid var(--pistachio);display:flex;align-items:center;justify-content:center;color:var(--pistachio)}
+.co-check{width:60px;height:60px;border-radius:50%;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent)}
 .co-check svg{width:30px;height:30px}
 .co-done h3{font-family:var(--display);font-size:30px;font-weight:500}
 .co-done p{color:var(--dim);font-size:14.5px;max-width:34ch;line-height:1.65}
@@ -446,11 +446,12 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 .cart-back{background:none;border:0;color:var(--dim);cursor:pointer;font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;padding:2px;transition:color .2s}
 .cart-back:hover{color:var(--white)}
 .cart-foot .btn[disabled]{opacity:.55;cursor:not-allowed}
-.co-error{margin:0 0 2px;padding:11px 13px;border:1px solid var(--scarlet);border-radius:8px;background:rgba(221,32,80,.08);color:var(--white);font-size:13px;line-height:1.45}
+.co-error{margin:0 0 2px;padding:11px 13px;border:1px solid var(--accent-2);border-radius:var(--radius);background:rgba(192,57,91,.10);color:var(--white);font-size:13px;line-height:1.45}
 .co-error[hidden]{display:none}
 
 @media(min-width:560px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:980px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.shop-grid{grid-template-columns:repeat(4,1fr)}}
 
 /* ---------- reveal ---------- */
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
@@ -458,15 +459,17 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 @media (prefers-reduced-motion:reduce){
   [data-reveal]{opacity:1;transform:none;transition:none}
   .marquee{animation:none}
+  .hero-media .frame img,.col-card .ph img,.shop-card .ph img,.lb-item img,.lb-item video{transition:none}
+  .hero-media:hover .frame img,.col-card:hover .ph img,.shop-card:hover .ph img,.lb-item:hover img{transform:none}
+  .lb-item:hover video.wm-crop{transform:scale(1.2)}
 }
 
 /* ---------- responsive ---------- */
 @media(min-width:700px){
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(30px,5vw,64px)}
-  .hero-media{order:2}
-  .col-grid{grid-template-columns:repeat(3,1fr)}
-  .lb-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr}
-  .lb-item.tall{grid-row:span 2}
+  .hero-grid{display:grid;grid-template-columns:1fr 400px;align-items:center;gap:clamp(36px,5vw,72px)}
+  .hero-media{order:2;max-width:400px;margin:0}
+  .col-grid{grid-template-columns:repeat(3,1fr);align-items:start}
+  .lb-grid{grid-template-columns:repeat(3,1fr)}
   .steps{grid-template-columns:repeat(3,1fr)}
   .story-wrap{flex-direction:row;align-items:center;justify-content:center;gap:clamp(40px,6vw,80px)}
   .story-text{text-align:left}
@@ -475,7 +478,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
 @media(min-width:1024px){
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{font-size:14.5px;font-weight:500;letter-spacing:.04em;color:var(--dim);position:relative;padding:4px 0;transition:color .25s}
-  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--fuchsia);transition:width .3s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--accent);transition:width .3s}
   .nav-links a:hover{color:var(--white)}
   .nav-links a:hover::after{width:100%}
   .nav-links a.active{color:var(--white)}
@@ -716,7 +719,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   <section class="collections" id="collections">
     <div class="sec-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span>The Collections</span>
-      <h2 class="serif">Pick your <em class="acc-m">occasion</em></h2>
+      <h2 class="serif">Pick your <em class="acc">occasion</em></h2>
       <p class="sub">Three edits, all made to order. Choose a piece, send us a message, and we stitch it for you.</p>
     </div>
     <div class="col-grid">
@@ -754,7 +757,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   <section class="shop" id="shop">
     <div class="sec-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span>The Shop</span>
-      <h2 class="serif">Shop the <em class="acc-m">edit</em></h2>
+      <h2 class="serif">Shop the <em class="acc">edit</em></h2>
       <p class="sub">Ready-to-order pieces with cash on delivery across Pakistan. Add to your cart and check out in a minute.</p>
     </div>
     <div class="shop-grid" id="shopGrid" data-reveal></div>
@@ -764,19 +767,19 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   <section class="lookbook" id="lookbook">
     <div class="sec-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span>The Lookbook</span>
-      <h2 class="serif">Out in the garden, <em class="acc-p">dressed up</em></h2>
+      <h2 class="serif">Out in the garden, <em class="acc">dressed up</em></h2>
       <p class="sub">Shot outdoors in real light — bougainvillea, gardens and a vintage jeep. The colour does the talking.</p>
     </div>
     <div class="lb-grid">
-      <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <video class="wm-crop" src="video/design-reel.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Silvatein festive reel in motion"></video>
+      <a class="lb-item" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/jeep-full.jpg" alt="Model in a pistachio chikankari suit beside a vintage jeep and bougainvillea" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
-        <span class="cap">In motion — the festive reel</span>
+        <span class="cap">Pistachio, outdoors</span>
       </a>
-      <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <video src="video/anarkali.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Classic Anarkali frock in motion"></video>
+      <a class="lb-item" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/extra-1.jpg" alt="Blush chikankari kurta against pink bougainvillea" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
-        <span class="cap">Classic Anarkali, in motion</span>
+        <span class="cap">Blush &amp; bougainvillea</span>
       </a>
       <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
         <img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock on a garden bench" loading="lazy" decoding="async" />
@@ -788,10 +791,10 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
         <span class="cap">Hibiscus &amp; hand-work</span>
       </a>
-      <a class="lb-item tall" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <video src="video/pink-ensemble.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The signature pink ensemble in motion"></video>
+      <a class="lb-item" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/scarlet-5.jpg" alt="Model in a scarlet and marigold festive frock on a garden bench" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
-        <span class="cap">The colour of grace — the signature pink ensemble</span>
+        <span class="cap">Scarlet, on the bench</span>
       </a>
       <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
         <img src="img/scarlet-4.jpg" alt="Two women in scarlet Silvatein frocks seated in a pine garden" loading="lazy" decoding="async" />
@@ -799,9 +802,9 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         <span class="cap">Worn together</span>
       </a>
       <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
-        <video src="video/black-legacy.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The black ensemble — adorned in legacy"></video>
+        <img src="img/scarlet-2.jpg" alt="Two clients wearing their scarlet Silvatein frocks together" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
-        <span class="cap">Now in black — adorned in legacy</span>
+        <span class="cap">In good company</span>
       </a>
       <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
         <img src="img/red-anarkali.jpg" alt="Model in a red and pink floral Anarkali frock on a sofa" loading="lazy" decoding="async" />
@@ -812,6 +815,46 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
         <img src="img/teal-set.jpg" alt="Model in a teal embellished co-ord set" loading="lazy" decoding="async" />
         <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
         <span class="cap">Teal, embellished</span>
+      </a>
+      <a class="lb-item lb-a2" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/jeep-full.jpg" alt="Model in a pistachio chikankari suit among bougainvillea" loading="lazy" decoding="async" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Among the bougainvillea</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/red-anarkali.jpg" alt="Detail of a red and pink floral Anarkali frock" loading="lazy" decoding="async" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Floral, up close</span>
+      </a>
+      <a class="lb-item" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <video class="wm-crop" src="video/design-reel.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Silvatein festive reel in motion"></video>
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">In motion — the festive reel</span>
+      </a>
+      <a class="lb-item" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <video src="video/anarkali.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Classic Anarkali frock in motion"></video>
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Classic Anarkali, in motion</span>
+      </a>
+      <a class="lb-item" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <video src="video/pink-ensemble.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The signature pink ensemble in motion"></video>
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">The signature pink, in motion</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <video src="video/black-legacy.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The black ensemble in motion"></video>
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Now in black, in motion</span>
+      </a>
+      <a class="lb-item lb-a1" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/scarlet-1.jpg" alt="Scarlet and marigold festive frock in a garden" loading="lazy" decoding="async" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Festive florals</span>
+      </a>
+      <a class="lb-item lb-a2" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener" data-reveal>
+        <img src="img/detail-hibiscus.jpg" alt="Hibiscus flowers resting on printed Silvatein fabric" loading="lazy" decoding="async" />
+        <span class="corner"><svg viewBox="0 0 40 40"><use href="#corner"/></svg></span>
+        <span class="cap">Bloom &amp; thread</span>
       </a>
     </div>
   </section>
@@ -861,7 +904,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     </div>
     <div class="order-cta" data-reveal>
       <a class="btn btn-wa" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Order on WhatsApp</a>
-      <a class="btn btn-fuchsia" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
+      <a class="btn btn-ig" href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
     </div>
   </section>
 
@@ -881,7 +924,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
           <!-- NOTE: Before publishing, turn OFF Cloudflare "Email Address Obfuscation" (Scrape Shield), or this mailto gets re-wrapped on deploy. -->
-          <a class="js-mail" href="mailto:rana.codifyr57@gmail.com"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a class="js-mail" href="/cdn-cgi/l/email-protection#8af8ebe4eba4e9e5eee3ecf3f8bfbdcaede7ebe3e6a4e9e5e7"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
@@ -909,7 +952,7 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
   </footer>
 </main>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   "use strict";
 
@@ -1024,7 +1067,9 @@ footer{padding:clamp(48px,8vw,88px) var(--pad) 32px;background:var(--ink)}
     { id:'slv-03', name:'Pistachio Chikankari Suit', collection:"Eid '26",        price:16500, image:'img/jeep-full.jpg', alt:'Pistachio chikankari suit beside a vintage jeep',       sizes:SIZES },
     { id:'slv-04', name:'Marigold Garden Frock',     collection:"Frocks '26",     price:12500, image:'img/scarlet-5.jpg', alt:'Scarlet and marigold festive frock on a bench',         sizes:SIZES },
     { id:'slv-05', name:'Rosewood Twin Set',         collection:'Client Diaries', price:13800, image:'img/scarlet-2.jpg', alt:'Two clients in their scarlet Silvatein frocks',         sizes:SIZES },
-    { id:'slv-06', name:'Garden Party Frock',        collection:'Client Diaries', price:11900, image:'img/scarlet-4.jpg', alt:'Two women in scarlet Silvatein frocks in a garden',     sizes:SIZES }
+    { id:'slv-06', name:'Garden Party Frock',        collection:'Client Diaries', price:11900, image:'img/scarlet-4.jpg', alt:'Two women in scarlet Silvatein frocks in a garden',     sizes:SIZES },
+    { id:'slv-07', name:'Red Floral Anarkali',       collection:"Frocks '26",     price:10900, image:'img/red-anarkali.jpg', alt:'Model in a red and pink floral Anarkali frock',       sizes:SIZES },
+    { id:'slv-08', name:'Teal Co-ord Set',           collection:"Eid '26",        price:15200, image:'img/teal-set.jpg',     alt:'Model in a teal embellished co-ord set',             sizes:SIZES }
   ];
 
   var STORE_KEY = 'silvatein_cart_v2';   // v2: cart lines now carry a size
