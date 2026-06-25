@@ -388,9 +388,12 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
 .shop-card .size-guide-link:hover{color:var(--accent-hover)}
 
 /* ---------- info / size-guide modal ---------- */
-.modal-scrim{position:fixed;inset:0;z-index:70;background:rgba(8,7,6,.66);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s ease}
-.modal-scrim.open{opacity:1}
-.modal{position:fixed;z-index:71;top:50%;left:50%;transform:translate(-50%,-48%);width:min(620px,92vw);max-height:86vh;display:flex;flex-direction:column;background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 30px 80px rgba(0,0,0,.5);opacity:0;transition:opacity .3s ease,transform .3s cubic-bezier(.2,.8,.2,1)}
+.modal-scrim{position:fixed;inset:0;z-index:70;background:rgba(8,7,6,.66);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.modal-scrim.open{opacity:1;pointer-events:auto}
+.modal-scrim[hidden]{display:none}
+.modal{position:fixed;z-index:71;top:50%;left:50%;transform:translate(-50%,-48%);width:min(620px,92vw);max-height:86vh;display:flex;flex-direction:column;background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease}
+.modal[hidden]{display:none}
+.modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%);box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .modal.open{opacity:1;transform:translate(-50%,-50%)}
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid var(--line-soft);flex:none}
 .modal-title{font-size:clamp(20px,4vw,26px);font-weight:500}
@@ -961,7 +964,7 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
           <h5>Order</h5>
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
-          <a class="js-mail" href="/cdn-cgi/l/email-protection#3e4c5f505f105d515a5758474c0b097e59535f5752105d5153"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a class="js-mail" href="/cdn-cgi/l/email-protection#a2d0c3ccc38cc1cdc6cbc4dbd09795e2c5cfc3cbce8cc1cdcf"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
