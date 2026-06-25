@@ -158,6 +158,7 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
   display:flex;align-items:center;justify-content:space-between;
   padding:14px var(--pad);
   gap:18px;
+  max-width:var(--maxw,1280px);margin-inline:auto;
 }
 .brand{display:flex;align-items:center;gap:12px;flex:none}
 .brand .mark{width:34px;height:34px;flex:none}
@@ -211,14 +212,15 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 .drawer .drawer-cta .btn{flex:1}
 
 /* ---------- hero (full-bleed carousel banner) ---------- */
-.hero{position:relative;width:100%;height:clamp(440px,88vh,860px);max-height:100svh;overflow:hidden;display:flex;align-items:center}
+.hero{position:relative;width:100%;min-height:clamp(360px,56vh,580px);height:auto;overflow:hidden;display:flex;align-items:center}
+.hero-copy{padding-block:clamp(24px,3.5vw,36px) clamp(40px,4.5vw,50px)}
 .hc-track{position:absolute;inset:0;z-index:0}
 .hc-slide{position:absolute;inset:0;margin:0;opacity:0;transform:scale(1.07);transition:opacity 1.1s ease,transform 7s ease;pointer-events:none}
 .hc-slide img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .hc-slide.is-active{opacity:1;transform:scale(1);pointer-events:auto}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,9,8,.86) 0%,rgba(10,9,8,.66) 38%,rgba(10,9,8,.28) 66%,rgba(10,9,8,.12) 100%),linear-gradient(0deg,rgba(10,9,8,.5),rgba(10,9,8,0) 40%)}
-.hero-copy{position:relative;z-index:3;width:100%;max-width:var(--maxw,1280px);margin-inline:auto;padding:clamp(28px,5vw,56px) clamp(56px,8vw,110px)}
-.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,6.5vw,4.6rem);line-height:1.02;letter-spacing:-.02em;margin-bottom:18px;color:var(--white);text-shadow:0 2px 30px rgba(0,0,0,.45)}
+.hero-copy{position:relative;z-index:3;width:100%;max-width:var(--maxw,1280px);margin-inline:auto;padding:clamp(28px,5vw,56px) var(--pad)}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.1rem,5.4vw,3.9rem);line-height:1.04;letter-spacing:-.02em;margin-bottom:16px;color:var(--white);text-shadow:0 2px 30px rgba(0,0,0,.45)}
 .hero h1 .ln{display:block;overflow:hidden}
 .hero h1 .ln .t{display:block;animation:lineUp .9s cubic-bezier(.2,.8,.2,1) backwards}
 .hero h1 .ln:nth-child(1) .t{animation-delay:.05s}
@@ -227,10 +229,26 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 @keyframes lineUp{from{transform:translateY(110%)}to{transform:translateY(0)}}
 section[id],#top,footer{scroll-margin-top:84px}
 @media (prefers-reduced-motion:reduce){.hero h1 .ln .t{animation:none;transform:none}.hc-slide{transition:opacity .4s ease;transform:none}.hc-slide.is-active{transform:none}}
-.hero .eyebrow{text-shadow:0 1px 18px rgba(0,0,0,.5)}
+.hero .eyebrow{text-shadow:0 1px 18px rgba(0,0,0,.5);flex-wrap:wrap;letter-spacing:.18em;max-width:100%}
+@media (max-width:560px){
+  .hero .eyebrow{font-size:10px;letter-spacing:.12em}
+  .hero-copy{text-align:center;padding-bottom:54px}
+  .hero h1{margin-inline:auto}
+  .hero p.lede{margin-inline:auto}
+  .hero-cta{margin-inline:auto}
+  .hero-meta{justify-content:center;margin-inline:auto}
+  .hc-dots{bottom:18px}
+  .hc-dots button{box-shadow:0 1px 6px rgba(0,0,0,.6)}
+}
 .hero p.lede{font-size:clamp(15px,1.5vw,18px);color:rgba(245,241,234,.86);max-width:34ch;margin-bottom:30px;line-height:1.65;text-shadow:0 1px 20px rgba(0,0,0,.5)}
-.hero-cta{display:flex;flex-direction:column;gap:12px;margin-bottom:30px;max-width:340px}
+.hero-cta{display:flex;flex-direction:column;gap:10px;margin-bottom:26px;max-width:300px}
 .hero-cta .btn{width:100%}
+@media (max-width:560px){
+  .hero-cta{max-width:280px;gap:9px}
+  .hero-cta .btn{padding:11px 16px;font-size:12px}
+  .hero-meta{gap:9px 18px;padding-top:16px}
+  .hero-meta .mi{font-size:10.5px;letter-spacing:.04em}
+}
 .hero-meta{display:flex;flex-wrap:wrap;gap:12px 26px;padding-top:20px;margin-top:4px;border-top:1px solid rgba(245,241,234,.14);max-width:560px}
 .hero-meta .mi{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgba(245,241,234,.9);text-shadow:0 1px 8px rgba(0,0,0,.55)}
 .hero-meta .mi svg{width:14px;height:17px;flex:none;color:var(--accent)}
@@ -960,7 +978,7 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
           <h5>Order</h5>
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
-          <a class="js-mail" href="/cdn-cgi/l/email-protection#fe8c9f909fd09d919a9798878ccbc9be99939f9792d09d9193"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a class="js-mail" href="/cdn-cgi/l/email-protection#9be9faf5fab5f8f4fff2fde2e9aeacdbfcf6faf2f7b5f8f4f6"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
@@ -1144,7 +1162,9 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
     root.addEventListener('mouseleave',function(){ reset(); });
     root.addEventListener('focusin',function(){ if(timer) clearInterval(timer); });
     root.addEventListener('focusout',function(){ reset(); });
+    // kick off: advance once early so the carousel visibly moves soon after load
     reset();
+    if(!reduce){ setTimeout(function(){ next(); reset(); }, 1200); }
   })();
 
   /* ---- lazy-load lookbook videos: play only while in view ---- */
