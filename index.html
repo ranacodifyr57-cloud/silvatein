@@ -212,8 +212,8 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 .drawer .drawer-cta .btn{flex:1}
 
 /* ---------- hero (full-bleed carousel banner) ---------- */
-.hero{position:relative;width:100%;min-height:clamp(360px,56vh,580px);height:auto;overflow:hidden;display:flex;align-items:center}
-.hero-copy{padding-block:clamp(24px,3.5vw,36px) clamp(40px,4.5vw,50px)}
+.hero{position:relative;width:100%;height:calc(100vh - var(--topbar-h,40px) - var(--header-h,68px));height:calc(100svh - var(--topbar-h,40px) - var(--header-h,68px));min-height:400px;overflow:hidden;display:flex;align-items:center}
+.hero-copy{padding-block:clamp(20px,3vw,40px) clamp(40px,4.5vw,54px)}
 .hc-track{position:absolute;inset:0;z-index:0}
 .hc-slide{position:absolute;inset:0;margin:0;opacity:0;transform:scale(1.07);transition:opacity 1.1s ease,transform 7s ease;pointer-events:none}
 .hc-slide img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
@@ -230,6 +230,30 @@ header.scrolled{border-bottom-color:var(--line-soft);background:rgba(10,10,10,.9
 section[id],#top,footer{scroll-margin-top:84px}
 @media (prefers-reduced-motion:reduce){.hero h1 .ln .t{animation:none;transform:none}.hc-slide{transition:opacity .4s ease;transform:none}.hc-slide.is-active{transform:none}}
 .hero .eyebrow{text-shadow:0 1px 18px rgba(0,0,0,.5);flex-wrap:wrap;letter-spacing:.18em;max-width:100%}
+
+/* ---- very large / 4K screens: widen container, scale type up, stay centered ---- */
+@media (min-width:1700px){
+  .nav,.hero-copy{max-width:1480px}
+  .hero{min-height:clamp(560px,62vh,760px)}
+  .hero h1{font-size:clamp(3.4rem,3.6vw,4.6rem)}
+  .hero p.lede{font-size:clamp(17px,1.2vw,20px);max-width:40ch}
+  .hero-copy{padding-block:clamp(40px,3vw,60px) clamp(56px,3.5vw,72px)}
+}
+@media (min-width:2300px){
+  .nav,.hero-copy{max-width:1640px}
+}
+/* ---- laptop (≤1180px): tighten headline + spacing a touch ---- */
+@media (max-width:1180px){
+  .hero h1{font-size:clamp(2rem,5vw,3.4rem)}
+  .hero-copy{padding-block:clamp(24px,3vw,38px) clamp(40px,4vw,52px)}
+}
+/* ---- mobile (≤560px): let hero grow to fit content so nothing clips ---- */
+@media (max-width:560px){
+  .hero{height:auto;min-height:calc(100svh - var(--topbar-h,40px) - var(--header-h,68px))}
+  .hero h1{font-size:clamp(1.9rem,8vw,2.6rem);margin-bottom:12px}
+  .hero p.lede{font-size:14.5px;line-height:1.55}
+  .hero-copy{padding-block:18px 46px}
+}
 @media (max-width:560px){
   .hero .eyebrow{font-size:10px;letter-spacing:.12em}
   .hero-copy{text-align:center;padding-bottom:54px}
@@ -978,7 +1002,7 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
           <h5>Order</h5>
           <a href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>WhatsApp</a>
           <a href="https://instagram.com/silvateinofficial_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ig"/></svg>DM on Instagram</a>
-          <a class="js-mail" href="/cdn-cgi/l/email-protection#3042515e511e535f5459564942050770575d51595c1e535f5d"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
+          <a class="js-mail" href="/cdn-cgi/l/email-protection#95e7f4fbf4bbf6faf1fcf3ece7a0a2d5f2f8f4fcf9bbf6faf8"><svg viewBox="0 0 24 24"><use href="#mail"/></svg>Email us</a>
         </div>
         <div class="foot-col">
           <h5>Follow</h5>
@@ -1614,6 +1638,24 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
   renderShop();
   renderCart();
   renderBadge();
+})();
+</script>
+<script>
+/* fit marquee + header + hero into one screen: measure chrome, expose as CSS vars */
+(function(){
+  var topbar=document.querySelector('.topbar');
+  var header=document.getElementById('header');
+  function fit(){
+    var t=topbar?topbar.offsetHeight:0;
+    var h=header?header.offsetHeight:0;
+    document.documentElement.style.setProperty('--topbar-h', t+'px');
+    document.documentElement.style.setProperty('--header-h', h+'px');
+  }
+  fit();
+  window.addEventListener('resize', fit, {passive:true});
+  window.addEventListener('orientationchange', fit);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fit); }
+  window.addEventListener('load', fit);
 })();
 </script>
 </body>
