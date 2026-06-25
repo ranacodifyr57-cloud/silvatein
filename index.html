@@ -1315,7 +1315,7 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
         '<div class="body">'+
           '<span class="clabel"><svg viewBox="0 0 16 20"><use href="#leaf"/></svg>'+p.collection+'</span>'+
           '<div class="name-row"><h3 class="serif">'+p.name+'</h3><span class="price">'+money(p.price)+'</span></div>'+
-          (hasSizes ? ('<div class="size-row"><span class="size-label">Select size</span><button type="button" class="size-guide-link" data-legal="sizeguide">Size guide</button></div>'+
+          (hasSizes ? ('<span class="size-label">Select size</span>'+
             '<div class="sizes" role="group" aria-label="Choose a size for '+p.name+'">'+sizes+'</div>'+
             '<span class="size-hint" aria-live="polite">Please choose a size first</span>') : '')+
           '<button class="btn btn-ig add" data-add="'+p.id+'"><svg viewBox="0 0 24 24"><use href="#bag"/></svg>Add to cart</button>'+
