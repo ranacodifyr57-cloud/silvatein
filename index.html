@@ -356,9 +356,9 @@ section{position:relative}
 .story{padding:clamp(36px,7vw,72px) var(--pad)}
 .story-wrap{display:flex;flex-direction:column;gap:clamp(30px,6vw,56px);align-items:center}
 .story-media{position:relative;width:100%;max-width:480px}
-.story-media .frame{border:1px solid var(--line);overflow:hidden;aspect-ratio:4/3.2;border-radius:20px}
+.story-media .frame{position:relative;z-index:1;border:1px solid var(--line);overflow:hidden;aspect-ratio:4/3.2;border-radius:20px}
 .story-media .frame img{width:100%;height:100%;object-fit:cover}
-.story-media .sprig{position:absolute;bottom:-30px;left:-22px;width:120px;height:auto;opacity:.92}
+.story-media .sprig{position:absolute;z-index:0;bottom:-30px;left:-22px;width:120px;height:auto;opacity:.92}
 .story-text{max-width:560px;text-align:center}
 .story-text h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,6.4vw,42px);line-height:1.05;letter-spacing:-.015em;margin-bottom:22px}
 .story-text p{color:var(--dim);font-size:clamp(14px,3.6vw,15.5px);line-height:1.75;margin-bottom:16px}
@@ -475,94 +475,248 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
 @keyframes cartBump{0%{transform:scale(1)}40%{transform:scale(1.22)}100%{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.cart-btn.bump{animation:none}}
 
-/* scrim + slide-in panel (same transition/feel as the drawer) */
-.cart-scrim{position:fixed;inset:0;z-index:65;background:rgba(8,8,8,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .42s cubic-bezier(.5,0,.1,1)}
+/* ============ CART + CHECKOUT — light redesign ============
+   Both the basket panel (Part A) and the Shopify-style checkout
+   (Part B) are light: white surfaces, near-black ink, marigold
+   accent. Squared 2px corners. The rest of the site stays dark.   */
+.cart-scrim{position:fixed;inset:0;z-index:65;background:rgba(8,8,8,.5);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .42s cubic-bezier(.5,0,.1,1)}
 .cart-scrim.open{opacity:1}
 .cart-scrim[hidden]{display:none}
 .cart-panel{
   position:fixed;top:0;right:0;bottom:0;z-index:70;width:min(440px,100%);
-  background:var(--ink);border-left:1px solid var(--line);
+  background:#fff;color:#0E0C0B;border-left:1px solid #E7DFD3;
   transform:translateX(100%);transition:transform .42s cubic-bezier(.5,0,.1,1);
-  display:flex;flex-direction:column;
+  display:flex;flex-direction:column;font-family:var(--sans);
 }
 .cart-panel.open{transform:translateX(0)}
+/* checkout takes over the full screen — snap to width instantly (no flaky width animation),
+   and pin to the open position so the slide transition can't leave it off-screen */
+.cart-panel.co-mode{width:100vw;left:0;right:0;border-left:0;transform:translateX(0);transition:none}
 @media (prefers-reduced-motion:reduce){.cart-panel,.cart-scrim{transition:none}}
-.cart-head{display:flex;align-items:center;justify-content:space-between;padding:20px var(--pad);border-bottom:1px solid var(--line-soft);flex:none}
-.cart-title{font-family:var(--display);font-size:22px;font-weight:500}
-.cart-close{display:inline-flex;background:none;border:0;cursor:pointer;color:var(--white);padding:10px}
-.cart-close svg{width:24px;height:24px}
-.cart-scroll{flex:1;overflow-y:auto;padding:8px var(--pad) 16px}
-.cart-view{display:flex;flex-direction:column;gap:4px}
 
-/* cart lines */
-.cart-line{display:grid;grid-template-columns:62px 1fr auto;gap:14px;padding:18px 0;border-bottom:1px solid var(--line-soft)}
-.cl-thumb{width:62px;height:78px;overflow:hidden;border:1px solid var(--line)}
+.cart-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px 22px;border-bottom:1px solid #ECE4D8;flex:none;background:#fff}
+.cart-title{font-family:var(--display);font-size:16px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#0E0C0B}
+.cart-close{display:inline-flex;background:none;border:0;cursor:pointer;color:#0E0C0B;padding:7px;border-radius:2px;transition:background .15s}
+.cart-close:hover{background:#F2ECE2}
+.cart-close svg{width:22px;height:22px}
+.cart-scroll{flex:1;overflow-y:auto;padding:18px 22px 26px}
+.cart-view{display:flex;flex-direction:column}
+.cart-view[hidden]{display:none}
+.cart-panel.co-mode .cart-head{padding:18px clamp(18px,4vw,40px);justify-content:center;position:relative;border-bottom:1px solid #E7DFD3}
+.cart-panel.co-mode .cart-title{display:none}
+.cart-panel.co-mode .cart-close{position:absolute;right:clamp(14px,3vw,32px);top:50%;transform:translateY(-50%)}
+.co-brand{display:none}
+.cart-panel.co-mode .co-brand{display:inline-flex;align-items:center;gap:11px;font-family:var(--display);font-size:20px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#0E0C0B}
+.co-brand-mark{width:28px;height:28px;flex:none}
+.co-brand-mark .bot{stroke:#0E0C0B}
+.cart-panel.co-mode .cart-scroll{padding:0}
+.cart-panel.co-mode #viewConfirm{min-height:100%;justify-content:center;align-items:center;padding:40px 20px}
+
+/* full shopping basket page */
+.fb-wrap{max-width:1100px;margin-inline:auto;width:100%;padding:32px clamp(18px,4vw,48px) 64px}
+.fb-title{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#0E0C0B;margin:14px 0 24px;letter-spacing:-.01em}
+.fb-grid{display:grid;grid-template-columns:1fr 360px;gap:clamp(20px,4vw,48px);align-items:start}
+.fb-lines{display:flex;flex-direction:column}
+.fb-line{display:grid;grid-template-columns:96px 1fr auto;gap:18px;padding:22px 0;border-bottom:1px solid #ECE4D8;align-items:center}
+.fb-line:first-child{padding-top:0}
+.fb-thumb{width:96px;height:120px;border-radius:2px;overflow:hidden;background:#F5F0EA}
+.fb-thumb img{width:100%;height:100%;object-fit:cover}
+.fb-info{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fb-name{font-family:var(--display);font-size:19px;font-weight:600;color:#0E0C0B;line-height:1.15;overflow-wrap:anywhere}
+.fb-meta{font-size:13px;color:#A8741C}
+.fb-unit{font-size:13px;color:#8A8076;font-variant-numeric:tabular-nums}
+.fb-line-r{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.fb-price{font-family:var(--display);font-size:18px;font-weight:600;color:#0E0C0B;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fb-controls{display:flex;align-items:center;gap:14px}
+.fb-step{display:inline-flex;align-items:center;border:1px solid #CFC6B8;border-radius:2px;overflow:hidden}
+.fb-step button{width:38px;height:38px;background:#fff;border:0;color:#0E0C0B;cursor:pointer;font-size:18px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:background .15s}
+.fb-step button:hover{background:#F2ECE2}
+.fb-step .fb-q{min-width:30px;text-align:center;font-size:14px;font-variant-numeric:tabular-nums}
+.fb-rm{background:none;border:0;color:#9A9088;cursor:pointer;padding:6px;display:inline-flex;transition:color .15s}
+.fb-rm:hover{color:#0E0C0B}
+.fb-rm svg{width:19px;height:19px}
+.fb-summary{position:sticky;top:24px;background:#F5F0EA;border:1px solid #E7DFD3;border-radius:2px;padding:24px}
+.fb-sum-h{font-family:var(--display);font-size:18px;font-weight:600;color:#0E0C0B;margin-bottom:16px}
+.fb-row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:#3A342E;padding:7px 0}
+.fb-row b{font-weight:600;font-variant-numeric:tabular-nums;color:#0E0C0B}
+.fb-total{margin-top:8px;padding-top:14px;border-top:1px solid #E0D6C6}
+.fb-total span:first-child{font-family:var(--display);font-size:18px;font-weight:600}
+.fb-total b{font-family:var(--display);font-size:22px}
+.fb-total b sup{font-family:var(--sans);font-size:11px;font-weight:600;color:#8A8076;vertical-align:baseline;position:relative;top:-1px;margin-right:5px}
+.fb-checkout{width:100%;margin-top:18px}
+.fb-note{margin-top:14px;font-size:11.5px;line-height:1.6;color:#8A8076;text-align:center}
+@media(max-width:760px){
+  .fb-grid{grid-template-columns:1fr}
+  .fb-summary{position:static}
+  .fb-line{grid-template-columns:76px 1fr;gap:14px}
+  .fb-line-r{grid-column:2;flex-direction:row;justify-content:space-between;align-items:center}
+}
+
+/* button language inside the panel (override global dark btns) */
+.cart-panel .btn{border-radius:2px;padding:15px 22px;transition:background .18s,color .18s,border-color .18s}
+.cart-panel .btn:hover{transform:none}
+.cart-panel .btn-primary{background:#E8A33D;color:#0E0C0B;border:1px solid #E8A33D;font-weight:700;letter-spacing:.03em}
+.cart-panel .btn-primary:hover{background:#F2B658;border-color:#F2B658}
+.cart-panel .btn-outline{background:#fff;color:#0E0C0B;border:1px solid #0E0C0B;font-weight:600;letter-spacing:.07em;text-transform:uppercase;font-size:12px}
+.cart-panel .btn-outline:hover{background:#0E0C0B;color:#fff}
+.cart-panel .btn-wa{background:#E8A33D;color:#0E0C0B;border:1px solid #E8A33D}
+.cart-panel .btn-wa:hover{background:#F2B658;border-color:#F2B658}
+.cart-panel .btn-ig{background:#fff;color:#0E0C0B;border:1px solid #0E0C0B;backdrop-filter:none}
+.cart-panel .btn-ig:hover{background:#0E0C0B;color:#fff}
+
+/* ---------- PART A: basket lines ---------- */
+.cart-line{display:grid;grid-template-columns:74px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid #F0E9DD}
+.cart-line:first-child{padding-top:2px}
+.cl-thumb{width:74px;height:92px;overflow:hidden;background:#F5F0EA;border-radius:2px}
 .cl-thumb img{width:100%;height:100%;object-fit:cover}
-.cl-info{display:flex;flex-direction:column;gap:8px;min-width:0}
-.cl-name{font-family:var(--display);font-size:18px;line-height:1.1;overflow-wrap:anywhere}
-.cl-unit{font-size:12px;color:var(--dim)}
-.cl-controls{display:flex;align-items:center;gap:14px;margin-top:2px}
-.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-.stepper button{width:36px;height:36px;background:none;border:0;color:var(--white);cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:background .2s}
-.stepper button:hover{background:rgba(255,255,255,.06)}
-.stepper .qv{min-width:26px;text-align:center;font-size:13px;font-variant-numeric:tabular-nums}
-.cl-remove{background:none;border:0;color:var(--dimmer);cursor:pointer;padding:10px;display:inline-flex;transition:color .2s}
-.cl-remove:hover{color:var(--accent-2)}
-.cl-remove svg{width:17px;height:17px}
-.cl-total{font-size:14px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
-@media(max-width:360px){ .cart-line{gap:10px} .cl-controls{gap:10px} }
+.cl-info{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.cl-name{font-family:var(--display);font-size:16px;font-weight:600;line-height:1.18;color:#0E0C0B;overflow-wrap:anywhere}
+.cl-meta{font-size:12.5px;color:#A8741C;letter-spacing:.01em}
+.cl-bottom{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:auto;padding-top:4px}
+.cl-qty{font-size:12.5px;color:#8A8076;font-variant-numeric:tabular-nums}
+.cl-total{font-family:var(--display);font-size:15px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;color:#0E0C0B}
+.cl-remove{background:none;border:0;color:#9A9088;cursor:pointer;padding:3px;display:inline-flex;transition:color .15s;flex:none}
+.cl-remove:hover{color:#0E0C0B}
+.cl-remove svg{width:18px;height:18px}
+
+/* basket footer: total, note, actions, recommendations */
+.bk-foot[hidden]{display:none}
+.bk-divider{height:1px;background:#E7DFD3;margin:8px 0 16px}
+.bk-total{display:flex;justify-content:flex-end;align-items:baseline;gap:10px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6E655B}
+.bk-total b{font-family:var(--display);font-size:18px;font-weight:600;color:#0E0C0B;letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
+.bk-note{margin:13px 0 16px;font-size:11.5px;line-height:1.6;color:#8A8076;text-align:center;max-width:42ch;margin-inline:auto}
+.bk-foot .bk-checkout,.bk-foot .bk-view{width:100%}
+.bk-view{margin-top:10px}
+.bk-recos{margin-top:32px}
+.bk-recos-h{font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-align:center;color:#0E0C0B;margin-bottom:16px}
+.bk-recos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.reco{display:flex;flex-direction:column;gap:6px}
+.reco-ph{aspect-ratio:3/4;background:#F5F0EA;border-radius:2px;overflow:hidden}
+.reco-ph img{width:100%;height:100%;object-fit:cover}
+.reco-name{font-family:var(--display);font-size:12.5px;font-weight:600;line-height:1.2;color:#0E0C0B;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.reco-price{font-size:11.5px;color:#6E655B;font-variant-numeric:tabular-nums}
+.reco-add{margin-top:2px;width:100%;padding:9px 6px;font-size:10px;letter-spacing:.07em}
+.reco-add.added{background:rgba(232,163,61,.16);border-color:#E8A33D;color:#0E0C0B}
+@media(max-width:360px){ .cart-line{gap:12px} }
 
 /* empty state */
-.cart-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:56px 0}
-.cart-empty svg{width:40px;height:40px;color:var(--dimmer)}
-.cart-empty p{font-family:var(--display);font-size:22px}
+.cart-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:64px 0}
+.cart-empty svg{width:38px;height:38px;color:#C9BFB0}
+.cart-empty p{font-family:var(--display);font-size:20px;color:#0E0C0B}
 .cart-empty[hidden]{display:none}
+.cart-empty .btn{width:auto;padding:12px 24px}
 
-/* checkout */
-.co-summary{display:flex;flex-direction:column;gap:10px;padding:8px 0 18px;border-bottom:1px solid var(--line-soft);margin-bottom:18px}
-.co-sum-line{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:var(--dim)}
-.co-sum-line .nm{color:var(--white);min-width:0;overflow-wrap:anywhere}
-.co-sum-line .vl{font-variant-numeric:tabular-nums;white-space:nowrap}
-.co-form{display:flex;flex-direction:column;gap:14px}
-.co-form label{display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
-.co-form input,.co-form textarea{
-  font-family:var(--sans);font-size:16px;color:var(--white);background:var(--ink-3);
-  border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;width:100%;resize:vertical;
-  transition:border-color .2s;letter-spacing:0;text-transform:none;font-weight:400;
+/* ============ PART B: Shopify-style checkout ============ */
+.co-wrap{display:grid;grid-template-columns:1.05fr .95fr;min-height:100%}
+.co-left{background:#fff;display:flex;justify-content:flex-end;padding:36px clamp(18px,4vw,56px) 72px}
+.co-col{width:100%;max-width:540px}
+.co-right{background:#F5F0EA;border-left:1px solid #E7DFD3;padding:36px clamp(18px,4vw,56px) 72px;display:flex;justify-content:flex-start}
+.co-right .co-summary{width:100%;max-width:460px;position:sticky;top:24px}
+
+.co-back{display:inline-flex;align-items:center;gap:8px;background:none;border:0;color:#6E655B;font-family:var(--sans);font-size:12.5px;cursor:pointer;padding:4px 0;margin-bottom:20px;transition:color .15s}
+.co-back:hover{color:#0E0C0B}
+.co-back svg{width:16px;height:16px;transform:scaleX(-1)}
+
+.co-form{display:flex;flex-direction:column}
+.co-sec{margin-top:26px}
+.co-sec:first-of-type{margin-top:0}
+.co-sec-h{font-family:var(--display);font-size:19px;font-weight:600;color:#0E0C0B;margin-bottom:13px}
+.co-sec-note{font-size:12.5px;color:#8A8076;margin:-7px 0 13px}
+
+/* floating-label fields */
+.fld{position:relative;display:block;margin-bottom:10px}
+.fld input,.fld select,.fld textarea{
+  width:100%;font-family:var(--sans);font-size:15px;color:#0E0C0B;background:#fff;
+  border:1px solid #CFC6B8;border-radius:2px;padding:21px 13px 7px;transition:border-color .15s,box-shadow .15s;
 }
-.co-form input:focus,.co-form textarea:focus{outline:none;border-color:var(--accent)}
-.co-form .invalid{border-color:var(--accent-2)}
-/* payment block */
-.co-pay{display:flex;flex-direction:column;gap:10px;margin-top:6px}
-.co-pay-h{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
-.pay-opt{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s}
-.pay-opt.selected{border-color:var(--accent);background:rgba(232,163,61,.07)}
-.pay-opt input{accent-color:var(--accent);width:16px;height:16px;flex:none}
-.pay-opt .pay-main{font-size:14px;font-weight:600;color:var(--white);display:flex;align-items:center;gap:8px}
-.pay-opt .pay-sub{flex-basis:100%;padding-left:26px;font-size:12px;color:var(--dim)}
-.pay-opt.disabled{opacity:.5;cursor:not-allowed}
-.pay-opt .soon{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);border:1px solid var(--line);border-radius:var(--radius);padding:2px 8px}
+.fld textarea{padding-top:23px;resize:vertical;min-height:62px;line-height:1.4}
+.fld select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236E655B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px;cursor:pointer}
+.fld .fl{position:absolute;left:13px;top:15px;font-size:15px;color:#8A8076;pointer-events:none;transition:top .14s,font-size .14s;letter-spacing:0}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:#E8A33D;box-shadow:0 0 0 2px rgba(232,163,61,.22)}
+.fld input:focus+.fl,.fld input:not(:placeholder-shown)+.fl,
+.fld textarea:focus+.fl,.fld textarea:not(:placeholder-shown)+.fl,
+.fld.sel .fl{top:7px;font-size:10.5px;letter-spacing:.03em;color:#6E655B}
+.fld-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fld.invalid input,.fld.invalid select{border-color:#C0395B;box-shadow:0 0 0 2px rgba(192,57,91,.16)}
+.fld-err{color:#C0395B;font-size:12px;margin:-4px 0 10px}
+.fld-err[hidden]{display:none}
 
-/* confirmation */
-.co-done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:38px 0}
-.co-check{width:60px;height:60px;border-radius:50%;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent)}
-.co-check svg{width:30px;height:30px}
-.co-done h3{font-family:var(--display);font-size:30px;font-weight:500}
-.co-done p{color:var(--dim);font-size:14.5px;max-width:34ch;line-height:1.65}
-.co-done b{color:var(--white)}
-.co-done .btn{width:100%}
+.chk{display:flex;align-items:center;gap:9px;font-size:13.5px;color:#3A342E;margin:5px 0 4px;cursor:pointer}
+.chk input{width:17px;height:17px;accent-color:#E8A33D;flex:none}
 
-/* sticky panel foot */
-.cart-foot{padding:18px var(--pad) calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line-soft);display:flex;flex-direction:column;gap:12px;flex:none}
-.cart-foot[hidden]{display:none}
-.cart-row.total{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
-.cart-row.total b{font-family:var(--display);font-size:22px;color:var(--white);font-weight:500;letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
-.cart-foot .btn{width:100%}
-.cart-back{background:none;border:0;color:var(--dim);cursor:pointer;font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;padding:2px;transition:color .2s}
-.cart-back:hover{color:var(--white)}
-.cart-foot .btn[disabled]{opacity:.55;cursor:not-allowed}
-.co-error{margin:0 0 2px;padding:11px 13px;border:1px solid var(--accent-2);border-radius:var(--radius);background:rgba(192,57,91,.10);color:var(--white);font-size:13px;line-height:1.45}
+/* option rows: shipping / payment / billing */
+.opt-group{display:flex;flex-direction:column;border:1px solid #CFC6B8;border-radius:2px;overflow:hidden}
+.opt-group .opt{border:0;border-bottom:1px solid #E7DFD3;border-radius:0;margin:0}
+.opt-group .opt:last-child{border-bottom:0}
+.opt-group .opt.selected{box-shadow:inset 2.5px 0 0 #E8A33D}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid #CFC6B8;border-radius:2px;padding:15px 16px;cursor:pointer;background:#fff;transition:background .15s,border-color .15s}
+.opt.selected{background:rgba(232,163,61,.10);border-color:#E8A33D}
+.opt input{width:18px;height:18px;accent-color:#E8A33D;flex:none}
+.opt-main{font-size:14px;font-weight:600;color:#0E0C0B;flex:1}
+.opt-main small{display:block;font-weight:400;font-size:12px;color:#8A8076;margin-top:2px}
+.opt-price{font-size:14px;font-weight:600;color:#0E0C0B;font-variant-numeric:tabular-nums;white-space:nowrap}
+.opt.disabled{opacity:.6;cursor:not-allowed;background:#FAF7F1}
+.opt .soon{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#A8741C;border:1px solid #E2D3B6;border-radius:2px;padding:3px 8px;background:#FBF3E2;white-space:nowrap}
+.bill-fields{margin-top:12px}
+.bill-fields[hidden]{display:none}
+
+.co-error{margin:16px 0 0;padding:12px 14px;border:1px solid #C0395B;border-radius:2px;background:rgba(192,57,91,.06);color:#8A1F3D;font-size:13px;line-height:1.45}
 .co-error[hidden]{display:none}
+.co-complete{width:100%;margin-top:20px;padding:17px;font-size:15px}
+.co-complete[disabled]{opacity:.6;cursor:not-allowed}
+.co-or{display:flex;align-items:center;gap:12px;color:#8A8076;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:14px 0}
+.co-or::before,.co-or::after{content:"";flex:1;height:1px;background:#E7DFD3}
+.co-wa{width:100%;background:#fff;color:#0E0C0B;border:1px solid #0E0C0B;font-weight:600}
+.co-wa:hover{background:#0E0C0B;color:#fff}
+.co-wa svg{width:18px;height:18px}
+
+/* right column summary */
+.co-summary{display:flex;flex-direction:column}
+.cs-items{display:flex;flex-direction:column;gap:16px;padding-bottom:20px}
+.cs-line{display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center}
+.cs-thumb{position:relative;width:54px;height:62px;border-radius:2px;overflow:hidden;background:#fff;border:1px solid #E0D6C6}
+.cs-thumb img{width:100%;height:100%;object-fit:cover}
+.cs-badge{position:absolute;top:-8px;right:-8px;min-width:20px;height:20px;padding:0 5px;border-radius:50%;background:#0E0C0B;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.cs-info{min-width:0}
+.cs-name{font-family:var(--display);font-size:14px;font-weight:600;color:#0E0C0B;line-height:1.2;overflow-wrap:anywhere}
+.cs-meta{font-size:12px;color:#8A8076;margin-top:2px}
+.cs-price{font-size:13.5px;font-weight:600;color:#0E0C0B;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cs-discount{display:grid;grid-template-columns:1fr auto;gap:10px;padding:18px 0;border-top:1px solid #E0D6C6}
+.cs-discount input{font-family:var(--sans);font-size:14px;background:#fff;border:1px solid #CFC6B8;border-radius:2px;padding:13px 14px;color:#0E0C0B;min-width:0}
+.cs-discount input:focus{outline:none;border-color:#E8A33D;box-shadow:0 0 0 2px rgba(232,163,61,.22)}
+.cs-discount button{font-family:var(--sans);font-size:13px;font-weight:600;background:#E9E1D4;color:#6E655B;border:0;border-radius:2px;padding:0 22px;cursor:pointer;transition:background .15s,color .15s}
+.cs-discount button:hover{background:#DCCFBA;color:#0E0C0B}
+.cs-rows{display:flex;flex-direction:column;gap:10px;padding-top:18px;border-top:1px solid #E0D6C6}
+.cs-row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:#3A342E}
+.cs-row b{font-weight:600;font-variant-numeric:tabular-nums;color:#0E0C0B}
+.cs-total{margin-top:7px}
+.cs-total span{font-family:var(--display);font-size:18px;font-weight:600;color:#0E0C0B}
+.cs-total b{font-size:22px;font-family:var(--display);font-weight:600;color:#0E0C0B}
+.cs-total b sup{font-family:var(--sans);font-size:11px;font-weight:600;color:#8A8076;vertical-align:baseline;position:relative;top:-1px;margin-right:5px}
+
+/* confirmation (light) */
+.co-done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:52px 16px}
+.co-check{width:60px;height:60px;border-radius:50%;background:rgba(232,163,61,.16);display:flex;align-items:center;justify-content:center;color:#A8741C}
+.co-check svg{width:30px;height:30px}
+.co-done h3{font-family:var(--display);font-size:28px;font-weight:600;color:#0E0C0B}
+.co-done p{color:#6E655B;font-size:14px;max-width:38ch;line-height:1.65}
+.co-done b{color:#0E0C0B}
+.co-done .btn{width:100%;max-width:360px}
+.co-done-close{margin-top:4px;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A8076;padding:10px 16px;transition:color .15s}
+.co-done-close:hover{color:#0E0C0B}
+
+@media(max-width:860px){
+  .co-wrap{grid-template-columns:1fr}
+  .co-right{order:-1;border-left:0;border-bottom:1px solid #E0D6C6;padding-bottom:30px}
+  .co-right .co-summary{position:static;max-width:none}
+  .co-left{justify-content:center;padding-top:30px}
+  .co-col{max-width:560px}
+}
+@media(max-width:400px){
+  .fld-row{grid-template-columns:1fr}
+  .bk-recos-grid{gap:9px}
+}
 
 @media(min-width:560px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:980px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
@@ -729,45 +883,180 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
 <!-- ============ cart + checkout panel ============ -->
 <div class="cart-scrim" id="cartScrim" hidden></div>
 <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
-  <div class="cart-head">
-    <span class="cart-title" id="cartTitle">Your cart</span>
+  <div class="cart-head" id="cartHead">
+    <span class="cart-title" id="cartTitle">Added to your basket</span>
+    <span class="co-brand" aria-hidden="true"><svg class="co-brand-mark" viewBox="0 0 48 48"><use href="#mark"/></svg>Silvatein</span>
     <button class="cart-close" id="cartClose" aria-label="Close cart"><svg viewBox="0 0 24 24"><use href="#close"/></svg></button>
   </div>
 
-  <div class="cart-scroll">
-    <!-- view: cart -->
+  <div class="cart-scroll" id="cartScroll">
+    <!-- view: cart / basket (Part A) -->
     <div class="cart-view" id="viewCart">
       <div id="cartLines"></div>
       <div class="cart-empty" id="cartEmpty" hidden>
         <svg viewBox="0 0 24 24"><use href="#bag"/></svg>
-        <p>Your cart is empty</p>
-        <button class="btn btn-ig" id="emptyShop">Browse the shop</button>
+        <p>Your basket is empty</p>
+        <button class="btn btn-outline" id="emptyShop">Browse the shop</button>
+      </div>
+      <div class="bk-foot" id="bkFoot" hidden>
+        <div class="bk-divider"></div>
+        <div class="bk-total"><span>Total:</span><b id="basketTotal">PKR 0</b></div>
+        <p class="bk-note">Made to order — please allow 7 to 10 working days. Cash on Delivery across Pakistan.</p>
+        <button class="btn btn-primary bk-checkout" id="goCheckout">Check out</button>
+        <button class="btn btn-outline bk-view" id="viewBasket">View Shopping Basket</button>
+        <div class="bk-recos" id="bkRecos">
+          <h4 class="bk-recos-h">You may also like</h4>
+          <div class="bk-recos-grid" id="bkRecosGrid"></div>
+        </div>
       </div>
     </div>
 
-    <!-- view: checkout -->
+    <!-- view: checkout (Part B — Shopify-style two column) -->
     <div class="cart-view" id="viewCheckout" hidden>
-      <div class="co-summary" id="coSummary"></div>
-      <form class="co-form" id="coForm" novalidate>
-        <label>Full name<input name="name" autocomplete="name" required /></label>
-        <label>WhatsApp / phone<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required /></label>
-        <label>Delivery address<textarea name="address" rows="2" autocomplete="street-address" required></textarea></label>
-        <label>City<input name="city" autocomplete="address-level2" required /></label>
-        <label>Order note (optional)<textarea name="note" rows="2"></textarea></label>
-        <div class="co-pay">
-          <span class="co-pay-h">Payment method</span>
-          <label class="pay-opt selected">
-            <input type="radio" name="pay" value="cod" checked />
-            <span class="pay-main">Cash on Delivery (COD)</span>
-            <span class="pay-sub">Pay in cash when your order is delivered.</span>
-          </label>
-          <label class="pay-opt disabled">
-            <input type="radio" name="pay" value="card" disabled />
-            <span class="pay-main">Card / online payment <span class="soon">Coming soon</span></span>
-            <span class="pay-sub">Online card payments open shortly.</span>
-          </label>
+      <div class="co-wrap">
+        <!-- LEFT: form -->
+        <div class="co-left">
+          <div class="co-col">
+            <button type="button" class="co-back" id="backToCart"><svg viewBox="0 0 24 24"><use href="#arrow"/></svg>Return to basket</button>
+            <form class="co-form" id="coForm" novalidate>
+              <!-- combined first+last is written here on submit (existing field) -->
+              <input type="hidden" name="name" />
+              <b id="coTotal" hidden>Rs 0</b>
+
+              <!-- 1. Contact -->
+              <section class="co-sec">
+                <h3 class="co-sec-h">Contact</h3>
+                <label class="fld"><input name="email" type="email" inputmode="email" autocomplete="email" placeholder=" " required /><span class="fl">Email</span></label>
+                <label class="chk"><input type="checkbox" name="news" checked /> <span>Email me with news and offers</span></label>
+              </section>
+
+              <!-- 2. Delivery -->
+              <section class="co-sec">
+                <h3 class="co-sec-h">Delivery</h3>
+                <label class="fld sel"><select name="country" autocomplete="country-name"><option>Pakistan</option></select><span class="fl">Country/Region</span></label>
+                <div class="fld-row">
+                  <label class="fld"><input name="first_name" autocomplete="given-name" placeholder=" " required /><span class="fl">First name</span></label>
+                  <label class="fld"><input name="last_name" autocomplete="family-name" placeholder=" " required /><span class="fl">Last name</span></label>
+                </div>
+                <label class="fld"><input name="address" autocomplete="street-address" placeholder=" " required /><span class="fl">Address</span></label>
+                <div class="fld-row">
+                  <label class="fld sel" id="cityFld">
+                    <select name="city" autocomplete="address-level2" required>
+                      <option value="">Select your city</option>
+                      <option>Karachi</option>
+                      <option>Lahore</option>
+                      <option>Islamabad</option>
+                      <option>Rawalpindi</option>
+                      <option>Faisalabad</option>
+                      <option>Multan</option>
+                      <option>Peshawar</option>
+                      <option>Quetta</option>
+                      <option>Hyderabad</option>
+                      <option>Gujranwala</option>
+                      <option>Sialkot</option>
+                      <option>Bahawalpur</option>
+                      <option>Sargodha</option>
+                      <option>Sukkur</option>
+                      <option>Abbottabad</option>
+                      <option>Other</option>
+                    </select>
+                    <span class="fl">City</span>
+                  </label>
+                  <label class="fld"><input name="postal" inputmode="numeric" autocomplete="postal-code" placeholder=" " /><span class="fl">Postal code (optional)</span></label>
+                </div>
+                <p class="fld-err" id="cityErr" hidden>Please select your city</p>
+                <label class="fld"><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder=" " required /><span class="fl">Phone</span></label>
+                <label class="fld"><textarea name="note" placeholder=" " rows="2"></textarea><span class="fl">Order note (optional)</span></label>
+                <label class="chk"><input type="checkbox" name="save_info" /> <span>Save this information for next time</span></label>
+              </section>
+
+              <!-- 3. Shipping method -->
+              <section class="co-sec">
+                <h3 class="co-sec-h">Shipping method</h3>
+                <label class="opt selected">
+                  <input type="radio" name="ship" value="flat" checked />
+                  <span class="opt-main">Flat shipping <small>Cash on Delivery</small></span>
+                  <span class="opt-price" id="shipPriceLbl">Rs 299</span>
+                </label>
+              </section>
+
+              <!-- 4. Payment -->
+              <section class="co-sec">
+                <h3 class="co-sec-h">Payment</h3>
+                <p class="co-sec-note">All transactions are secure and encrypted.</p>
+                <div class="opt-group">
+                  <label class="opt selected">
+                    <input type="radio" name="pay" value="cod" checked />
+                    <span class="opt-main">Cash on Delivery (COD)</span>
+                  </label>
+                  <label class="opt disabled">
+                    <input type="radio" name="pay" value="card" disabled />
+                    <span class="opt-main">Debit / Credit Card</span>
+                    <span class="soon">Coming soon</span>
+                  </label>
+                  <label class="opt disabled">
+                    <input type="radio" name="pay" value="bnpl" disabled />
+                    <span class="opt-main">Buy Now, Pay Later</span>
+                    <span class="soon">Coming soon</span>
+                  </label>
+                </div>
+              </section>
+
+              <!-- 5. Billing address -->
+              <section class="co-sec">
+                <h3 class="co-sec-h">Billing address</h3>
+                <div class="opt-group">
+                  <label class="opt selected">
+                    <input type="radio" name="billing" value="same" checked />
+                    <span class="opt-main">Same as shipping address</span>
+                  </label>
+                  <label class="opt">
+                    <input type="radio" name="billing" value="diff" />
+                    <span class="opt-main">Use a different billing address</span>
+                  </label>
+                </div>
+                <div class="bill-fields" id="billFields" hidden>
+                  <label class="fld"><input name="bill_address" placeholder=" " /><span class="fl">Billing address</span></label>
+                  <div class="fld-row">
+                    <label class="fld"><input name="bill_city" placeholder=" " /><span class="fl">City</span></label>
+                    <label class="fld"><input name="bill_postal" inputmode="numeric" placeholder=" " /><span class="fl">Postal code</span></label>
+                  </div>
+                </div>
+              </section>
+
+              <p class="co-error" id="coError" role="alert" hidden></p>
+              <!-- 6. Complete order = existing Web3Forms submit -->
+              <button type="button" class="btn btn-primary co-complete" id="placeOrder">Complete order</button>
+              <div class="co-or"><span>or</span></div>
+              <button type="button" class="btn co-wa" id="coWa"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Order on WhatsApp</button>
+            </form>
+          </div>
         </div>
-      </form>
+
+        <!-- RIGHT: order summary, built live from the cart -->
+        <aside class="co-right" aria-label="Order summary">
+          <div class="co-summary" id="coSummary"></div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- view: full shopping basket (opened by "View Shopping Basket") -->
+    <div class="cart-view" id="viewBasketFull" hidden>
+      <div class="fb-wrap">
+        <button type="button" class="co-back" id="fbBack"><svg viewBox="0 0 24 24"><use href="#arrow"/></svg>Continue shopping</button>
+        <h2 class="fb-title">Your shopping basket</h2>
+        <div class="fb-grid">
+          <div class="fb-lines" id="fbLines"></div>
+          <aside class="fb-summary" aria-label="Order summary">
+            <h3 class="fb-sum-h">Order summary</h3>
+            <div class="fb-row"><span>Subtotal</span><b id="fbSubtotal">Rs 0</b></div>
+            <div class="fb-row"><span>Shipping</span><b id="fbShip">Rs 0</b></div>
+            <div class="fb-row fb-total"><span>Total</span><b><sup>PKR</sup><span id="fbTotal">Rs 0</span></b></div>
+            <button type="button" class="btn btn-primary fb-checkout" id="fbCheckout">Check out</button>
+            <p class="fb-note">Made to order — please allow 7 to 10 working days. Cash on Delivery across Pakistan.</p>
+          </aside>
+        </div>
+      </div>
     </div>
 
     <!-- view: confirmation -->
@@ -778,21 +1067,9 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
         <p>Your order <b id="orderRef">SLV-000000</b> is confirmed for <b>Cash on Delivery</b>. Send it to us on WhatsApp and we'll arrange your delivery.</p>
         <a class="btn btn-wa" id="sendWa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Send order on WhatsApp</a>
         <button class="btn btn-ig" id="confirmClose">Continue browsing</button>
+        <button type="button" class="co-done-close" id="confirmCloseEnd">Close</button>
       </div>
     </div>
-  </div>
-
-  <!-- sticky foot: cart -->
-  <div class="cart-foot" id="footCart" hidden>
-    <div class="cart-row total"><span>Subtotal</span><b id="cartSubtotal">Rs 0</b></div>
-    <button class="btn btn-wa" id="goCheckout">Checkout</button>
-  </div>
-  <!-- sticky foot: checkout -->
-  <div class="cart-foot" id="footCheckout" hidden>
-    <p class="co-error" id="coError" role="alert" hidden></p>
-    <div class="cart-row total"><span>Total · Cash on delivery</span><b id="coTotal">Rs 0</b></div>
-    <button class="btn btn-wa" id="placeOrder">Place order</button>
-    <button class="cart-back" id="backToCart">&larr; Back to cart</button>
   </div>
 </aside>
 
@@ -1299,6 +1576,10 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
 
   function prod(id){ for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; } return null; }
   function money(n){ return 'Rs ' + Number(n||0).toLocaleString('en-US'); }
+  function pkr(n){ return 'PKR ' + Number(n||0).toLocaleString('en-US'); }
+  var SHIP_FLAT = 299;                       // flat Cash-on-Delivery shipping fee (editable)
+  function shipFee(){ return cart.length ? SHIP_FLAT : 0; }
+  function grandTotal(){ return subtotal() + shipFee(); }
   function count(){ return cart.reduce(function(s,it){ return s+it.qty; },0); }
   function subtotal(){ return cart.reduce(function(s,it){ var p=prod(it.id); return s + (p?p.price*it.qty:0); },0); }
   /* a cart line is unique by product id + chosen size */
@@ -1323,11 +1604,18 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
   var cartBtn=document.getElementById('cartBtn'), cartCount=document.getElementById('cartCount');
   var scrim=document.getElementById('cartScrim'), panel=document.getElementById('cartPanel');
   var cartClose=document.getElementById('cartClose'), cartTitle=document.getElementById('cartTitle');
+  var cartHead=document.getElementById('cartHead'), cartScroll=document.getElementById('cartScroll');
   var viewCart=document.getElementById('viewCart'), viewCheckout=document.getElementById('viewCheckout'), viewConfirm=document.getElementById('viewConfirm');
   var cartLines=document.getElementById('cartLines'), cartEmpty=document.getElementById('cartEmpty');
-  var footCart=document.getElementById('footCart'), footCheckout=document.getElementById('footCheckout');
-  var cartSubtotal=document.getElementById('cartSubtotal'), coTotal=document.getElementById('coTotal'), coSummary=document.getElementById('coSummary');
+  var bkFoot=document.getElementById('bkFoot'), basketTotal=document.getElementById('basketTotal');
+  var bkRecosGrid=document.getElementById('bkRecosGrid'), viewBasket=document.getElementById('viewBasket');
+  var viewBasketFull=document.getElementById('viewBasketFull'), fbLines=document.getElementById('fbLines');
+  var fbSubtotal=document.getElementById('fbSubtotal'), fbShip=document.getElementById('fbShip'), fbTotal=document.getElementById('fbTotal');
+  var fbCheckout=document.getElementById('fbCheckout'), fbBack=document.getElementById('fbBack');
+  var coTotal=document.getElementById('coTotal'), coSummary=document.getElementById('coSummary');
   var coForm=document.getElementById('coForm');
+  var cityFld=document.getElementById('cityFld'), cityErr=document.getElementById('cityErr');
+  var billFields=document.getElementById('billFields'), shipPriceLbl=document.getElementById('shipPriceLbl');
   var goCheckout=document.getElementById('goCheckout'), placeOrder=document.getElementById('placeOrder'), backToCart=document.getElementById('backToCart');
   var emptyShop=document.getElementById('emptyShop'), confirmClose=document.getElementById('confirmClose');
   var orderRef=document.getElementById('orderRef'), sendWa=document.getElementById('sendWa');
@@ -1363,40 +1651,85 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
   }
   function bump(){ cartBtn.classList.remove('bump'); void cartBtn.offsetWidth; cartBtn.classList.add('bump'); }
 
-  /* ---- render cart lines ---- */
+  /* ---- render cart lines (Part A basket) ---- */
   function renderCart(){
     if(cart.length===0){
-      cartLines.innerHTML=''; cartEmpty.hidden=false; footCart.hidden=true;
+      cartLines.innerHTML=''; cartEmpty.hidden=false; bkFoot.hidden=true;
     } else {
-      cartEmpty.hidden=true; footCart.hidden=false;
+      cartEmpty.hidden=true; bkFoot.hidden=false;
       cartLines.innerHTML = cart.map(function(it){
         var p=prod(it.id); if(!p) return '';
         var sz = it.size || '';
         var szTxt = sz ? (' size '+sz) : '';
+        var meta = [p.collection, sz ? ('Size '+sz) : ''].filter(Boolean).join(' / ');
         return '<div class="cart-line" data-id="'+p.id+'" data-size="'+sz+'">'+
           '<div class="cl-thumb"><img src="'+p.image+'" alt="'+p.alt+'" loading="lazy" /></div>'+
           '<div class="cl-info">'+
-            '<div class="cl-name">'+p.name+'</div>'+
-            (sz ? '<div class="cl-size">Size &middot; '+sz+'</div>' : '')+
-            '<div class="cl-unit">'+money(p.price)+'</div>'+
-            '<div class="cl-controls">'+
-              '<div class="stepper">'+
-                '<button type="button" class="dec" data-dec aria-label="Decrease quantity of '+p.name+szTxt+'">&minus;</button>'+
-                '<span class="qv" aria-live="polite">'+it.qty+'</span>'+
-                '<button type="button" class="inc" data-inc aria-label="Increase quantity of '+p.name+szTxt+'">+</button>'+
-              '</div>'+
+            '<div class="cl-top">'+
+              '<div class="cl-name">'+p.name+'</div>'+
               '<button type="button" class="cl-remove" data-rm aria-label="Remove '+p.name+szTxt+'"><svg viewBox="0 0 24 24"><use href="#trash"/></svg></button>'+
             '</div>'+
+            '<div class="cl-meta">'+meta+'</div>'+
+            '<div class="cl-bottom">'+
+              '<span class="cl-qty">'+it.qty+'x</span>'+
+              '<span class="cl-total">'+pkr(p.price*it.qty)+'</span>'+
+            '</div>'+
           '</div>'+
-          '<div class="cl-total">'+money(p.price*it.qty)+'</div>'+
         '</div>';
       }).join('');
+      basketTotal.textContent = pkr(subtotal());
+      renderRecos();
     }
-    cartSubtotal.textContent = money(subtotal());
     renderBadge();
   }
 
-  /* ---- cart mutations ---- */
+  /* ---- "You may also like": 3 real products not already in the cart ---- */
+  function renderRecos(){
+    var inCart={}; cart.forEach(function(it){ inCart[it.id]=true; });
+    var pool=PRODUCTS.filter(function(p){ return !inCart[p.id]; });
+    var picks=pool.slice(0,3);
+    bkRecosGrid.innerHTML = picks.map(function(p){
+      return '<div class="reco" data-card="'+p.id+'">'+
+        '<div class="reco-ph"><img src="'+p.image+'" alt="'+p.alt+'" loading="lazy" /></div>'+
+        '<div class="reco-name">'+p.name+'</div>'+
+        '<div class="reco-price">'+pkr(p.price)+'</div>'+
+        '<button type="button" class="btn btn-outline add reco-add" data-add="'+p.id+'">Add to cart</button>'+
+      '</div>';
+    }).join('');
+  }
+
+  /* ---- full shopping basket page ---- */
+  function renderBasketFull(){
+    if(cart.length===0){ showView('cart'); renderCart(); return; }
+    fbLines.innerHTML = cart.map(function(it){
+      var p=prod(it.id); if(!p) return '';
+      var sz=it.size||''; var szTxt=sz?(' size '+sz):'';
+      var meta=[p.collection, sz?('Size '+sz):''].filter(Boolean).join(' / ');
+      return '<div class="fb-line" data-id="'+p.id+'" data-size="'+sz+'">'+
+        '<div class="fb-thumb"><img src="'+p.image+'" alt="'+p.alt+'" loading="lazy" /></div>'+
+        '<div class="fb-info">'+
+          '<div class="fb-name">'+p.name+'</div>'+
+          '<div class="fb-meta">'+meta+'</div>'+
+          '<div class="fb-unit">'+money(p.price)+' each</div>'+
+        '</div>'+
+        '<div class="fb-line-r">'+
+          '<div class="fb-price">'+money(p.price*it.qty)+'</div>'+
+          '<div class="fb-controls">'+
+            '<div class="fb-step">'+
+              '<button type="button" data-dec aria-label="Decrease quantity of '+p.name+szTxt+'">&minus;</button>'+
+              '<span class="fb-q" aria-live="polite">'+it.qty+'</span>'+
+              '<button type="button" data-inc aria-label="Increase quantity of '+p.name+szTxt+'">+</button>'+
+            '</div>'+
+            '<button type="button" class="fb-rm" data-rm aria-label="Remove '+p.name+szTxt+'"><svg viewBox="0 0 24 24"><use href="#trash"/></svg></button>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+    var sub=subtotal(), ship=shipFee(), tot=sub+ship;
+    fbSubtotal.textContent=money(sub);
+    fbShip.textContent=money(ship);
+    fbTotal.textContent=money(tot);
+  }
   function add(id,size){
     var line=findLine(id,size);
     if(line){ if(line.qty<99){ line.qty++; } } else { cart.push({ id:id, size:(size||''), qty:1 }); }
@@ -1417,11 +1750,11 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
   function showView(name){
     viewCart.hidden = name!=='cart';
     viewCheckout.hidden = name!=='checkout';
+    viewBasketFull.hidden = name!=='basketfull';
     viewConfirm.hidden = name!=='confirm';
-    footCart.hidden = !(name==='cart' && cart.length>0);
-    footCheckout.hidden = name!=='checkout';
-    cartTitle.textContent = name==='checkout' ? 'Checkout' : (name==='confirm' ? 'Order confirmed' : 'Your cart');
-    panel.querySelector('.cart-scroll').scrollTop = 0;
+    panel.classList.toggle('co-mode', name==='checkout' || name==='confirm' || name==='basketfull');
+    cartTitle.textContent = name==='checkout' ? 'Checkout' : (name==='confirm' ? 'Order confirmed' : 'Added to your basket');
+    cartScroll.scrollTop = 0;
   }
 
   /* ---- open / close (mirrors drawer: inert, Escape, focus, scrim) ---- */
@@ -1439,28 +1772,39 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
     setTimeout(function(){ cartClose.focus(); }, 60);
   }
   function closeCart(){
-    scrim.classList.remove('open'); panel.classList.remove('open');
+    scrim.classList.remove('open'); panel.classList.remove('open'); panel.classList.remove('co-mode');
     panel.inert=true; panel.setAttribute('aria-hidden','true');
     cartBtn.setAttribute('aria-expanded','false');
     setBgInert(false);
     document.body.style.overflow='';
     setTimeout(function(){ scrim.hidden=true; }, 420);
     if(lastFocus && lastFocus.focus){ lastFocus.focus(); }
+    showView('cart');
   }
   panel.inert=true;
 
-  /* ---- checkout ---- */
+  /* ---- checkout (Part B summary, built live from the cart) ---- */
   function renderSummary(){
-    var rows = cart.map(function(it){
+    var n=count();
+    var items = cart.map(function(it){
       var p=prod(it.id);
-      var sz = it.size ? ' <span class="co-sum-size">('+it.size+')</span>' : '';
-      return '<div class="co-sum-line"><span class="nm">'+p.name+sz+' &times;'+it.qty+'</span><span class="vl">'+money(p.price*it.qty)+'</span></div>';
+      var meta = [p.collection, it.size ? ('Size '+it.size) : ''].filter(Boolean).join(' / ');
+      return '<div class="cs-line">'+
+        '<div class="cs-thumb"><img src="'+p.image+'" alt="'+p.alt+'" /><span class="cs-badge">'+it.qty+'</span></div>'+
+        '<div class="cs-info"><div class="cs-name">'+p.name+'</div><div class="cs-meta">'+meta+'</div></div>'+
+        '<div class="cs-price">'+money(p.price*it.qty)+'</div>'+
+      '</div>';
     }).join('');
-    var tot=subtotal();
-    rows += '<div class="co-sum-line"><span class="nm">Delivery</span><span class="vl">Free</span></div>'+
-            '<div class="co-sum-line"><span class="nm"><b>Total</b></span><span class="vl"><b>'+money(tot)+'</b></span></div>';
-    coSummary.innerHTML=rows;
-    coTotal.textContent=money(tot);
+    var sub=subtotal(), ship=shipFee(), tot=sub+ship;
+    coSummary.innerHTML =
+      '<div class="cs-items">'+items+'</div>'+
+      '<div class="cs-discount"><input type="text" id="discountCode" placeholder="Gift card or discount code" aria-label="Gift card or discount code" /><button type="button" id="applyDiscount">Apply</button></div>'+
+      '<div class="cs-rows">'+
+        '<div class="cs-row"><span>Subtotal &middot; '+n+' item'+(n===1?'':'s')+'</span><b>'+money(sub)+'</b></div>'+
+        '<div class="cs-row"><span>Shipping</span><b>'+money(ship)+'</b></div>'+
+        '<div class="cs-row cs-total"><span>Total</span><b><sup>PKR</sup>'+money(tot)+'</b></div>'+
+      '</div>';
+    coTotal.textContent=pkr(tot);
   }
   function genRef(){
     var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s='';
@@ -1469,8 +1813,10 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
   }
   function buildWaOrder(ref, fields, tot){
     var lines = cart.map(function(it){ var p=prod(it.id); var sz=it.size?(' ['+it.size+']'):''; return '• '+p.name+sz+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
-    var msg = 'New order '+ref+'\n\n'+lines+'\n\nTotal (COD): '+money(tot)+
-      '\n\nName: '+fields.name+'\nPhone: '+fields.phone+'\nAddress: '+fields.address+', '+fields.city+
+    var msg = 'New order '+ref+'\n\n'+lines+
+      '\n\nSubtotal: '+money(subtotal())+'\nShipping (COD): '+money(shipFee())+'\nTotal: '+money(tot)+
+      '\n\nName: '+fields.name+'\nEmail: '+fields.email+'\nPhone: '+fields.phone+
+      '\nAddress: '+fields.address+', '+fields.city+(fields.postal?(' '+fields.postal):'')+
       (fields.note ? ('\nNote: '+fields.note) : '')+'\n\nPayment: Cash on Delivery';
     return CONTACT.phone ? 'https://wa.me/'+CONTACT.phone+'?text='+encodeURIComponent(msg) : igUrl;
   }
@@ -1522,50 +1868,128 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
 
   emptyShop.addEventListener('click', function(){ closeCart(); var s=document.getElementById('shop'); if(s){ s.scrollIntoView({behavior:'smooth'}); } });
   confirmClose.addEventListener('click', closeCart);
+  document.getElementById('confirmCloseEnd').addEventListener('click', closeCart);
+
+  /* "Order on WhatsApp" inside checkout — sends cart + whatever details are filled */
+  document.getElementById('coWa').addEventListener('click', function(){
+    if(cart.length===0) return;
+    var f=coForm.elements;
+    var fields={
+      name:((f.first_name.value.trim()+' '+f.last_name.value.trim()).replace(/\s+/g,' ').trim()),
+      email:(f.email.value||'').trim(),
+      phone:(f.phone.value||'').trim(),
+      address:(f.address.value||'').trim(),
+      city:(f.city.value||'').trim(),
+      postal:(f.postal && f.postal.value.trim())||'',
+      note:(f.note && f.note.value.trim())||''
+    };
+    var url=buildWaOrder(genRef(), fields, grandTotal());
+    window.open(url, '_blank', 'noopener');
+  });
 
   goCheckout.addEventListener('click', function(){
     if(cart.length===0) return;
     coError.hidden=true;
+    cityErr.hidden=true; cityFld.classList.remove('invalid');
     coForm.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
     renderSummary(); showView('checkout');
+    setTimeout(function(){ var em=coForm.elements.email; if(em) em.focus(); }, 80);
   });
   backToCart.addEventListener('click', function(){ showView('cart'); renderCart(); });
+  viewBasket.addEventListener('click', function(){ showView('basketfull'); renderBasketFull(); cartScroll.scrollTop=0; });
+  fbBack.addEventListener('click', closeCart);
+  fbCheckout.addEventListener('click', function(){
+    if(cart.length===0) return;
+    coError.hidden=true; cityErr.hidden=true; cityFld.classList.remove('invalid');
+    coForm.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+    renderSummary(); showView('checkout');
+    setTimeout(function(){ var em=coForm.elements.email; if(em) em.focus(); }, 80);
+  });
+
+  /* quantity + remove inside the full basket page */
+  fbLines.addEventListener('click', function(e){
+    var line=e.target.closest('.fb-line'); if(!line) return;
+    var id=line.getAttribute('data-id'), size=line.getAttribute('data-size');
+    var cur=findLine(id,size); var q=cur?cur.qty:0;
+    if(e.target.closest('[data-inc]')){ setQty(id,size,q+1); }
+    else if(e.target.closest('[data-dec]')){ setQty(id,size,q-1); }
+    else if(e.target.closest('[data-rm]')){ remove(id,size); }
+    else { return; }
+    renderBasketFull();
+  });
+
+  /* "You may also like" — adds a real product (default size if it has sizes) */
+  bkRecosGrid.addEventListener('click', function(e){
+    var b=e.target.closest('[data-add]'); if(!b) return;
+    var id=b.getAttribute('data-add'); var p=prod(id); if(!p) return;
+    var size='';
+    if(p.sizes && p.sizes.length){ size = (p.sizes.indexOf('M')>=0) ? 'M' : p.sizes[0]; }
+    add(id, size);
+    b.classList.add('added'); b.textContent='Added';
+    clearTimeout(b._t);
+    b._t=setTimeout(function(){ b.classList.remove('added'); b.textContent='Add to cart'; }, 1300);
+  });
 
   placeOrder.addEventListener('click', function(){
     if(cart.length===0) return;
-    // validate required fields
+    var f=coForm.elements;
+    coError.hidden=true; cityErr.hidden=true;
+    coForm.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+
     var firstInvalid=null;
-    ['name','phone','address','city'].forEach(function(n){
-      var el=coForm.elements[n]; var ok=el.value.trim().length>0;
-      el.classList.toggle('invalid', !ok);
-      if(!ok && !firstInvalid){ firstInvalid=el; }
-    });
-    if(firstInvalid){ coError.hidden=true; firstInvalid.focus(); return; }
-    // phone format: allow + spaces ( ) - and digits; require 10–15 digits
-    var phoneEl=coForm.elements.phone;
+    function mark(el){ var fld=el.closest('.fld'); if(fld) fld.classList.add('invalid'); if(!firstInvalid) firstInvalid=el; }
+
+    // email — required + valid shape
+    var email=f.email.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ mark(f.email); }
+    // first + last name (combined into existing "name" field on submit)
+    if(!f.first_name.value.trim()){ mark(f.first_name); }
+    if(!f.last_name.value.trim()){ mark(f.last_name); }
+    // address
+    if(!f.address.value.trim()){ mark(f.address); }
+    // city — required dropdown
+    if(!f.city.value){ cityFld.classList.add('invalid'); cityErr.hidden=false; if(!firstInvalid) firstInvalid=f.city; }
+
+    if(firstInvalid){ firstInvalid.focus(); return; }
+
+    // phone — allow + spaces ( ) - and digits; require 10–15 digits
+    var phoneEl=f.phone;
     var digits=phoneEl.value.replace(/[^0-9]/g,'');
     var validShape=/^[+]?[0-9\s().-]{8,20}$/.test(phoneEl.value.trim());
     if(!validShape || digits.length<10 || digits.length>15){
-      phoneEl.classList.add('invalid');
+      var pfld=phoneEl.closest('.fld'); if(pfld) pfld.classList.add('invalid');
       coError.textContent='Enter a valid phone number (with country code if outside Pakistan) so we can confirm delivery.';
       coError.hidden=false; phoneEl.focus(); return;
     }
 
+    // combine first + last into the existing "name" field
+    var fullName=(f.first_name.value.trim()+' '+f.last_name.value.trim()).replace(/\s+/g,' ').trim();
+    f.name.value=fullName;
+
+    var billingChoice = f.billing.value==='diff' ? 'Use a different billing address' : 'Same as shipping address';
+    var billingDetails = '';
+    if(f.billing.value==='diff'){
+      billingDetails = (f.bill_address.value.trim()||'\u2014') + ', ' + (f.bill_city.value.trim()||'\u2014') + (f.bill_postal.value.trim()?(' '+f.bill_postal.value.trim()):'');
+    }
+
     var fields={
-      name:coForm.elements.name.value.trim(),
-      phone:coForm.elements.phone.value.trim(),
-      address:coForm.elements.address.value.trim(),
-      city:coForm.elements.city.value.trim(),
-      note:coForm.elements.note.value.trim()
+      name:fullName,
+      email:email,
+      phone:phoneEl.value.trim(),
+      address:f.address.value.trim(),
+      city:f.city.value.trim(),
+      postal:(f.postal && f.postal.value.trim())||'',
+      note:(f.note && f.note.value.trim())||''
     };
-    var tot=subtotal();
+    var sub=subtotal(), ship=shipFee(), tot=sub+ship;
+    var shipMethod='Flat shipping — Cash on Delivery ('+money(ship)+')';
     var ref=genRef();
     var itemsText = cart.map(function(it){ var p=prod(it.id); var sz=it.size?(' ['+it.size+']'):''; return p.name+sz+' x'+it.qty+' — '+money(p.price*it.qty); }).join('\n');
 
     // in-flight UI state
     function setSending(on){
       placeOrder.disabled=on; backToCart.disabled=on;
-      placeOrder.textContent = on ? 'Sending\u2026' : 'Place order';
+      placeOrder.textContent = on ? 'Sending\u2026' : 'Complete order';
     }
 
     // on a successful send: show confirmation, wire WhatsApp, clear cart
@@ -1603,12 +2027,18 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
       // structured fields — each becomes a labelled row in the email
       order_number: ref,
       payment_method: 'Cash on Delivery',
+      shipping_method: shipMethod,
       items: itemsText,
+      subtotal: money(sub),
+      shipping_fee: money(ship),
       grand_total: money(tot),
       customer_name: fields.name,
+      customer_email: fields.email,
       phone: fields.phone,
       address: fields.address,
       city: fields.city,
+      postal_code: fields.postal || '\u2014',
+      billing_address: billingChoice + (billingDetails ? (' \u2014 ' + billingDetails) : ''),
       note: fields.note || '\u2014'
     };
 
@@ -1625,17 +2055,24 @@ img[src*="blush-chikankari"]{object-position:50% 12% !important}
     .catch(function(){ onError(); });
   });
 
-  // keep the COD/card radio selection styling in sync
+  // keep selected styling in sync for shipping / payment / billing radios,
+  // toggle billing fields, and clear the city error once a city is chosen
   coForm.addEventListener('change', function(e){
-    if(e.target.name==='pay'){
-      coForm.querySelectorAll('.pay-opt').forEach(function(o){ o.classList.remove('selected'); });
-      var opt=e.target.closest('.pay-opt'); if(opt) opt.classList.add('selected');
+    var t=e.target;
+    if(t.type==='radio'){
+      var nm=t.name;
+      coForm.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){
+        var lab=r.closest('.opt'); if(lab) lab.classList.toggle('selected', r.checked);
+      });
+      if(nm==='billing'){ billFields.hidden = (t.value!=='diff'); }
     }
+    if(t.name==='city' && t.value){ cityErr.hidden=true; cityFld.classList.remove('invalid'); }
   });
 
   /* ---- init ---- */
   load();
   renderShop();
+  shipPriceLbl.textContent = money(SHIP_FLAT);
   renderCart();
   renderBadge();
 })();
